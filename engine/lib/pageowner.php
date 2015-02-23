@@ -18,6 +18,11 @@
 function elgg_get_page_owner_guid($guid = 0) {
 	static $page_owner_guid;
 
+	if ($guid === false || $guid === null) {
+		$page_owner_guid = 0;
+		return $page_owner_guid;
+	}
+	
 	if ($guid) {
 		$page_owner_guid = (int)$guid;
 	}
@@ -217,7 +222,7 @@ function elgg_get_context() {
  * @since 1.8.0
  */
 function elgg_push_context($context) {
-	return _elgg_services()->context->push($context);
+	_elgg_services()->context->push($context);
 }
 
 /**
@@ -275,4 +280,6 @@ function page_owner_boot() {
 	}
 }
 
-elgg_register_event_handler('boot', 'system', 'page_owner_boot');
+return function(\Elgg\EventsService $events, \Elgg\HooksRegistrationService $hooks) {
+	$events->registerHandler('boot', 'system', 'page_owner_boot');
+};

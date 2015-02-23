@@ -35,6 +35,16 @@ You can extend entities with extra information in two ways:
    For example, ratings, likes, and votes are annotations.
    (Comments were before 1.9.)
 
+Datamodel
+=========
+
+.. figure:: images/data_model.png
+   :figwidth: 650
+   :align: center
+   :alt: The Elgg data model diagram
+   
+   The Elgg data model diagram
+
 Entities
 ========
 
@@ -658,6 +668,19 @@ and/or related entities. A few are listed below:
 - ``get_relationship()`` : get a relationship object by ID
 - ``elgg_get_entities_from_relationship()`` : fetch entities in relationships in a
   variety of ways
+
+E.g. retrieving users who joined your site in January 2014.
+
+.. code:: php
+
+    $entities = elgg_get_entities_from_relationship(array(
+        'relationship' => 'member_of_site',
+        'relationship_guid' => elgg_get_site_entity()->guid,
+        'inverse_relationship' => true,
+
+        'relationship_created_time_lower' => 1388534400, // January 1st 2014
+        'relationship_created_time_upper' => 1391212800, // February 1st 2014
+    ));
 
 Access Control
 ==============
