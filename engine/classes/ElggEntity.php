@@ -1987,14 +1987,19 @@ abstract class ElggEntity extends \ElggData implements
 			return false;
 		}
 		
-		if (!_elgg_services()->events->trigger('delete', $this->type, $this)) {
-			return false;
-		}
-		
+		// first check if we have edit access to this entity
+		// NOTE: in Elgg <= 1.10.3 this was after the delete event, 
+		// which could potentially remove some content if the user didn't have access
 		if (!$this->canEdit()) {
 			return false;
 		}
 
+		// now trigger an event to let others know this entity is about to be deleted
+		// so they can prevent it or take their own actions
+		if (!_elgg_services()->events->trigger('delete', $this->type, $this)) {
+			return false;
+		}
+		
 		_elgg_invalidate_cache_for_entity($guid);
 		
 		// If memcache is available then delete this entry from the cache
@@ -2148,8 +2153,8 @@ abstract class ElggEntity extends \ElggData implements
 	 * @todo Unimplemented
 	 */
 	public function setLatLong($lat, $long) {
-		$this->set('geo:lat', $lat);
-		$this->set('geo:long', $long);
+		$this->{"geo:lat"} = $lat;
+		$this->{"geo:long"} = $long;
 	}
 
 	/**
@@ -2159,7 +2164,7 @@ abstract class ElggEntity extends \ElggData implements
 	 * @todo Unimplemented
 	 */
 	public function getLatitude() {
-		return (float)$this->get('geo:lat');
+		return (float)$this->{"geo:lat"};
 	}
 
 	/**
@@ -2169,7 +2174,7 @@ abstract class ElggEntity extends \ElggData implements
 	 * @todo Unimplemented
 	 */
 	public function getLongitude() {
-		return (float)$this->get('geo:long');
+		return (float)$this->{"geo:long"};
 	}
 
 	/*

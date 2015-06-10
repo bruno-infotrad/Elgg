@@ -39,8 +39,10 @@ return array(
 	'actionnotfound' => "Die Datei für die Ausführung der Aktion %s wurde nicht gefunden.",
 	'actionloggedout' => "Entschuldigung, Du kannst diese Aktion nicht ausführen während Du nicht angemeldet bist.",
 	'actionunauthorized' => 'Du bist nicht authorisiert, diese Aktion auszuführen',
+	
+	'ajax:error' => 'Bei der Durchführung des AJAX-Aufrufs ist ein Fehler aufgetreten. Vielleicht ist die Verbindung zum Server verloren gegangen.',
 
-	'PluginException:MisconfiguredPlugin' => "%s (GUID: %s) ist ein falsch konfiguriertes Plugin. Es wurde deaktiviert. Im Elgg-Wiki sind einige mögliche Ursachen für das Problem beschrieben (http://docs.elgg.org/wiki/).",
+	'PluginException:MisconfiguredPlugin' => "%s (GUID: %s) ist ein falsch konfiguriertes Plugin. Es wurde deaktiviert. Im Elgg-Wiki sind einige mögliche Ursachen für das Problem beschrieben (http://learn.elgg.org/).",
 	'PluginException:CannotStart' => '%s (GUID: %s) kann nicht gestartet werden und wurde deaktiviert. Ursache: %s.',
 	'PluginException:InvalidID' => "%s ist eine ungültig Plugin-ID.",
 	'PluginException:InvalidPath' => "%s ist ungültiger Plugin-Dateipfad.",
@@ -84,6 +86,9 @@ return array(
 	
 	'ElggPlugin:Dependencies:ActiveDependent' => 'Es sind aktive Plugins vorhanden, die die Verfügbarkeit von %s voraussetzen. Bevor Du es deaktivieren kannst, mußt Du erst folgende Plugins deaktivieren: %s',
 
+	'ElggMenuBuilder:Trees:NoParents' => 'Menueinträge gefunden, bei denen der übergeordnete und auf sie verweisende Menueintrag nicht vorhanden ist.',
+	'ElggMenuBuilder:Trees:OrphanedChild' => 'Menueintrag [%s] gefunden, bei dem der übergeordnete Menueintrag [%s] fehlt.',
+	'ElggMenuBuilder:Trees:DuplicateChild' => 'Doppelte Registrierung für den Menueintrag [%s] gefunden.',
 
 	'RegistrationException:EmptyPassword' => 'Die Passwort-Felder dürfen nicht leer sein',
 	'RegistrationException:PasswordMismatch' => 'Die Passwörter müssen übereinstimmen',
@@ -148,6 +153,8 @@ return array(
 	'access:read' => "Zugangslevel",
 	'access:write' => "Schreibberechtigung",
 	'access:admin_only' => "nur Administratoren",
+	'access:missing_name' => "Name des Zugangslevels ist nicht verfügbar.",
+	'access:comments:change' => "Dieser Diskussionsbeitrag ist derzeit aufgrund seines Zugangslevels nur für einen eingeschränkten Kreis von Mitgliedern sichtbar. Bitte denke daran, dass durch eine Änderung des Zugangslevels möglicherweuse weitere Personen diesen Diskussionsbeitrag sehen können.",
 
 /**
  * Dashboard and widgets
@@ -158,6 +165,7 @@ return array(
 
 	'widgets:add' => 'Widgets hinzufügen',
 	'widgets:add:description' => "Klicke auf eines der unten aufgelisteten Widgets, um es zu Deiner Seite hinzuzufügen.",
+	'widgets:panel:close' => "Widgets-Auswahl schließen",
 	'widgets:position:fixed' => '(Feste Position auf der Seite)',
 	'widget:unavailable' => 'Du hast dieses Widget bereits hinzugefügt.',
 	'widget:numbertodisplay' => 'Anzahl der anzuzeigenden Einträge.',
@@ -448,6 +456,7 @@ return array(
 	'admin:configuration:success' => "Deine Einstellungen wurden gespeichert.",
 	'admin:configuration:fail' => "Deine Einstellungen konnten nicht gespeichert werden.",
 	'admin:configuration:dataroot:relative_path' => 'Der Pfad "%s" ist nicht als Pfad zum Datenverzeichnis zulässig, da es kein absoluter Pfad ist.',
+	'admin:configuration:default_limit' => 'Die Anzahl der Einträge pro Seite muss mindestens 1 sein.',
 
 	'admin:unknown_section' => 'Unbekannter Adminbereich.',
 
@@ -512,6 +521,8 @@ return array(
 	'admin:widget:banned_users:help' => 'Liste gesperrter Benutzer',
 	'admin:widget:content_stats' => 'Inhalts-Statistiken',
 	'admin:widget:content_stats:help' => 'Auflistung der Inhalte, die von Benutzern erzeugt wurden.',
+	'admin:widget:cron_status' => 'Cron-Status',
+	'admin:widget:cron_status:help' => 'Anzeige der Zeitpunkte, zu denen die Cronjobs zuletzt ausgeführt wurden.',
 	'widget:content_stats:type' => 'Typ des Inhalts',
 	'widget:content_stats:number' => 'Anzahl',
 
@@ -611,7 +622,7 @@ return array(
 	'admin:plugins:warning:elgg_version_unknown' => 'Dieses Plugin verwendet eine veraltete Manifest-Datei und es gibt keine Informationen bezüglich den kompatiblen Elgg-Versionen. Es wird wahrscheinlich nicht funktionieren!',
 	'admin:plugins:warning:unmet_dependencies' => 'Dieses Plugin hat unerfüllte Abhängigkeiten und kann deshalb nicht aktiviert werden. Prüfe die Abhängigkeiten für weitere Informationen.',
 	'admin:plugins:warning:invalid' => 'Dieses Plugin ist nicht standardkonform: %s.',
-	'admin:plugins:warning:invalid:check_docs' => 'Bitte schau in der <a href="http://docs.elgg.org/Invalid_Plugin">Elgg-Dokumentation</a> nach, um weitere Hinweise zur Problemlösung zu erhalten.',
+	'admin:plugins:warning:invalid:check_docs' => 'Bitte schau in der <a href="http://learn.elgg.org/en/stable/appendix/faqs.html">Elgg-Dokumentation</a> nach, um weitere Hinweise zur Problemlösung zu erhalten.',
 	'admin:plugins:cannot_activate' => 'Aktivierung nicht möglich.',
 
 	'admin:plugins:set_priority:yes' => "%s neu angeordnet.",
@@ -748,6 +759,7 @@ Diese Änderungen werden nur neu erstellte Benutzeraccounts auf Deiner Community
 	'river:friends' => 'Aktivitäten von Freunden',
 	'river:select' => 'Zeige %s',
 	'river:comments:more' => '+%u weitere',
+	'river:comments:all' => 'Zeige alle %u Kommentare',
 	'river:generic_comment' => 'kommentierte %s %s',
 
 	'friends:widget:description' => "Auflistung einiger Deiner Freunde",
@@ -1052,6 +1064,7 @@ Nachdem Du Dich angemeldet hast, solltest Du Dein Passwort ändern.
 	'installation:view' => "Gebe den Ansichtsmodus an, der für Deine Community-Seite verwendet werden soll. Wenn Du nicht sicher bist was Du eingeben sollst, lass das Textfeld leer oder verwende \"default\", um den Standardmodus zu verwenden:",
 
 	'installation:siteemail' => "Email-Adresse Deiner Community-Seite (wird vom System verwendet, um Benachrichtigungen zu versenden)",
+	'installation:default_limit' => "Standardmäßige Anzahl der Einträge pro Seite",
 
 	'admin:site:access:warning' => "Dies ist der Zugangslevel, der Benutzern standardmäßig vorgeschlagen wird, wenn sie neue Inhalte erstellen. Eine Änderung hier verändert nicht den Zugangslevel der Inhalte selbst.",
 	'installation:allow_user_default_access:description' => "Aktiviere diese Option, um Benutzern zu erlauben, selbst den Zugangslevel festzulegen, der standardmäßig für sie ausgewählt ist, wenn sie neue Inhalte erstellen. Die benutzerspezifische Einstellung für den vorausgewählten Zugangslevel setzt die seitenweite Einstellung für diese Benutzer außer Kraft.",
@@ -1064,12 +1077,13 @@ Nachdem Du Dich angemeldet hast, solltest Du Dein Passwort ändern.
 	'installation:minify_js:label' => "JavaScript-Dateien komprimieren (empfohlen)",
 	'installation:minify_css:label' => "CSS-Dateien komprimieren (empfohlen)",
 
-	'installation:htaccess:needs_upgrade' => "Du mußt die .htaccess-Datei auf Deinem Server anpassen, damit der Pfad in den GET-Parameter __elgg_uri eingebunden wird (Du kannst die htaccess_dist-Datei als Vorlage für Deine .htacess-Datei dafür verwenden).",
+	'installation:htaccess:needs_upgrade' => "Du mußt die .htaccess-Datei auf Deinem Server aktualisieren bzw. anpassen, damit der Pfad in den GET-Parameter __elgg_uri eingebunden wird (Du kannst die Datei install/config/htaccess.dist als Vorlage für Deine .htacess-Datei verwenden).",
 	'installation:htaccess:localhost:connectionfailed' => "Elgg war es nicht möglich, eine Verbindung zu sich selbst aufzubauen, um die Rewrite-Regeln zu testen. Stelle sicher, dass curl auf dem Server installiert ist und korrekt funktioniert. Es dürfen auch keine IP Adressen-Beschränkungen vorhanden sein, die möglicherweise Verbindungen auf localhost selbst unterbinden.",
 	
 	'installation:systemcache:description' => "Der Systemcache veringert die Ladezeit von Elgg, indem einige häufig notwendige Daten in Dateien vorgehalten werden.",
 	'installation:systemcache:label' => "Systemcache aktivieren (empfohlen)",
 
+	'admin:legend:system' => 'System',
 	'admin:legend:caching' => 'Caching-Mechanismen',
 	'admin:legend:content_access' => 'Zugangslevel für Inhalte',
 	'admin:legend:site_access' => 'Zugangsbeschränkungen zur Community-Seite',
@@ -1092,7 +1106,7 @@ Nachdem Du Dich angemeldet hast, solltest Du Dein Passwort ändern.
 		das im Paket der neuesten Version von Elgg enthalten ist und von <a href="http://elgg.org">elgg.org</a>
 		heruntergeladen werden kann.<br /><br />
 
-		Wenn Du genauere Installationsanweisungen benötigst, lese die <a href="http://docs.elgg.org/wiki/Upgrading_Elgg">
+		Wenn Du genauere Installationsanweisungen benötigst, lese die <a href="http://learn.elgg.org/en/stable/admin/upgrading.html">
 		Dokumentation über die Aktualisierung von Elgg</a>.  Falls Du Hilfe benötigst, stelle Deine Frage in den
 		<a href="http://community.elgg.org/pg/groups/discussion/">Community Support-Foren</a>.',
 
@@ -1121,6 +1135,7 @@ Nachdem Du Dich angemeldet hast, solltest Du Dein Passwort ändern.
 	// Strings specific for the comments upgrade
 	'admin:upgrades:comments' => 'Aktualisierung der Kommentare',
 	'upgrade:comment:create_failed' => 'Die Konvertierung des Kommentars mit ID %s in eine Entität ist fehlgeschlagen.',
+	'admin:upgrades:commentaccess' => 'Aktualisierung der Zugangslevel von Kommentar-Entitäten',
 
 	// Strings specific for the datadir upgrade
 	'admin:upgrades:datadirs' => 'Aktualisierung des Datenverzeichnisses',
@@ -1209,7 +1224,8 @@ Andernfalls ignoriere bitte diese Email.
 	'generic_comment:updated' => "Der Kommenatar wurde aktualisiert.",
 	'generic_comment:deleted' => "Der Kommentar wurde gelöscht.",
 	'generic_comment:blank' => "Entschuldigung, aber Du mußt zuerst etwas schreiben bevor wir Deinen Kommentar abspeichern können.",
-	'generic_comment:notfound' => "Entschuldigung, aber wird konnten den gesuchten Eintrag nicht finden.",
+	'generic_comment:notfound' => "Entschuldigung, der gewünschte Kommentar konnte nicht gefunden werden.",
+	'generic_comment:notfound_fallback' => "Entschuldigung, der gewünschte Kommentar konnte nicht gefunden werden aber Du wurdest zu der Seite weitergeleitet auf der er ursprünglich hinterlassen wurde.",
 	'generic_comment:notdeleted' => "Entschuldigung, dieser Kommentar konnte nicht gelöscht werden.",
 	'generic_comment:failure' => "Beim Speichern Deines Kommentars ist ein Fehler aufgetreten.",
 	'generic_comment:none' => 'Keine Kommentare.',
@@ -1252,7 +1268,7 @@ Du kannst auf diese Email NICHT antworten.",
 	'actiongatekeeper:missingfields' => 'Der Form fehlt der __token und/oder __ts Eintrag',
 	'actiongatekeeper:tokeninvalid' => "Die Gültigkeit des Authentifizierungs-Token für die gerade betrachtete Seite ist abgelaufen. Bitte lade die Seite neu.",
 	'actiongatekeeper:timeerror' => 'Das Authentifizierungs-Token für die die Seite, die Du betrachtet hast, ist abgelaufen. Bitte lade die Seite neu und versuche es noch einmal.',
-	'actiongatekeeper:pluginprevents' => 'Durch eine der auf dieser Seite installierten Erweiterungen wurde die Verarbeitung der im Formular gemachten Eingaben blockiert.',
+	'actiongatekeeper:pluginprevents' => 'Entschuldigung, die Verarbeitung der von Dir eingegeben Daten ist fehlgeschlagen.',
 	'actiongatekeeper:uploadexceeded' => 'Die Dateigröße der hochgeladenen Datei(en) übersteigt das Limit, das vom Administrator dieser Seite eingestellt worden ist.',
 	'actiongatekeeper:crosssitelogin' => "Entschuldigung, die Anmeldung zu dieser Webseite von einer anderen Webadresse ist nicht erlaubt. Bitte versuche es noch einmal von der richtigen Webadresse aus.",
 

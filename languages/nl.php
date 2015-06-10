@@ -39,8 +39,10 @@ return array(
 	'actionnotfound' => "Het actiebestand voor %s kon niet worden gevonden.",
 	'actionloggedout' => "Sorry, je kunt deze actie niet uitvoeren als je bent afgemeld.",
 	'actionunauthorized' => 'Je bent niet geautoriseerd om deze actie uit te voeren',
+	
+	'ajax:error' => 'Onverwacht probleem opgetreden tijdens de uitvoer van een AJAX call. Mogelijk is de verbinding met de server verloren.',
 
-	'PluginException:MisconfiguredPlugin' => "%s (guid: %s) is een verkeerd geconfigureerde plugin. Hij is uitgeschakeld. In de Elgg-wiki kun je mogelijke oorzaken vinden (http://docs.elgg.org/wiki/).",
+	'PluginException:MisconfiguredPlugin' => "%s (guid: %s) is een verkeerd geconfigureerde plugin. Hij is uitgeschakeld. In de Elgg documentatie kun je mogelijke oorzaken vinden (http://learn.elgg.org/).",
 	'PluginException:CannotStart' => '%s (guid: %s) kan niet starten. Reden: %s',
 	'PluginException:InvalidID' => "%s is een ongeldige plugin-ID.",
 	'PluginException:InvalidPath' => "%s is een ongeldig plugin-pad.",
@@ -85,6 +87,9 @@ Ongeldig %s afhankelijkheid "%s" in plugin %s. Let op: plugins kunnen niet confl
 	
 	'ElggPlugin:Dependencies:ActiveDependent' => 'Er zijn plugins die afhankelijk zijn van %s. Je moet eerst de volgende plugins uitschakelen voordat je deze kunt uitschakelen: %s',
 
+	'ElggMenuBuilder:Trees:NoParents' => 'Menu items gevonden zonder bovenliggende menu items om ze aan te linken',
+	'ElggMenuBuilder:Trees:OrphanedChild' => 'Menu item [%s] gevonden met een ontbrekend bovenliggend menu item [%s]',
+	'ElggMenuBuilder:Trees:DuplicateChild' => 'Dubbele registratie gevonden voor menu item [%s]',
 
 	'RegistrationException:EmptyPassword' => 'De wachtwoordvelden mogen niet leeg zijn!',
 	'RegistrationException:PasswordMismatch' => 'Wachtwoorden moeten gelijk zijn',
@@ -149,6 +154,8 @@ Ongeldig %s afhankelijkheid "%s" in plugin %s. Let op: plugins kunnen niet confl
 	'access:read' => "Toegang",
 	'access:write' => "Schrijftoegang",
 	'access:admin_only' => "Alleen voor beheerders",
+	'access:missing_name' => "Ontbrekend naam voor toegangsniveau",
+	'access:comments:change' => "Deze reacties zijn op dit moment zichtbaar voor een beperkte groep gebruikers. Bedenk goed met wie je dit wilt delen.",
 
 /**
  * Dashboard and widgets
@@ -159,6 +166,7 @@ Ongeldig %s afhankelijkheid "%s" in plugin %s. Let op: plugins kunnen niet confl
 
 	'widgets:add' => 'Voeg widgets toe',
 	'widgets:add:description' => "Klik op een widgetknop om de widget aan jouw pagina toe te voegen.",
+	'widgets:panel:close' => "Sluit widgets paneel",
 	'widgets:position:fixed' => '(Vaste positie op pagina)',
 	'widget:unavailable' => 'Je hebt deze widget al toegevoegd',
 	'widget:numbertodisplay' => 'Aantal items om weer te geven',
@@ -455,6 +463,7 @@ De volgende karakters zijn niet toegestaan: %s',
 	'admin:configuration:success' => "Je instellingen zijn opgeslagen.",
 	'admin:configuration:fail' => "Je instellingen zijn niet opgeslagen.",
 	'admin:configuration:dataroot:relative_path' => 'Kan \'%s\' niet als datamap opslaan, omdat het geen absoluut pad is.',
+	'admin:configuration:default_limit' => 'Het aantal items per pagina moet minstens 1 zijn.',
 
 	'admin:unknown_section' => 'Ongeldige beheersectie.',
 
@@ -519,6 +528,8 @@ De volgende karakters zijn niet toegestaan: %s',
 	'admin:widget:banned_users:help' => 'Toon de gebande gebruikers',
 	'admin:widget:content_stats' => 'Inhoud statistieken',
 	'admin:widget:content_stats:help' => 'Blijf op de hoogte van de inhoud die door de gebruikers is gemaakt',
+	'admin:widget:cron_status' => 'Cron status',
+	'admin:widget:cron_status:help' => 'Toont de status van de laatste afronding van de cron jobs',
 	'widget:content_stats:type' => 'Type inhoud',
 	'widget:content_stats:number' => 'Aantal',
 
@@ -616,7 +627,7 @@ De volgende karakters zijn niet toegestaan: %s',
 	'admin:plugins:warning:elgg_version_unknown' => 'Deze plugin gebruikt een oud manifestbestand en heeft geen Elggversie gedefinieerd. <strong>Hij zal waarschijnlijk niet werken!</strong>',
 	'admin:plugins:warning:unmet_dependencies' => 'Deze plugin heeft onvervulde afhankelijkheden en kan niet worden geactiveerd. Controleer de afhankelijkheden onder \'meer info\'.',
 	'admin:plugins:warning:invalid' => '%s is geen geldige plugin voor Elgg. Controleer <a href="http://docs.elgg.org/Invalid_Plugin" target="_blank">de Elgg-documentatie</a> voor handige tips.',
-	'admin:plugins:warning:invalid:check_docs' => 'Controleer <a href="http://docs.elgg.org/Invalid_Plugin" target="_blank">de Elgg-documentatie</a> voor tips met betrekking tot foutopsporing.',
+	'admin:plugins:warning:invalid:check_docs' => 'Controleer <a href="http://learn.elgg.org/en/stable/appendix/faqs.html">de Elgg documentatie</a> voor tips met betrekking tot foutopsporing.',
 	'admin:plugins:cannot_activate' => 'kan niet activeren',
 
 	'admin:plugins:set_priority:yes' => "%s herordend.",
@@ -752,6 +763,7 @@ Wanneer de site in onderhoudsmodus is kunnen alleen sitebeheerders inloggen en d
 	'river:friends' => 'Activiteit van vrienden',
 	'river:select' => 'Toon %s',
 	'river:comments:more' => '+%u meer',
+	'river:comments:all' => 'Bekijk alle %u reacties',
 	'river:generic_comment' => 'reageerde op %s %s',
 
 	'friends:widget:description' => "Toont een aantal van je vrienden.",
@@ -1054,6 +1066,7 @@ Als je bent aangemeld raden we je aan om je wachtwoord direct te wijzigen.',
 	'installation:view' => "Geeft de view op die standaard wordt gebruikt binnen de site, of laat het leeg voor de standaardview. Bij twijfel, laat de standaard staan!",
 
 	'installation:siteemail' => "Site e-mailadres (dit wordt gebruikt voor het verzenden van systeem e-mails):",
+	'installation:default_limit' => "Standaard aantal items per pagina",
 
 	'admin:site:access:warning' => "Het wijzigen van de toegangsinstellingen is alleen van toepassing op nieuwe content.",
 	'installation:allow_user_default_access:description' => "Als je dit aanvinkt hebben individuele gebruikers de mogelijkheid om hun eigen standaard toegangsniveau in te stellen. Dit kan anders zijn dan de standaardinstelling van de site.",
@@ -1066,12 +1079,13 @@ Als je bent aangemeld raden we je aan om je wachtwoord direct te wijzigen.',
 	'installation:minify_js:label' => "JavaScript comprimeren (aangeraden)",
 	'installation:minify_css:label' => "CSS comprimeren (aangeraden)",
 
-	'installation:htaccess:needs_upgrade' => "Je moet het bestand .htaccess zodanig wijzigen dat het pad geïnjecteerd wordt in de GET-parameter __elgg_uri. Je kunt htaccess_dist als voorbeeld gebruiken.",
+	'installation:htaccess:needs_upgrade' => "Je moet het bestand .htaccess zodanig wijzigen dat het pad geïnjecteerd wordt in de GET-parameter __elgg_uri (je kunt install/config/htaccess.dist als voorbeeld gebruiken).",
 	'installation:htaccess:localhost:connectionfailed' => "Elgg kan niet zelf de rewrite-rules testen. Controleer dat curl werkt en dat er geen IP-restricties zijn die localhost connecties blokkeren.",
 	
 	'installation:systemcache:description' => "De systeemcache verlaagt de laadtijd van de Elgg-engine door data te cachen naar bestanden.",
 	'installation:systemcache:label' => "Gebruik systeemcache (aanbevolen)",
 
+	'admin:legend:system' => 'Systeem',
 	'admin:legend:caching' => 'Caching',
 	'admin:legend:content_access' => 'Toegang tot content',
 	'admin:legend:site_access' => 'Toegang tot de site',
@@ -1088,7 +1102,7 @@ Als je bent aangemeld raden we je aan om je wachtwoord direct te wijzigen.',
 	'upgrade:unable_to_upgrade_info' =>
 		'Deze installatie kan niet worden geüpgrade omdat er \'legacy views\' zijn ontdekt in de Elgg \'core views\' map. Deze views zijn verouderd en moeten worden verwijderd om Elgg correct te laten functioneren. Als je geen wijzigingen hebt gemaakt aan de Elgg-core kun je de map verwijderen en vervangen met de inhoud uit de laatste versie van Elgg, die je kunt vinden op <a href="http://elgg.org" target="_blank">elgg.org</a>.<br><br>
 
-Als je meer gedetailleerde instructie wilt, ga je naar de <a href="http://docs.elgg.org/wiki/Upgrading_Elgg" target="_blank">documentatie \'Upgrading Elgg\'</a>. Als je hulp nodig hebt, plaats je je vraag op de <a href="http://community.elgg.org/pg/groups/discussion/" target="_blank">Community Support Forums</a>.',
+Als je meer gedetailleerde instructie wilt, ga je naar de <a href="http://learn.elgg.org/en/stable/admin/upgrading.html">documentatie \'Upgrading Elgg\'</a>. Als je hulp nodig hebt, plaats je je vraag op de <a href="http://community.elgg.org/pg/groups/discussion/" target="_blank">Community Support Forums</a>.',
 
 	'update:twitter_api:deactivated' => 'Twitter API (voorheen Twitter Service) is uitgeschakeld tijdens de upgrade. Activeer deze zelf weer als het nodig is.',
 	'update:oauth_api:deactivated' => 'OAuth API (voorheen OAuth Lib) is uitgeschakeld tijdens de upgrade. Activeer deze zelf weer als het nodig is.',
@@ -1115,6 +1129,7 @@ Als je meer gedetailleerde instructie wilt, ga je naar de <a href="http://docs.e
 	// Strings specific for the comments upgrade
 	'admin:upgrades:comments' => 'Reacties-upgrade',
 	'upgrade:comment:create_failed' => 'Het is helaas niet gelukt om de reactie met ID %s om te zetten naar een entiteit.',
+	'admin:upgrades:commentaccess' => 'Reactie toegankelijkheid upgrade',
 
 	// Strings specific for the datadir upgrade
 	'admin:upgrades:datadirs' => 'Upgrade van de datamap.',
@@ -1205,7 +1220,8 @@ Indien jij deze persoon bent, klik dan op onderstaande link. In het andere geval
 	'generic_comment:updated' => "De reactie is gewijzigd",
 	'generic_comment:deleted' => "Je reactie is succesvol verwijderd.",
 	'generic_comment:blank' => "Sorry, je moet wel wat invullen voordat we je reactie kunnen opslaan!",
-	'generic_comment:notfound' => "Sorry, we konden het opgegeven item niet vinden.",
+	'generic_comment:notfound' => "Sorry, we konden de opgegeven reactie niet vinden.",
+	'generic_comment:notfound_fallback' => "Sorry, we konden de opgegeven reactie niet vinden, maar we hebben je doorgestuurd naar de pagina waar de reactie is achtergelaten.",
 	'generic_comment:notdeleted' => "Sorry, we konden deze reactie niet verwijderen.",
 	'generic_comment:failure' => "Er is een fout opgetreden tijdens het opslaan van je reactie. Probeer het nogmaals.",
 	'generic_comment:none' => 'Geen reacties',
@@ -1248,7 +1264,7 @@ Dit is een automatisch aangemaakt bericht. Je kunt hier niet op reageren.",
 	'actiongatekeeper:missingfields' => 'Het formulier mist __token en/of __ts veld(en)',
 	'actiongatekeeper:tokeninvalid' => "Er was een probleem (token mismatch). Dit betekent waarschijnlijk dat de gebruikte pagina verlopen was. Probeer het nogmaals.",
 	'actiongatekeeper:timeerror' => 'De gebruikte pagina is verlopen. Ververs en probeer het nogmaals.',
-	'actiongatekeeper:pluginprevents' => 'Een extension heeft voorkomen dat het formulier wordt verzonden.',
+	'actiongatekeeper:pluginprevents' => 'Sorry. Het formulier kon niet worden verwerkt om onbekende reden.',
 	'actiongatekeeper:uploadexceeded' => 'De totale grootte van de ge-uploade bestanden is meer dan is toegestaan door de site beheerder',
 	'actiongatekeeper:crosssitelogin' => "Je mag niet inloggen vanaf een ander domein. Ga naar het juiste adres (url) en probeer het nogmaals.",
 

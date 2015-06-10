@@ -6,8 +6,9 @@ return array(
 	 */
 	'expages' => "Externe pagina's",
 	'admin:appearance:expages' => "Externe pagina's",
+	'expages:edit:viewpage' => "Bekijk pagina op de site",
 	'expages:about' => "Over ons",
-	'expages:terms' => "Algemene Voorwaarden",
+	'expages:terms' => "Algemene voorwaarden",
 	'expages:privacy' => "Privacy",
 	'expages:contact' => "Contact",
 

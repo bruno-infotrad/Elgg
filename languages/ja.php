@@ -39,8 +39,10 @@ return array(
 	'actionnotfound' => "%s のアクションファイルが見つかりませんでした。",
 	'actionloggedout' => "ログアウトのままですと、アクションを実行できません。",
 	'actionunauthorized' => 'あなたの権限では、このアクションを実行することはできません。',
+	
+	'ajax:error' => 'AJAXコールを実行中に予期せぬエラーが起こりました。おそらく、サーバへの接続が切断されたからかもしれません。',
 
-	'PluginException:MisconfiguredPlugin' => "%s (guid: %s) は、設定にミスがあるプラグインですので、起動を無効にしました。起こり得る原因についてはElgg wikiにて検索してみてください。(http://docs.elgg.org/wiki/)",
+	'PluginException:MisconfiguredPlugin' => "%s (guid: %s) は、設定に間違いのあるプラグインですので、起動不可となっています。 原因に当たっては、Elgg wiki (http://learn.elgg.org/) を参考にしてください。 ",
 	'PluginException:CannotStart' => '%s (guid: %s) は起動できず停止状態のままです。理由: %s',
 	'PluginException:InvalidID' => "%s は、不正なプラグインIDです。",
 	'PluginException:InvalidPath' => "%s は、不正なプラグインのpathです",
@@ -84,6 +86,9 @@ return array(
 	
 	'ElggPlugin:Dependencies:ActiveDependent' => '%s と依存関係にある他のプラグインが存在します。 このプラグインを無効にする前に、次のプラグインを先に無効にしなければなりません。: %s',
 
+	'ElggMenuBuilder:Trees:NoParents' => '親リンクの無いメニュー項目があります',
+	'ElggMenuBuilder:Trees:OrphanedChild' => 'メニュー項目[%s]には、親リンク[%s]がありません',
+	'ElggMenuBuilder:Trees:DuplicateChild' => 'メニュー項目[%s]に対して2重登録が見つかりました',
 
 	'RegistrationException:EmptyPassword' => 'パスワードの項目は空欄のままにはできません',
 	'RegistrationException:PasswordMismatch' => 'パスワードは一致させなければなりません',
@@ -148,6 +153,8 @@ return array(
 	'access:read' => "読み込みアクセス",
 	'access:write' => "書き込みアクセス",
 	'access:admin_only' => "管理者のみ",
+	'access:missing_name' => "アクセスレベルの名前がありません",
+	'access:comments:change' => "この会議は現在限られた人しか見ることができないようになっています。あなたがこれをシェアする人に対しては十分に考慮してください。",
 
 /**
  * Dashboard and widgets
@@ -158,6 +165,7 @@ return array(
 
 	'widgets:add' => 'ウィジェットを追加',
 	'widgets:add:description' => "下のウィジェットボタンをクリックして、ページに追加してみてください。",
+	'widgets:panel:close' => "ウィジェットパネルを閉じる",
 	'widgets:position:fixed' => '（固定した位置）',
 	'widget:unavailable' => 'すでに、このウィジェットを追加済みです。',
 	'widget:numbertodisplay' => '表示するアイテムの数',
@@ -448,6 +456,7 @@ return array(
 	'admin:configuration:success' => "設定を保存しました。",
 	'admin:configuration:fail' => "設定を保存できませんでした。",
 	'admin:configuration:dataroot:relative_path' => '「 %s 」をデータルートとして仕様出来ません：絶対パスを使用してください。',
+	'admin:configuration:default_limit' => '項目の数は、１ページ当たり最低でも1つ以上にしてください。',
 
 	'admin:unknown_section' => '不正な管理セクションです',
 
@@ -512,6 +521,8 @@ return array(
 	'admin:widget:banned_users:help' => '出入り禁止のユーザのリスト',
 	'admin:widget:content_stats' => 'コンテントの統計情報',
 	'admin:widget:content_stats:help' => 'ユーザが作成したコンテントの記録を保存しています。',
+	'admin:widget:cron_status' => 'Cronの状態',
+	'admin:widget:cron_status:help' => '最後に cron jobs が完了したときの状態を表示する',
 	'widget:content_stats:type' => 'コンテントのタイプ',
 	'widget:content_stats:number' => '件数',
 
@@ -609,7 +620,7 @@ return array(
 	'admin:plugins:warning:elgg_version_unknown' => 'このプラグインは、旧のマニフェストファイルを使用していますので互換性のあるElggバージョンを記載していません。おそらく、うまく作動しないでしょう。',
 	'admin:plugins:warning:unmet_dependencies' => 'このプラグインは依存関係が不適切なので起動できません。詳細情報で依存関係をチェックしてください。',
 	'admin:plugins:warning:invalid' => 'このプラグインは正しくありません: %s',
-	'admin:plugins:warning:invalid:check_docs' => '問題解決には <a href="http://docs.elgg.org/Invalid_Plugin">the Elgg documentation</a> をチェックしてみてください。',
+	'admin:plugins:warning:invalid:check_docs' => '問題解決のヒントは、 <a href="http://learn.elgg.org/en/stable/appendix/faqs.html">the Elgg documentation</a> にあるかもしれません。',
 	'admin:plugins:cannot_activate' => '起動できません',
 
 	'admin:plugins:set_priority:yes' => "%s を並べ直しました。",
@@ -745,6 +756,7 @@ return array(
 	'river:friends' => '友達のアクティティ',
 	'river:select' => '表示:%s',
 	'river:comments:more' => '+%u more',
+	'river:comments:all' => '全ての %u さんのコメントを表示する',
 	'river:generic_comment' => 'commented on %s %s',
 
 	'friends:widget:description' => "友達を何人か表示",
@@ -1049,6 +1061,7 @@ return array(
 	'installation:view' => "あなたのサイトのデフォルトで使用するviewを入力してください。デフォルトviewを使用する場合は、空欄のままにしておいてください。(よくわからない場合は、そのままにしておいてください)",
 
 	'installation:siteemail' => "サイトの電子メールアドレス（システムメールを送信するときに使用します）:",
+	'installation:default_limit' => "1ページ当たりの項目数の既定値",
 
 	'admin:site:access:warning' => "ユーザが新しくコンテントを作成する際に示されるプライバシー・セッティングです。これを変更しても、すでにあるコンテントへのアクセス権は変更されません。",
 	'installation:allow_user_default_access:description' => "チェックすると、各ユーザがそれぞれののプライバシー・セッティングを設定することができます。この場合、システムのプライバシー・セッティングは上書きされます。",
@@ -1061,12 +1074,13 @@ return array(
 	'installation:minify_js:label' => "JavaScript を圧縮（推奨）",
 	'installation:minify_css:label' => "CSS を圧縮（推奨）",
 
-	'installation:htaccess:needs_upgrade' => ".htaccess をアップデートしてください。そうすることにより、path が GET のパラメタ __elgg_uri にインジェクトされます。(ファイル htaccess_dist を参考にしてください。)",
+	'installation:htaccess:needs_upgrade' => ".htaccess をアップデートしてください。そうすることにより、path が GET のパラメタ __elgg_uri にインジェクトされます。( install/config/htaccess.dist ファイルを参考にしてください。)",
 	'installation:htaccess:localhost:connectionfailed' => "Elggはrewriteルールのプロパティをテストするために自分自身に接続することはできません。curlが動作することとlocalhostへの接続を妨げるようなIPの制限設定が無いかどうかを確認してください。",
 	
 	'installation:systemcache:description' => "ステムキャッシュはデータをファイルにキャッシュすることでElggの読み込み時間を少なくします。",
 	'installation:systemcache:label' => "システムキャッシュを使う(推奨)",
 
+	'admin:legend:system' => 'システム',
 	'admin:legend:caching' => 'キャシュ',
 	'admin:legend:content_access' => 'コンテント・アクセス',
 	'admin:legend:site_access' => 'サイト・アクセス',
@@ -1081,13 +1095,11 @@ return array(
 	'upgrade:unlock:success' => "アップグレードのロックを解除しました。",
 	'upgrade:unable_to_upgrade' => 'アップグレードできませんでした',
 	'upgrade:unable_to_upgrade_info' =>
-		'今回のインストールではアップグレードできませんでした。旧バージョンのviewがElggコアviewディレクトリにあるためです。
-		これらの旧viewは廃止または削除されたので、そのまま残っていると新Elggが正常に作動しなくなります。
-		もし、Elggコアに手を加えていないなら、単純にviewディレクトリを削除して最新のElggのと置き換えてください。
-		最新のElggは、<a href="http://elgg.org">elgg.org</a> よりダウンロードできます。<br /><br />
+		'Elggコアディレクトリに古いタイプのviewsが見つかったため、このインストレーションは、アップグレードできません。
 		
-		手順の詳細は、<a href="http://docs.elgg.org/wiki/Upgrading_Elgg">Upgrading Elgg documentation</a> をご覧ください。
-		その他なにかお困りでしたら、遠慮無く<a href="http://community.elgg.org/pg/groups/discussion/">Community Support Forums</a>に投稿してみてください。',
+このようなviewsは廃止予定にされており、Elggが正しく機能するためには削除しなければなりません。あなたがElggコアに独自に変更をしていなければ、そのviewsディレクトリを削除して、<a href="http://elgg.org">elgg.org</a>からダウンロードした最新のElggパッケージのものに差し替えるだけでよいでしょう。<br /><br />
+
+手順の詳細は、 <a href="http://learn.elgg.org/en/stable/admin/upgrading.html">Upgrading Elgg documentation</a> をご覧ください。また、<a href="http://community.elgg.org/pg/groups/discussion/">Community Support Forums</a> に投稿すれば、きっと誰かが助けてくれるでしょう。',
 
 	'update:twitter_api:deactivated' => 'Twitter API(旧称Twitter Service)はアップグレード中に停止しました。必要なら、手動でプラグインを再起動させてください。',
 	'update:oauth_api:deactivated' => 'OAuth API(旧称 OAuth LIb)はアップグレード中に停止しました。必要なら、手動でプラグインを再起動させてください。',
@@ -1114,6 +1126,7 @@ return array(
 	// Strings specific for the comments upgrade
 	'admin:upgrades:comments' => 'コメントのアップグレード',
 	'upgrade:comment:create_failed' => 'Comment id %s を entity に変換するのに失敗しました。',
+	'admin:upgrades:commentaccess' => 'コメント・アクセスのアップデート',
 
 	// Strings specific for the datadir upgrade
 	'admin:upgrades:datadirs' => 'データディレクトリのアップグレード',
@@ -1200,7 +1213,8 @@ return array(
 	'generic_comment:updated' => "コメントを更新しました。",
 	'generic_comment:deleted' => "コメントを削除しました。",
 	'generic_comment:blank' => "申し訳ありません。コメント内容が空欄のため保存できません。",
-	'generic_comment:notfound' => "申し訳ありません。検索しましたが見つかりませんでした。",
+	'generic_comment:notfound' => "申し訳ありません。お探しのコメントは見つかりませんでした。",
+	'generic_comment:notfound_fallback' => "申し訳ありません。お探しのコメントは見つかりませんでしたが、コメントされていたページへご案内しました。",
 	'generic_comment:notdeleted' => "申し訳ありません。このコメントが削除できませんでした。",
 	'generic_comment:failure' => "コメントを保存する際に予期せぬエラーが発生しました。",
 	'generic_comment:none' => 'コメントはありません',
@@ -1243,7 +1257,7 @@ return array(
 	'actiongatekeeper:missingfields' => 'フォームに __token もしくは __ts 項目が欠けています',
 	'actiongatekeeper:tokeninvalid' => "あなたが使用しているページの期限が切れました。もう一度試してみてください。",
 	'actiongatekeeper:timeerror' => 'ご覧のページは閲覧期限が切れています。再度ページを読み込んでください。',
-	'actiongatekeeper:pluginprevents' => '拡張機能がこのフォームが送信されないようにしいます。',
+	'actiongatekeeper:pluginprevents' => '申し訳ありません。原因不明の理由であなたのフォームを送信することができませんでした。',
 	'actiongatekeeper:uploadexceeded' => 'アップロードファイルのサイズがこのサイトの管理者が設定した最大値を超えています。',
 	'actiongatekeeper:crosssitelogin' => "異なるドメインからのログインは禁止しています。もう一度試してみてください。",
 
