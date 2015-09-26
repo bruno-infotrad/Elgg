@@ -3,8 +3,14 @@ elgg_register_event_handler('init','system','basic_init');
  
 function basic_init() {
 
+	require_once 'lib/hook_handlers.php';
+	require_once 'lib/page_handlers.php';
 	elgg_register_library('elgg:jobsin', elgg_get_plugins_path() . 'jobsin/lib/jobsin.php');
 	$action_path = dirname(__FILE__) . '/actions';
+	elgg_register_plugin_hook_handler('roles:config', 'role', 'roles_pm_admins_config', 600);
+	elgg_register_plugin_hook_handler("permissions_check", "group", "pm_admin_can_edit_hook");
+	elgg_register_action("roles_pm_admin/make_pm_admin", "$action_path/roles_pm_admin/make_pm_admin.php");
+	elgg_register_action("roles_pm_admin/revoke_pm_admin", "$action_path/roles_pm_admin/revoke_pm_admin.php");
 	elgg_register_action("jobsin/admin/settings", "$action_path/settings.php", 'admin');
 	elgg_register_action("jobsin/admin/sidebar", "$action_path/settings.php", 'admin');
 	elgg_register_action("login", "$action_path/login.php",'public');
@@ -17,6 +23,8 @@ function basic_init() {
 	}
 	
 	elgg_register_event_handler('pagesetup', 'system', 'basic_pagesetup_handler', 1000);
+	elgg_unregister_page_handler('', 'elgg_front_page_handler');
+	elgg_register_page_handler('', 'jobsin_front_page_handler');
 	elgg_register_page_handler('jobsin', 'jobsin_page_handler');
 
 	elgg_register_admin_menu_item('configure', 'jobsin', 'settings');
