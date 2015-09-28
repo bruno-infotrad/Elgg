@@ -5,8 +5,14 @@ function basic_init() {
 
 	require_once 'lib/hook_handlers.php';
 	require_once 'lib/page_handlers.php';
+	elgg_register_library('elgg:projects', elgg_get_plugins_path() . 'jobsin/lib/projects.php');
 	elgg_register_library('elgg:jobsin', elgg_get_plugins_path() . 'jobsin/lib/jobsin.php');
 	$action_path = dirname(__FILE__) . '/actions';
+	//elgg_register_plugin_hook_handler("route", "projects", "jobsin_route_groups_handler");
+	elgg_register_event_handler('pagesetup', 'system', 'basic_pagesetup_handler', 1000);
+	elgg_unregister_page_handler('', 'elgg_front_page_handler');
+	elgg_register_page_handler('', 'jobsin_front_page_handler');
+	elgg_register_page_handler('projects', 'projects_page_handler');
 	elgg_register_plugin_hook_handler('roles:config', 'role', 'roles_pm_admins_config', 600);
 	elgg_register_plugin_hook_handler("permissions_check", "group", "pm_admin_can_edit_hook");
 	elgg_register_action("roles_pm_admin/make_pm_admin", "$action_path/roles_pm_admin/make_pm_admin.php");
@@ -22,10 +28,6 @@ function basic_init() {
 		elgg_extend_view('js/elgg', 'js/jobsin/update');
 	}
 	
-	elgg_register_event_handler('pagesetup', 'system', 'basic_pagesetup_handler', 1000);
-	elgg_unregister_page_handler('', 'elgg_front_page_handler');
-	elgg_register_page_handler('', 'jobsin_front_page_handler');
-	elgg_register_page_handler('jobsin', 'jobsin_page_handler');
 
 	elgg_register_admin_menu_item('configure', 'jobsin', 'settings');
 		
@@ -109,52 +111,77 @@ function basic_pagesetup_handler() {
 	}
 }
 
-function jobsin_page_handler($page) {
 
-        elgg_load_library('elgg:jobsin');
+/**
+ * Groups page handler
+ *
+ * URLs take the form of
+ *  All groups:           groups/all
+ *  User's owned groups:  groups/owner/<username>
+ *  User's member groups: groups/member/<username>
+ *  Group profile:        groups/profile/<guid>/<title>
+ *  New group:            groups/add/<guid>
+ *  Edit group:           groups/edit/<guid>
+ *  Group invitations:    groups/invitations/<username>
+ *  Invite to group:      groups/invite/<guid>
+ *  Membership requests:  groups/requests/<guid>
+ *  Group activity:       groups/activity/<guid>
+ *  Group members:        groups/members/<guid>
+ *
+ * @param array $page Array of url segments for routing
+ * @return bool
+ */
+function projects_page_handler($page) {
 
-        switch ($page[0]) {
-                case 'all':
-                        jobsin_handle_all_page();
-                        break;
-                case 'search':
-                        jobsin_search_page();
-                        break;
-                case 'owner':
-                        jobsin_handle_owned_page();
-                        break;
-                case 'member':
-                        set_input('username', $page[1]);
-                        jobsin_handle_mine_page();
-                        break;
-                case 'invitations':
-                        set_input('username', $page[1]);
-                        jobsin_handle_invitations_page();
-                        break;
-                case 'add':
-                        jobsin_handle_edit_page('add');
-                        break;
-                case 'edit':
-                        jobsin_handle_edit_page('edit', $page[1]);
-                        break;
-                case 'profile':
-                        jobsin_handle_profile_page($page[1]);
-                        break;
-                case 'activity':
-                        jobsin_handle_activity_page($page[1]);
-                        break;
-                case 'members':
-                        jobsin_handle_members_page($page[1]);
-                        break;
-                case 'invite':
-                        jobsin_handle_invite_page($page[1]);
-                        break;
-                case 'requests':
-                        jobsin_handle_requests_page($page[1]);
-                        break;
-                default:
-                        return false;
-        }
-        return true;
+	elgg_load_library('elgg:projects');
+
+	if (!isset($page[0])) {
+		$page[0] = 'all';
+	}
+
+	elgg_push_breadcrumb(elgg_echo('groups'), "groups/all");
+
+	switch ($page[0]) {
+		case 'all':
+			projects_handle_all_page();
+			break;
+		case 'search':
+			projects_search_page();
+			break;
+		case 'owner':
+			projects_handle_owned_page();
+			break;
+		case 'member':
+			set_input('username', $page[1]);
+			projects_handle_mine_page();
+			break;
+		case 'invitations':
+			set_input('username', $page[1]);
+			projects_handle_invitations_page();
+			break;
+		case 'add':
+			projects_handle_edit_page('add');
+			break;
+		case 'edit':
+			projects_handle_edit_page('edit', $page[1]);
+			break;
+		case 'profile':
+			projects_handle_profile_page($page[1]);
+			break;
+		case 'activity':
+			projects_handle_activity_page($page[1]);
+			break;
+		case 'members':
+			projects_handle_members_page($page[1]);
+			break;
+		case 'invite':
+			projects_handle_invite_page($page[1]);
+			break;
+		case 'requests':
+			projects_handle_requests_page($page[1]);
+			break;
+		default:
+			return false;
+	}
+	return true;
 }
-

@@ -7,7 +7,12 @@
 function jobsin_front_page_handler() {
 
         if (elgg_is_logged_in()) {
-                forward('groups');
+		$user = elgg_get_logged_in_user_entity();
+		if (elgg_is_admin_logged_in() || roles_has_role($user,'pm_admin')) {
+                	forward('projects/owner/'.$user->username);
+		} else {
+                	forward('tasks');
+		}
         }
 
         $title = elgg_echo('content:latest');

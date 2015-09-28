@@ -99,3 +99,93 @@ function pm_admin_can_edit_hook($hook, $type, $return_value, $params){
 	}
 	return $result;
 }
+
+function jobsin_route_groups_handler($hook, $type, $return_value, $params){
+	/**
+	 * $return_value contains:
+	 * $return_value['handler'] => requested handler
+	 * $return_value['segments'] => url parts ($page)
+	 */
+	$result = $return_value;
+	
+	if(!empty($return_value) && is_array($return_value)){
+		$page = $return_value['segments'];
+		
+		switch($page[0]){
+			case "all":
+				$filter = get_input("filter");
+				
+				if(empty($filter) && ($default_filter = elgg_get_plugin_setting("group_listing", "group_tools"))){
+					$filter = $default_filter;
+					set_input("filter", $default_filter);
+				} elseif(empty($filter)) {
+					$filter = "newest";
+					set_input("filter", $filter);
+				}
+				
+				if(in_array($filter, array("open", "closed", "alpha", "ordered", "suggested"))){
+					// we will handle the output
+					$result = false;
+					
+					include(dirname(dirname(__FILE__)) . "/pages/groups/all.php");
+				}
+				
+				break;
+			case "suggested":
+				$result = false;
+				
+				include(dirname(dirname(__FILE__)) . "/pages/groups/suggested.php");
+				break;
+			case "requests":
+				$result = false;
+				
+				set_input("group_guid", $page[1]);
+				
+				include(dirname(dirname(__FILE__)) . "/pages/groups/membershipreq.php");
+				break;
+			case "invite":
+				$result = false;
+				
+				set_input("group_guid", $page[1]);
+				
+				include(dirname(dirname(__FILE__)) . "/pages/groups/invite.php");
+				break;
+			case "mail":
+				$result = false;
+				
+				set_input("group_guid", $page[1]);
+					
+				include(dirname(dirname(__FILE__)) . "/pages/mail.php");
+				break;
+			case "group_invite_autocomplete":
+				$result = false;
+				
+				include(dirname(dirname(__FILE__)) . "/procedures/group_invite_autocomplete.php");
+				break;
+			case "add":
+				if(group_tools_is_group_creation_limited()){
+					admin_gatekeeper();
+				}
+				break;
+			case "invitations":
+				$result = false;
+				if(isset($page[1])){
+					set_input("username", $page[1]);
+				}
+				
+				include(dirname(dirname(__FILE__)) . "/pages/groups/invitations.php");
+				break;
+			default:
+				// check if we have an old group profile link
+				if(isset($page[0]) && is_numeric($page[0])) {
+					if(($group = get_entity($page[0])) && elgg_instanceof($group, "group", null, "ElggGroup")){
+						register_error(elgg_echo("changebookmark"));
+						forward($group->getURL());
+					}
+				}
+				break;
+		}
+	}
+	
+	return $result;
+}
