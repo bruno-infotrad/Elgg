@@ -34,7 +34,7 @@ function basic_init() {
 	elgg_extend_view('css/elgg', 'jobsin/css');
 	elgg_extend_view('css/admin', 'jobsin/admin');
 	
-	elgg_unregister_js('elgg.friendspicker');
+	//elgg_unregister_js('elgg.friendspicker');
 
 	if (elgg_is_logged_in()	&& elgg_get_context() == 'activity'){
 			
@@ -80,7 +80,24 @@ function basic_pagesetup_handler() {
 
 	elgg_unregister_menu_item('topbar', 'dashboard');
 	elgg_unregister_menu_item('topbar', 'elgg_logo');
-	
+
+	elgg_unregister_menu_item('site', 'activity');
+	elgg_unregister_menu_item('site', 'blog');
+	elgg_unregister_menu_item('site', 'pages');
+	elgg_unregister_menu_item('site', 'bookmarks');
+	elgg_unregister_menu_item('site', 'file');
+	elgg_unregister_menu_item('site', 'thewire');
+	elgg_unregister_menu_item('footer', 'powered');
+
+	if (! elgg_is_logged_in()) {	
+		elgg_unregister_menu_item('site', 'tasks');
+	}
+	if (! elgg_is_admin_logged_in()) {
+		elgg_unregister_menu_item('site', 'members');
+	}
+	if (! elgg_is_admin_logged_in()&& ! roles_has_role(elgg_get_logged_in_user_entity(),'pm_admin')) {
+	 	elgg_unregister_menu_item('site', 'groups');
+	}
 	if (elgg_is_logged_in()) {	
 		$user = elgg_get_logged_in_user_entity();
 		

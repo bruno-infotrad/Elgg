@@ -35,7 +35,7 @@
 	border-top: 1px solid #D1D7DB;
 }
 .elgg-page-default .elgg-page-body { 
-    background: url(<?php echo $vars['url']; ?>mod/jobsin/graphics/bg_shadow.png) repeat-x left top;
+    background: url(<?php echo elgg_get_site_url(); ?>mod/jobsin/graphics/bg_shadow.png) repeat-x left top;
 }
 
 /***** TOPBAR ******/
@@ -56,7 +56,8 @@
 .elgg-page-header {
 	position: relative;
     border-bottom: 1px solid #BBB;
-    background: url(<?php echo $vars['url']; ?>mod/jobsin/graphics/bg_header.png) repeat left top;
+    /*background: -webkit-radial-gradient(80% 20%, closest-corner, #1a82f7, #FFFFFF);*/
+    /*background: url(<?php echo elgg_get_site_url(); ?>mod/jobsin/graphics/bg_header.png) repeat left top;*/
 }
 .elgg-page-header > .elgg-inner {
 	position: relative;

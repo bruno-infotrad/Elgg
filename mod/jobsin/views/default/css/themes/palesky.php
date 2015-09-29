@@ -16,7 +16,7 @@ a.selected {
 }
 .elgg-page-default .elgg-page-header {
     border-bottom: 1px solid #91B1D3;
-    background: url(<?php echo $vars['url']; ?>mod/jobsin/graphics/bg_header_palesky.png) repeat left top;
+    background: url(<?php echo elgg_get_site_url(); ?>mod/jobsin/graphics/bg_header_palesky.png) repeat left top;
 }
 .elgg-heading-site, .elgg-heading-site:hover {
 	color: #1B232B;

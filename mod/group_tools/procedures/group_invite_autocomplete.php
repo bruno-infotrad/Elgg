@@ -55,7 +55,7 @@
 			if($entities = elgg_get_entities_from_relationship($query_options)){
 				foreach($entities as $entity){
 					if(!check_entity_relationship($entity->getGUID(), "member", $group_guid)){
-						$result[] = array("type" => "user", "value" => $entity->getGUID(),"content" => "<img src='" . $entity->getIconURL("tiny") . "' /> " . $entity->name, "name" => $entity->name);
+						$result[] = array("type" => "user", "value" => $entity->getGUID(),"label" => $entity->name, "content" => "<img src='" . $entity->getIconURL("tiny") . "' /> " . $entity->name, "name" => $entity->name);
 					}	
 				}
 			}
@@ -138,7 +138,7 @@
 			if($entities = elgg_get_entities($params)){
 				foreach($entities as $entity){
 					if(!check_entity_relationship($entity->getGUID(), "member", $group_guid)){
-						$result[] = array("type" => "user", "value" => $entity->getGUID(),"content" => "<img src='" . $entity->getIconURL("tiny") . "' /> " . $entity->name . $entity->skills, "name" => $entity->name);
+						$result[] = array("type" => "user", "value" => $entity->getGUID(),"label" => $entity->name, "content" => "<img src='" . $entity->getIconURL("tiny") . "' /> " . $entity->name . $entity->skills, "name" => $entity->name);
 					}	
 				}
 			}
@@ -150,7 +150,7 @@
 					foreach($users as $user){
 						// @todo check for group relationship
 						
-						$result[] = array("type" => "user", "value" => $user->getGUID(),"content" => "<img src='" . $user->getIconURL("tiny") . "' /> " . $user->name, "name" => $user->name);
+						$result[] = array("type" => "user", "value" => $user->getGUID(),"label" => $entity->name, "content" => "<img src='" . $user->getIconURL("tiny") . "' /> " . $user->name, "name" => $user->name);
 					}
 				} else {
 					$result[] = array("type" => "email", "value" => $q, "content" => $q);
