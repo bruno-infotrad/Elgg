@@ -84,8 +84,12 @@
 						$('#<?php echo $destination; ?>').append(result);
 						return false;
 					},
-					autoFocus: true
-				}).data( "autocomplete" )._renderItem = function( ul, item ) {
+					autoFocus: true,
+					messages: {
+						noResults: '',
+						results: function() {}
+					}
+				}).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
 					var list_body = "";
 					list_body = item.content;
 					

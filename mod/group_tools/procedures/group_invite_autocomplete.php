@@ -79,7 +79,7 @@
 
         // get the where clauses for the md names
         // can't use egef_metadata() because the n_table join comes too late.
-        $clauses = elgg_entities_get_metastrings_options('metadata', array(
+        $clauses = _elgg_entities_get_metastrings_options('metadata', array(
                 'metadata_names' => $profile_fields,
         ));
 
@@ -150,7 +150,7 @@
 					foreach($users as $user){
 						// @todo check for group relationship
 						
-						$result[] = array("type" => "user", "value" => $user->getGUID(),"label" => $entity->name, "content" => "<img src='" . $user->getIconURL("tiny") . "' /> " . $user->name, "name" => $user->name);
+						$result[] = array("type" => "email", "value" => $user->getGUID(),"label" => $entity->name, "content" => "<img src='" . $user->getIconURL("tiny") . "' /> " . $user->name, "name" => $user->name);
 					}
 				} else {
 					$result[] = array("type" => "email", "value" => $q, "content" => $q);

@@ -65,7 +65,7 @@
 <h4><a href="<?php echo $entity->getURL(); ?>"><?php echo $entity->title; ?></a></h4>
 <table class="task" style="color: #aaa; width: 100%; font-size: 85%">
 	<tr>
-		<td class="task-hist-box" width="55%">
+		<td style="width:55%;border: 1px solid">
 		<div style="color: black; width: <?php echo $percent_width;?>;background-color: <?php echo $hist_color;?>;"><?php echo elgg_echo('tasks:percent_done'). " : " .elgg_view('output/text',array('value' => elgg_echo("tasks:task_percent_done_{$entity->percent_done}"))); ?></div>
 		</td>
 		<td width="45%">

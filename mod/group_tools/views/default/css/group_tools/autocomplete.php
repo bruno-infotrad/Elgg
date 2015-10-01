@@ -20,3 +20,4 @@
 .ac_results ul>li.ac_over {
 	background-color: #E4ECF5
 }
+.ui-helper-hidden-accessible { display:none; }

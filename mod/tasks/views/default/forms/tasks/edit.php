@@ -77,7 +77,8 @@
 			foreach($assign_list1 as $members)
 				$assign_list[$members->getGUID()] = $members->name;
 		}else{
-			$assign_list1 = $current_user->getFriends("", 300, $offset = 0);
+			$assign_list1 = $current_user->getFriends(array('limit' => 300));
+			//$assign_list1 = $current_user->getFriends("", 300, $offset = 0);
 			foreach($assign_list1 as $friends)
 				$assign_list[$friends->getGUID()] = $friends->name;
 		}	

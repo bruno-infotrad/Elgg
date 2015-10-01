@@ -24,6 +24,9 @@
 	margin: 0 auto;
 	height: 120px;
 }
+.elgg-page-body {
+	margin-top: 120px;
+}
 .elgg-page-default .elgg-page-body > .elgg-inner {
 	width: 990px;
 	margin: 0 auto;
@@ -53,8 +56,15 @@
 }
 
 /***** PAGE HEADER ******/
+.elgg-page-topbar {
+	position: fixed;
+	right: 25%;
+	top: 0;
+}
 .elgg-page-header {
-	position: relative;
+	position: fixed;
+	right: 25%;
+	top: 0;
     border-bottom: 1px solid #BBB;
     /*background: -webkit-radial-gradient(80% 20%, closest-corner, #1a82f7, #FFFFFF);*/
     /*background: url(<?php echo elgg_get_site_url(); ?>mod/jobsin/graphics/bg_header.png) repeat left top;*/

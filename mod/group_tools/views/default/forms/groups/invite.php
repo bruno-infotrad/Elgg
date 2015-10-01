@@ -14,7 +14,7 @@
 	$owner = $group->getOwnerEntity();
 	$forward_url = $group->getURL();
 	
-	if ($friends = elgg_get_logged_in_user_entity()->getFriends("", false)) {
+	if ($friends = elgg_get_logged_in_user_entity()->getFriends(array('limit' => false))) {
 		$toggle_content = "<span>" . elgg_echo("group_tools:group:invite:friends:select_all") . "</span>";
 		$toggle_content .= "<span class='hidden'>" . elgg_echo("group_tools:group:invite:friends:deselect_all") . "</span>";
 		
@@ -33,7 +33,6 @@
 				"rel" => "friends",
 				"priority" => 200,
 				"onclick" => "group_tools_group_invite_switch_tab(\"friends\");",
-				"selected" => true
 			)
 		);
 		
@@ -48,8 +47,9 @@
 				"text" => elgg_echo("group_tools:group:invite:users"),
 				"href" => "#",
 				"rel" => "users",
-				"priority" => 300,
-				"onclick" => "group_tools_group_invite_switch_tab(\"users\");"
+				"priority" => 100,
+				"onclick" => "group_tools_group_invite_switch_tab(\"users\");",
+				"selected" => true
 			);
 			
 			$form_data .= "<div id='group_tools_group_invite_users'>";
@@ -168,6 +168,7 @@
 
 		switch(tab){
 			case "users":
+			default:
 				$('#group_tools_group_invite_friends').hide();
 				$('#group_tools_group_invite_competences').hide();
 				$('#group_tools_group_invite_email').hide();
@@ -199,7 +200,7 @@
 				
 				$('#group_tools_group_invite_csv').show();
 				break;
-			default:
+			case "friends":
 				$('#group_tools_group_invite_users').hide();
 				$('#group_tools_group_invite_competences').hide();
 				$('#group_tools_group_invite_email').hide();

@@ -11,7 +11,8 @@
 	margin: 0 5px 5px 0;
 }
 
-#group_tools_group_invite_users,
+/*#group_tools_group_invite_users,*/
+#group_tools_group_invite_friends,
 #group_tools_group_invite_email,
 #group_tools_group_invite_csv {
 	display: none;

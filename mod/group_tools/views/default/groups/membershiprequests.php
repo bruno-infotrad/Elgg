@@ -32,7 +32,7 @@
 			));
 	
 			$url = 'action/groups/killrequest?user_guid=' . $user->guid . '&group_guid=' . $vars['entity']->guid;
-			$delete_button = elgg_view('output/confirmlink', array(
+			$delete_button = elgg_view('output/url', array(
 					'href' => $url,
 					'confirm' => elgg_echo('groups:joinrequest:remove:check'),
 					'text' => elgg_echo('delete'),
@@ -70,7 +70,7 @@
 			));
 	
 			$url = 'action/groups/killinvitation?user_guid=' . $user->guid . '&group_guid=' . $vars['entity']->guid;
-			$delete_button = elgg_view('output/confirmlink', array(
+			$delete_button = elgg_view('output/url', array(
 						'href' => $url,
 						'confirm' => elgg_echo('group_tools:groups:membershipreq:invitations:revoke:confirm'),
 						'text' => elgg_echo('group_tools:revoke'),

@@ -5,6 +5,9 @@
  * @package ElggTasks
  */
 ?>
+/* <style> /**/
+
+.tasks-hist-box { border: 1px solid black;}
 
 .tasks-nav.treeview ul {
 	background-color: transparent;
@@ -17,21 +20,6 @@
 .tasks-nav.treeview .hover {
 	color: #0054a7;
 }
-
-
-<?php
-
-	/**
-	 * Elgg tasks CSS
-	 * 
-	 * @package Elggtasks
-	 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
-	 * @author Curverider <info@elgg.com>
-	 * @copyright Curverider Ltd 2008-2009
-	 * @link http://elgg.org/
-	 */
-
-?>
 
 .sharing_item {
 
