@@ -9,5 +9,5 @@ $site_url = elgg_get_site_url();
 ?>
 
 	<a href="<?php echo $site_url; ?>">
-		<img src="<?php echo $site_url; ?>mod/jobsin/graphics/jobsin_avec_globe.jpg">
+		<img src="<?php echo $site_url; ?>mod/jobsin/graphics/jobsin_avec_globe.png">
 	</a>

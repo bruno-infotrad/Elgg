@@ -60,13 +60,16 @@
 	position: fixed;
 	right: 25%;
 	top: 0;
+	width: 100%;
+	z-index: 20;
 }
 .elgg-page-header {
 	position: fixed;
-	right: 25%;
+	width: 100%;
 	top: 0;
+	z-index: 10;
     border-bottom: 1px solid #BBB;
-    /*background: -webkit-radial-gradient(80% 20%, closest-corner, #1a82f7, #FFFFFF);*/
+    background: -webkit-radial-gradient(28% 46%, closest-corner, #1af7a0, #FFFFFF);
     /*background: url(<?php echo elgg_get_site_url(); ?>mod/jobsin/graphics/bg_header.png) repeat left top;*/
 }
 .elgg-page-header > .elgg-inner {
