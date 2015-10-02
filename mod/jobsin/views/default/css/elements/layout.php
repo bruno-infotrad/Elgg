@@ -35,7 +35,8 @@
 	width: 990px;
 	margin: 0 auto;
 	padding: 5px 0;
-	border-top: 1px solid #D1D7DB;
+	border-top: none;
+	/*border-top: 1px solid #D1D7DB;*/
 }
 .elgg-page-default .elgg-page-body { 
     background: url(<?php echo elgg_get_site_url(); ?>mod/jobsin/graphics/bg_shadow.png) repeat-x left top;

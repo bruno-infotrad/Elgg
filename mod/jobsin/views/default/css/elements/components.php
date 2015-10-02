@@ -123,11 +123,11 @@
 	display: block;
 	padding: 10px;
 	cursor: pointer;
-	opacity: 0.9;
+	opacity: 0.6;
     text-align: center;
 }
 .elgg-state-success {
-	background-color: black;
+	background-color: #0041FF;
 }
 .elgg-state-error {
 	background-color: red;
