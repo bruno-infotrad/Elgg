@@ -70,7 +70,13 @@
 	top: 0;
 	z-index: 10;
     border-bottom: 1px solid #BBB;
+    /* Safari 5.1+, Chrome 10+ */
     background: -webkit-radial-gradient(28% 46%, closest-corner, #1af7a0, #FFFFFF);
+    background: -webkit-gradient(radial, 28% 46%, 0, 28% 46%, 100, from(#1af7a0), to(#FFFFFF));
+    /* Firefox 3.6+ */
+    background: -moz-radial-gradient(28% 46%, closest-corner, #1af7a0, #FFFFFF);
+    /* IE 10 */
+    background: -ms-radial-gradient(28% 46%, closest-corner, #1af7a0, #FFFFFF);
     /*background: url(<?php echo elgg_get_site_url(); ?>mod/jobsin/graphics/bg_header.png) repeat left top;*/
 }
 .elgg-page-header > .elgg-inner {
