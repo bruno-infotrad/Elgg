@@ -230,6 +230,9 @@ if (elgg_is_admin_logged_in()) {
 					echo elgg_view('input/access',array( 'name' => 'access_id', 'value' => $access_id,)); 
 					echo '<label>'.elgg_echo('tasks:write_access_id').'</label>';
 					echo elgg_view('input/access',array( 'name' => 'write_access_id', 'value' => $write_access_id,)); 
+} else {
+					echo elgg_view('input/hidden',array( 'name' => 'access_id', 'value' => $access_id,)); 
+					echo elgg_view('input/hidden',array( 'name' => 'write_access_id', 'value' => $write_access_id,)); 
 }
 					// Ajout de FXN pour gérer les catégories dans les tasks
 					$cats = elgg_view('input/categories',$vars);

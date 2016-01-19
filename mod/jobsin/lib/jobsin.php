@@ -588,7 +588,7 @@ function groups_register_profile_buttons($group) {
  *
  * @param mixed $group ElggGroup or null. If a group, uses values from the group.
  * @return array
- */
+*/
 function groups_prepare_form_vars($group = null) {
 	$values = array(
 		'name' => '',

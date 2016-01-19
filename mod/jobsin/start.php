@@ -151,6 +151,7 @@ function basic_pagesetup_handler() {
 function projects_page_handler($page) {
 
 	elgg_load_library('elgg:projects');
+	elgg_load_library('elgg:jobsin');
 
 	if (!isset($page[0])) {
 		$page[0] = 'all';
