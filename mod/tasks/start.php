@@ -4,6 +4,7 @@
  *
  * @package ElggTasks
  */
+define("TASKS_FORMAT_DATE_EVENTDAY", "Y-m-d");
 
 elgg_register_event_handler('init', 'system', 'tasks_init');
 

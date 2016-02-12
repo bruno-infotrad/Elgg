@@ -32,3 +32,9 @@ function jobsin_front_page_handler() {
         echo elgg_view_page(null, $body);
         return true;
 }
+
+function jobsin_dashboard_handler() {
+        require_once elgg_get_plugins_path() . 'jobsin/pages/dashboard.php';
+        return true;
+}
+

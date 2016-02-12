@@ -12,6 +12,7 @@ function basic_init() {
 	elgg_register_event_handler('pagesetup', 'system', 'basic_pagesetup_handler', 1000);
 	elgg_unregister_page_handler('', 'elgg_front_page_handler');
 	elgg_register_page_handler('', 'jobsin_front_page_handler');
+	elgg_register_page_handler('dashboard', 'jobsin_dashboard_handler');
 	elgg_register_page_handler('projects', 'projects_page_handler');
 	elgg_register_plugin_hook_handler('roles:config', 'role', 'roles_pm_admins_config', 600);
 	elgg_register_plugin_hook_handler("permissions_check", "group", "pm_admin_can_edit_hook");
@@ -20,6 +21,9 @@ function basic_init() {
 	elgg_register_action("jobsin/admin/settings", "$action_path/settings.php", 'admin');
 	elgg_register_action("jobsin/admin/sidebar", "$action_path/settings.php", 'admin');
 	elgg_register_action("login", "$action_path/login.php",'public');
+	// Register entity type for search
+	//elgg_register_entity_type('object', 'project');
+	elgg_register_plugin_hook_handler('get_views', 'ecml', 'projects_ecml_views_hook');
 		
 	$plugin = elgg_get_plugin_from_id('jobsin');
 	
@@ -203,3 +207,9 @@ function projects_page_handler($page) {
 	}
 	return true;
 }
+function projects_ecml_views_hook($hook, $entity_type, $return_value, $params) {
+        //$return_value['object/project'] = elgg_echo('item:object:project');
+        $return_value['object/group'] = elgg_echo('item:object:project');
+        return $return_value;
+}
+

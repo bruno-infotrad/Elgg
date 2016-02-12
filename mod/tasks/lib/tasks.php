@@ -140,7 +140,8 @@ function tasks_get_json($options) {
 			'metadata_name_value_pairs_operator' => 'OR',
 			'joins' => array(),
 			'wheres' => array(),
-			'order_by_metadata' => array("name" => 'start_date', "direction" => 'ASC', "as" => "text")
+			'order_by_metadata' => array("name" => 'start_date', "direction" => 'ASC')
+			//'order_by_metadata' => array("name" => 'start_date', "direction" => 'ASC', "as" => "text")
 		);
 		
 	$oEntity = get_entity($options['owner']);

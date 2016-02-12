@@ -32,10 +32,10 @@
 		'is_trusted' => true,
 	));
 	$author_text = elgg_echo('byline', array($owner_link));
-	$start_date = explode('-',$entity->start_date);
-        $unix_start_date = mktime(0,0,1,$start_date[1],$start_date[2],$start_date[0]);
-	$end_date = explode('-',$entity->end_date);
-        $unix_end_date = mktime(0,0,1,$end_date[1],$end_date[2],$end_date[0]);
+	$start_date = $unix_start_date = $entity->start_date;
+	$start_date = date(TASKS_FORMAT_DATE_EVENTDAY, $start_date);
+	$end_date = $unix_end_date = $entity->end_date;
+	$end_date = date(TASKS_FORMAT_DATE_EVENTDAY, $end_date);
 	$percent_done = 100*$entity->percent_done/5.0;
 	if ($percent_done == 0) {
 		$percent_width = '100%';
@@ -74,10 +74,10 @@
 	</tr>
 	<tr>
 		<td width="55%">
-		<?php echo elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => $entity->start_date, "css"=>"truc")); ?>
+		<?php echo elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => $start_date, "css"=>"truc")); ?>
 		</td>
 		<td width="45%">
-		<?php echo elgg_echo('tasks:end_date'). " : " .elgg_view('output/text',array('value' => $entity->end_date)); ?>
+		<?php echo elgg_echo('tasks:end_date'). " : " .elgg_view('output/text',array('value' => $end_date)); ?>
 		</td>
 	</tr>
 	<tr>

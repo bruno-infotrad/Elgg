@@ -48,7 +48,12 @@ if ($task_guid) {
 
 if (sizeof($input) > 0) {
 	foreach ($input as $name => $value) {
-		$task->$name = $value; echo $name.',';
+		if ($name == 'start_date'||$name == 'end_date') {
+			$date = explode('-',$value);
+                	$value = mktime(0,0,1,$date[1],$date[2],$date[0]);
+		}
+		$task->$name = $value; 
+		//echo $name.',';
 	}
 }
 

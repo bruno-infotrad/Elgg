@@ -286,3 +286,14 @@
 	text-align: justify;
     margin-bottom: 5px;
 }
+/* ***************************************
+	Projects
+*************************************** */
+.jobsin-backlog {
+	background-color: red;
+	float: right;
+	font-weight: bold;
+	min-width: 5%;
+	text-align: center;
+}
+

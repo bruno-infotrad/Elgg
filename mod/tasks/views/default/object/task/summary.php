@@ -10,6 +10,11 @@
 	$friendlytime = elgg_view_friendly_time($entity->time_created);
 	$metadata = elgg_extract('metadata', $vars, '');
 	$urlTaskOwner = elgg_get_site_url()."tasks/owner/".$container->username;
+	$start_date = $entity->start_date;
+	$start_date = date(TASKS_FORMAT_DATE_EVENTDAY, $start_date);
+	$end_date = $entity->end_date;
+	$end_date = date(TASKS_FORMAT_DATE_EVENTDAY, $end_date);
+
 ?>
 <!--
 	<table width="100%" class="tasks" >
@@ -31,11 +36,11 @@
 		<tr>
 			<td width="50%">
 			<label><?php 	echo elgg_echo('tasks:start_date'); ?></label>
-			<?php   echo elgg_view('output/text',array('value' => $entity->start_date)); ?>
+			<?php   echo elgg_view('output/text',array('value' => $start_date)); ?>
 			</td>
 			<td width="50%">
 			<label><?php 	echo elgg_echo('tasks:end_date'); ?></label>
-			<?php   echo elgg_view('output/text',array('value' => $entity->end_date)); ?>
+			<?php   echo elgg_view('output/text',array('value' => $end_date)); ?>
 			</td>
 		</tr>
 		<tr>

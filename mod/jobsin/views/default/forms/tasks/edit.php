@@ -28,7 +28,9 @@
 			$highlight = 'default';
 			
 			$start_date = $vars['entity']->start_date;
+			$start_date = date(TASKS_FORMAT_DATE_EVENTDAY, $start_date);
 			$end_date = $vars['entity']->end_date;
+			$end_date = date(TASKS_FORMAT_DATE_EVENTDAY, $end_date);
 			$task_type = $vars['entity']->task_type;
 			$status = $vars['entity']->status;
 			$assigned_to = $vars['entity']->assigned_to;
