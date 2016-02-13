@@ -32,10 +32,37 @@ if ($vars['full_view']) {
 		'count' => true,
 		'metadata_name_value_pairs' => array( 'name' => 'end_date', 'value' => $now,'operand' => '<=')
 	));
+	$done = elgg_get_entities_from_metadata(array(
+		'type' => 'object',
+		'subtypes' => array('task','task_top'),
+		'container_guid' => $container_guid,
+		'limit' => false,
+		'count' => true,
+		'metadata_name_value_pairs' => array( 'name' => 'status', 'value' => 5)
+	));
+	$ready = elgg_get_entities_from_metadata(array(
+		'type' => 'object',
+		'subtypes' => array('task','task_top'),
+		'container_guid' => $container_guid,
+		'limit' => false,
+		'count' => true,
+		'metadata_name_value_pairs' => array( 'name' => 'status', 'value' => 1,'name' => 'assigned_to', 'value' => 0),
+	));
+	$in_progress = elgg_get_entities_from_metadata(array(
+		'type' => 'object',
+		'subtypes' => array('task','task_top'),
+		'container_guid' => $container_guid,
+		'limit' => false,
+		'count' => true,
+		'metadata_name_value_pairs' => array(array('name' => 'status', 'value' => 4),array('name' => 'assigned_to', 'value' => 0,'operand' => '<>')),
+	));
 
 	// brief view
 	$params = array(
 		'backlog' => $backlog,
+		'done' => $done,
+		'ready' => $ready,
+		'in_progress' => $in_progress,
 		'entity' => $group,
 		//'metadata' => $metadata,
 		'subtitle' => $group->briefdescription,

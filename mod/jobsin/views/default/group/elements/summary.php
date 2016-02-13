@@ -3,6 +3,9 @@ $group = $vars['entity'];
 $container_guid = $group->getGUID();
 $title_link = elgg_extract('title', $vars, '');
 $backlog = elgg_extract('backlog', $vars);
+$done = elgg_extract('done', $vars);
+$ready = elgg_extract('ready', $vars);
+$in_progress = elgg_extract('in_progress', $vars);
 if ($title_link === '') {
 	if (isset($group->title)) {
 		$text = $group->title;
@@ -39,7 +42,10 @@ $backlog = elgg_get_entities_from_metadata(array(
 	'metadata_name_value_pairs' => array( 'name' => 'end_date', 'value' => time(),'operand' => '<=')
 ));
 */
-echo "<div class=\"jobsin-backlog\">$backlog</div>";
+echo "<div class=\"jobsin-tasks jobsin-done\">$done</div>";
+echo "<div class=\"jobsin-tasks jobsin-inprogress\">$in_progress</div>";
+echo "<div class=\"jobsin-tasks jobsin-ready\">$ready</div>";
+echo "<div class=\"jobsin-tasks jobsin-backlog\">$backlog</div>";
 if ($title_link) {
 	echo "<h3>$title_link</h3>";
 }

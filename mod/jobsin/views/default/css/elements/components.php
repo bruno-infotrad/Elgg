@@ -291,9 +291,19 @@
 *************************************** */
 .jobsin-backlog {
 	background-color: red;
+}
+.jobsin-done {
+	background-color: green;
+}
+.jobsin-ready {
+	background-color: pink;
+}
+.jobsin-inprogress {
+	background-color: yellow;
+}
+.jobsin-tasks {
 	float: right;
 	font-weight: bold;
 	min-width: 5%;
 	text-align: center;
 }
-
