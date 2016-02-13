@@ -99,7 +99,8 @@ function basic_pagesetup_handler() {
 	if (! elgg_is_admin_logged_in()) {
 		elgg_unregister_menu_item('site', 'members');
 	}
-	if (! elgg_is_admin_logged_in()&& ! roles_has_role(elgg_get_logged_in_user_entity(),'pm_admin')) {
+	$session = elgg_get_session();
+	if (! elgg_is_admin_logged_in() && ! $session->get('project_manager')) {
 	 	elgg_unregister_menu_item('site', 'groups');
 	}
 	if (elgg_is_logged_in()) {	

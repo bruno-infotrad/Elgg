@@ -70,5 +70,9 @@ if (isset($_SESSION['last_forward_from'])) {
 	unset($_SESSION['last_forward_from']);
 }
 
+if ($project_manager) {
+	$session = elgg_get_session();
+	$session->set('project_manager','yes');
+}
 system_message($message);
 forward($forward_url);

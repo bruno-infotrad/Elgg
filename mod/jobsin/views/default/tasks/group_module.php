@@ -35,7 +35,8 @@ if (!$content) {
 	$content = '<p>' . elgg_echo('tasks:none') . '</p>';
 }
 
-if (elgg_is_admin_logged_in() || roles_has_role(elgg_get_logged_in_user_entity(),'pm_admin')) {
+$session = elgg_get_session();
+if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 	$new_link = elgg_view('output/url', array(
 		'href' => "tasks/add/$group->guid",
 		'text' => elgg_echo('tasks:add'),

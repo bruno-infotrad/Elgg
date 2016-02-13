@@ -91,7 +91,8 @@ function pm_admin_can_edit_hook($hook, $type, $return_value, $params){
 			$entity = $params["entity"];
 			$user = $params["user"];
 			if(($entity instanceof ElggGroup) && ($user instanceof ElggUser)){
-				if(roles_has_role($user, "pm_admin")){
+				$session = elgg_get_session();
+				if(roles_has_role($user, "pm_admin") && $session->get('project_manager')){
 					$result = true;
 				}
 			}

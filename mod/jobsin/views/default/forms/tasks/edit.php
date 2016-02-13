@@ -84,7 +84,8 @@
 				$assign_list[$friends->getGUID()] = $friends->name;
 		}	
 		$disabled = false;
-		if (! elgg_is_admin_logged_in() && ! roles_has_role($user,'pm_admin')) {
+		$session = elgg_get_session();
+		if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 			$disabled = true;
 		}
 ?>
@@ -175,7 +176,7 @@ $form = <<< END
 				<label>	$task_type_label_display</label>$task_type_display
 				</td>
 END;
-if (elgg_is_admin_logged_in() || roles_has_role($user,'pm_admin')) {
+if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 	echo $form;
 }
 ?>
@@ -205,7 +206,7 @@ $form = <<< END
 				</td>
 			</tr>
 END;
-if (elgg_is_admin_logged_in() || roles_has_role($user,'pm_admin')) {
+if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 	echo $form;
 }
 ?>

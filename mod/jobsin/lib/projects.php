@@ -12,7 +12,8 @@ function projects_handle_all_page() {
 	elgg_pop_breadcrumb();
 	elgg_push_breadcrumb(elgg_echo('projects'));
 
-	if (elgg_is_admin_logged_in()||roles_has_role(elgg_get_logged_in_user_entity(),'pm_admin')) {
+	$session = elgg_get_session();
+	if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 		elgg_register_title_button();
 	}
 
@@ -122,7 +123,8 @@ function projects_handle_owned_page() {
 	}
 	elgg_push_breadcrumb($title);
 
-	if (elgg_is_admin_logged_in()||roles_has_role(elgg_get_logged_in_user_entity(),'pm_admin')) {
+	$session = elgg_get_session();
+	if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 		elgg_register_title_button();
 	}
 
@@ -161,7 +163,8 @@ function projects_handle_mine_page() {
 	}
 	elgg_push_breadcrumb($title);
 
-	if (elgg_is_admin_logged_in()||roles_has_role(elgg_get_logged_in_user_entity(),'pm_admin')) {
+	$session = elgg_get_session();
+	if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 		elgg_register_title_button();
 	}
 
