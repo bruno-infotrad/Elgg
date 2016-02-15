@@ -1,4 +1,41 @@
 <?php
+function jobsin_tasks_write_permission_check($hook, $entity_type, $returnvalue, $params) {
+        if (!tasks_is_task($params['entity'])) {
+                return null;
+        }
+        $entity = $params['entity'];
+        /* @var ElggObject $entity */
+
+        $write_permission = $entity->write_access_id;
+        $user = $params['user'];
+
+        if ($write_permission && $user) {
+                switch ($write_permission) {
+                        case ACCESS_PRIVATE:
+                                // Elgg's default decision is what we want
+                                return null;
+                                break;
+                        case ACCESS_FRIENDS:
+                                $owner = $entity->getOwnerEntity();
+                                if (($owner instanceof ElggUser) && $owner->isFriendsWith($user->guid)) {
+                                        return true;
+                                }
+                                break;
+                        default:
+                                $list = get_access_array($user->guid);
+                                if (in_array($write_permission, $list)) {
+                                        // user in the access collection
+					if ($entity instanceof ElggEntity && (($entity->getSubtype() == 'task_top') || ($entity->getSubtype() == 'task'))) {
+						if ($entity->assigned_to == elgg_get_logged_in_user_guid()) {
+                                        		return true;
+						}
+					}
+                                }
+                                break;
+                }
+        }
+}
+
 function roles_pm_admins_config($hook_name, $entity_type, $return_value, $params) {
 
 	$roles = array(
@@ -92,7 +129,7 @@ function pm_admin_can_edit_hook($hook, $type, $return_value, $params){
 			$user = $params["user"];
 			if(($entity instanceof ElggGroup) && ($user instanceof ElggUser)){
 				$session = elgg_get_session();
-				if(roles_has_role($user, "pm_admin") && $session->get('project_manager')){
+				if((roles_has_role($user, "pm_admin") && $session->get('project_manager'))||elgg_is_admin_logged_in()){
 					$result = true;
 				}
 			}

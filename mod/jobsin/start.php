@@ -12,10 +12,14 @@ function basic_init() {
 	elgg_register_event_handler('pagesetup', 'system', 'basic_pagesetup_handler', 1000);
 	elgg_unregister_page_handler('', 'elgg_front_page_handler');
 	elgg_register_page_handler('', 'jobsin_front_page_handler');
+	elgg_unregister_page_handler('tasks', 'tasks_page_handler');
+	elgg_register_page_handler('tasks', 'jobsin_tasks_page_handler');
 	elgg_register_page_handler('dashboard', 'jobsin_dashboard_handler');
 	elgg_register_page_handler('projects', 'projects_page_handler');
 	elgg_register_plugin_hook_handler('roles:config', 'role', 'roles_pm_admins_config', 600);
 	elgg_register_plugin_hook_handler("permissions_check", "group", "pm_admin_can_edit_hook");
+	elgg_unregister_plugin_hook_handler('permissions_check', 'object', 'tasks_write_permission_check');
+	elgg_register_plugin_hook_handler('permissions_check', 'object', 'jobsin_tasks_write_permission_check');
 	elgg_register_action("roles_pm_admin/make_pm_admin", "$action_path/roles_pm_admin/make_pm_admin.php");
 	elgg_register_action("roles_pm_admin/revoke_pm_admin", "$action_path/roles_pm_admin/revoke_pm_admin.php");
 	elgg_register_action("jobsin/admin/settings", "$action_path/settings.php", 'admin');
@@ -37,6 +41,8 @@ function basic_init() {
 		
 	elgg_extend_view('css/elgg', 'jobsin/css');
 	elgg_extend_view('css/admin', 'jobsin/admin');
+	elgg_unextend_view('groups/tool_latest');
+	elgg_extend_view('groups/tool_latest', 'tasks/group_module');
 	
 	//elgg_unregister_js('elgg.friendspicker');
 

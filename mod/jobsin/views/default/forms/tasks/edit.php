@@ -75,18 +75,19 @@
 		$assign_list[0] = "";
 		$assign_list[$current_user->getGUID()] = $current_user->name;
 		if($container instanceof ElggGroup){
-			$assign_list1 = $container->getMembers(300);
+			$assign_list1 = $container->getMembers(array('limit'=>0, 'offset'=>0, 'count'=>false));
 			foreach($assign_list1 as $members)
 				$assign_list[$members->getGUID()] = $members->name;
-		}else{
+		} else {
 			$assign_list1 = $current_user->getFriends(array('limit' => 0));
 			foreach($assign_list1 as $friends)
 				$assign_list[$friends->getGUID()] = $friends->name;
 		}	
-		$disabled = false;
+
+		$readonly = false;
 		$session = elgg_get_session();
-		if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
-			$disabled = true;
+		if (! elgg_is_admin_logged_in() && ! $session->get('project_manager')) {
+			$readonly = true;
 		}
 ?>
 
@@ -100,7 +101,7 @@
 								echo elgg_view('input/text',array(
 										'name' => 'title',
 										'value' => $title,
-										'disabled' => $disabled,
+										'readonly' => $readonly,
 								)); 
 						
 						?>
@@ -114,19 +115,25 @@
 										'name' => 'start_date',
 										'value' => $start_date,
 										'class' => 'tiny date',
-										'disabled' => $disabled,
+										'disabled' => $readonly,
 								)); 
+								if ($readonly) {
+									echo elgg_view('input/hidden',array( 'name' => 'start_date', 'value' => $start_date));
+								}
 						?>
 					
 				</td>
 				<td width="50%">
-				<label><?php echo elgg_echo('tasks:end_date'); ?></label>
-					<?php echo elgg_view('input/date',array(
-									'name' => 'end_date',
-									'value' => $end_date,
-									'class' => 'tiny date',
-									'disabled' => $disabled,
-							)); 
+					<label><?php echo elgg_echo('tasks:end_date'); ?></label>
+						<?php echo elgg_view('input/date',array(
+										'name' => 'end_date',
+										'value' => $end_date,
+										'class' => 'tiny date',
+										'disabled' => $readonly,
+								)); 
+								if ($readonly) {
+									echo elgg_view('input/hidden',array( 'name' => 'end_date', 'value' => $end_date));
+								}
 					
 					?>
 				</td>
@@ -178,6 +185,8 @@ $form = <<< END
 END;
 if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 	echo $form;
+} else {
+	echo elgg_view('inut/hidden', array( 'name' => 'task_type', 'value' => $task_type));
 }
 ?>
 				<td width="50%">
@@ -198,7 +207,8 @@ if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 			</tr>
 <?php
 			$assigned_to_display = elgg_echo('tasks:assigned_to');
-			$assign_list_display = elgg_view($selectName, array( 'name' => 'assigned_to', 'options_values' => $assign_list, 'value' => $assigned_to));
+			//$assign_list_display = elgg_view($selectName, array( 'name' => 'assigned_to', 'options_values' => $assign_list, 'value' => $assigned_to));
+			$assign_list_display = elgg_view("input/select", array( "name" => "assigned_to", "value" =>  $assigned_to, "options_values" => $assign_list, ));
 $form = <<< END
 			<tr>
 				<td width="50%" colspan="2">
@@ -208,6 +218,8 @@ $form = <<< END
 END;
 if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 	echo $form;
+} else {
+	echo elgg_view("input/hidden", array( "name" => "assigned_to", "value" =>  $assigned_to));
 }
 ?>
 			<tr>
@@ -216,14 +228,14 @@ if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 							<?php echo elgg_view('input/longtext',array(
 										'name' => 'description',
 										'value' => $description,
-										'disabled' => $disabled,
+										'readonly' => $readonly,
 								)); 
 						?>
 					<label>	<?php echo elgg_echo('tags'); ?></label>
 							<?php echo elgg_view('input/tags',array(
 										'name' => 'tags',
 										'value' => $tags,
-										'disabled' => $disabled,
+										'readonly' => $readonly,
 								)); 
 						?>
 					</label>
