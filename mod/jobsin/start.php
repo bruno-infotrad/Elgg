@@ -16,6 +16,12 @@ function basic_init() {
 	elgg_register_page_handler('tasks', 'jobsin_tasks_page_handler');
 	elgg_register_page_handler('dashboard', 'jobsin_dashboard_handler');
 	elgg_register_page_handler('projects', 'projects_page_handler');
+	//Hooks
+	//Remove right side menu item
+	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'blog_owner_block_menu');
+	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'bookmarks_owner_block_menu');
+	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'file_owner_block_menu');
+	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'pages_owner_block_menu');
 	elgg_register_plugin_hook_handler('roles:config', 'role', 'roles_pm_admins_config', 600);
 	elgg_register_plugin_hook_handler("permissions_check", "group", "pm_admin_can_edit_hook");
 	elgg_unregister_plugin_hook_handler('permissions_check', 'object', 'tasks_write_permission_check');
@@ -102,10 +108,26 @@ function basic_pagesetup_handler() {
 	if (! elgg_is_logged_in()) {	
 		elgg_unregister_menu_item('site', 'tasks');
 	}
+	$user = elgg_get_logged_in_user_entity();
+	$session = elgg_get_session();
 	if (! elgg_is_admin_logged_in()) {
 		elgg_unregister_menu_item('site', 'members');
+		elgg_unregister_menu_item('site', 'groups');
+		$url =  "groups/owner/$user->username";
+		$item = new ElggMenuItem('groups:owned', elgg_echo('groups:owned'), $url);
+		elgg_unregister_menu_item('page', $item);
+		if ($session->get('project_manager')) {
+			$item = new ElggMenuItem('groups', elgg_echo('groups'), 'groups/owner/'.$user->username);
+			elgg_register_menu_item('site', $item);
+			$url =  "groups/owner/$user->username";
+			$item = new ElggMenuItem('groups:owned', elgg_echo('groups:yours'), $url);
+			elgg_register_menu_item('page', $item);
+		} else {
+			$url = "groups/member/$user->username";
+			$item = new ElggMenuItem('groups:member', elgg_echo('groups:yours'), $url);
+			elgg_register_menu_item('page', $item);
+		}
 	}
-	$session = elgg_get_session();
 	if (! elgg_is_admin_logged_in() && ! $session->get('project_manager')) {
 	 	elgg_unregister_menu_item('site', 'groups');
 	}

@@ -12,6 +12,12 @@ $english = array(
 	'jobsin:thewire'		=> 'The Wire:',
 	'jobsin:tooltip'		=> 'Visit Elggzone',
 	'jobsin:welcome'		=> 'Hello, %s',
+	'jobsin:task:num_of_task'		=> '%s task',
+	'jobsin:task:num_of_tasks'		=> '%s tasks',
+	'jobsin:task:num_of_contributor'		=> '%s contributor',
+	'jobsin:task:num_of_contributors'		=> '%s contributors',
+	'jobsin:project:start_date'		=> 'Start Date: ',
+	'jobsin:project:end_date'		=> 'End Date: &nbsp;&nbsp;',
 
 	// Settings
 	'admin:settings:jobsin'	=> 'Basic Light',
@@ -43,6 +49,7 @@ $english = array(
 	//'jobsin:demo:text'		=> '<p>Pass any content from the included demo file to Elgg secondary sidebar.</p><p>For example Google AdSense.</p>',
 	
 //Rewrite group labels
+	'tasks:group' => "Project tasks",
 	/**
 	 * Menu items and titles
 	 */
@@ -154,6 +161,7 @@ View and reply to the discussion:
 	'groups:closed' => "closed project",
 	'groups:member' => "members",
 	'groups:searchtag' => "Search for projects by tag",
+
 
 	'groups:more' => 'More projects',
 	'groups:none' => 'No projects',

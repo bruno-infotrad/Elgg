@@ -289,6 +289,21 @@
 /* ***************************************
 	Projects
 *************************************** */
+.jobsin-dates {
+	float: right;
+	font-family: monospace;
+	padding-right: 5%;
+}
+.jobsin-contnum,
+.jobsin-tasknum {
+	float: right;
+	font-family: cursive;
+	padding-right: 10%;
+}
+.jobsin-tasks-nums {
+	font-size: large;
+	padding-top: 9px;
+}
 .jobsin-backlog {
 	background-color: red;
 }
@@ -302,8 +317,10 @@
 	background-color: yellow;
 }
 .jobsin-tasks {
+	border-radius: 5px;
 	float: right;
 	font-weight: bold;
-	min-width: 5%;
+	height: 40px;
 	text-align: center;
+	width: 40px;
 }
