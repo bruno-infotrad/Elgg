@@ -22,10 +22,15 @@ function basic_init() {
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'bookmarks_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'file_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'pages_owner_block_menu');
+	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'likes_entity_menu_setup');
+	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'tasks_entity_menu_setup');
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'jobsin_tasks_entity_menu_setup');
+	//Access controls
 	elgg_register_plugin_hook_handler('roles:config', 'role', 'roles_pm_admins_config', 600);
 	elgg_register_plugin_hook_handler("permissions_check", "group", "pm_admin_can_edit_hook");
 	elgg_unregister_plugin_hook_handler('permissions_check', 'object', 'tasks_write_permission_check');
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'jobsin_tasks_write_permission_check');
+	//Actions
 	elgg_register_action("roles_pm_admin/make_pm_admin", "$action_path/roles_pm_admin/make_pm_admin.php");
 	elgg_register_action("roles_pm_admin/revoke_pm_admin", "$action_path/roles_pm_admin/revoke_pm_admin.php");
 	elgg_register_action("jobsin/admin/settings", "$action_path/settings.php", 'admin');

@@ -1,4 +1,26 @@
 <?php
+function jobsin_tasks_entity_menu_setup($hook, $type, $return, $params) {
+
+	if (elgg_in_context('widgets')) {
+		return $return;
+	}
+
+	$entity = $params['entity'];
+	$handler = elgg_extract('handler', $params, false);
+	if ($handler != 'tasks') {
+		return $return;
+	}
+
+	// remove delete if not owner or admin
+	if (!elgg_is_admin_logged_in() && elgg_get_logged_in_user_guid() != $entity->getOwnerGuid()) {
+		foreach ($return as $index => $item) {
+			if ($item->getName() == 'delete') {
+				unset($return[$index]);
+			}
+		}
+	}
+	return $return;
+}
 function jobsin_tasks_write_permission_check($hook, $entity_type, $returnvalue, $params) {
         if (!tasks_is_task($params['entity'])) {
                 return null;
