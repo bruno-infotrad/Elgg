@@ -22,7 +22,12 @@ function basic_init() {
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'bookmarks_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'file_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'pages_owner_block_menu');
+	//Remove like menu item
 	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'likes_entity_menu_setup');
+	//Remove access for entities menu item
+	elgg_unregister_plugin_hook_handler('register', 'menu:entity', '_elgg_entity_menu_setup');
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'jobsin_elgg_entity_menu_setup');
+	//Replace task menu
 	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'tasks_entity_menu_setup');
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'jobsin_tasks_entity_menu_setup');
 	//Access controls

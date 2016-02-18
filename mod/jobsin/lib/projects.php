@@ -129,7 +129,11 @@ function projects_handle_owned_page() {
 	}
 
 	$dbprefix = elgg_get_config('dbprefix');
-	$content = elgg_list_entities(array(
+	$content =  "<div class=\"jobsin-tasks jobsin-done\"><div class=\"jobsin-tasks-nums jobsin-tasks-header\">Done</div></div>";
+	$content .=  "<div class=\"jobsin-tasks jobsin-inprogress\"><div id=\"jobsin-tasks-header-np\" class=\"jobsin-tasks-nums jobsin-tasks-header\">In Progress</div></div>";
+	$content .=  "<div class=\"jobsin-tasks jobsin-ready\"><div class=\"jobsin-tasks-nums jobsin-tasks-header\">Ready</div></div>";
+	$content .=  "<div class=\"jobsin-tasks jobsin-backlog\"><div class=\"jobsin-tasks-nums jobsin-tasks-header\">Backlog</div></div>";
+	$content .= elgg_list_entities(array(
 		'type' => 'group',
 		'owner_guid' => elgg_get_page_owner_guid(),
 		'joins' => array("JOIN {$dbprefix}groups_entity ge ON e.guid = ge.guid"),

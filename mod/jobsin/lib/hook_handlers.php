@@ -1,4 +1,50 @@
 <?php
+function jobsin_elgg_entity_menu_setup($hook, $type, $return, $params) {
+	if (elgg_in_context('widgets')) {
+		return $return;
+	}
+	
+	$entity = $params['entity'];
+	/* @var \ElggEntity $entity */
+	$handler = elgg_extract('handler', $params, false);
+
+	// access
+	if (elgg_is_admin_logged_in()) {
+		$access = elgg_view('output/access', array('entity' => $entity));
+		$options = array(
+			'name' => 'access',
+			'text' => $access,
+			'href' => false,
+			'priority' => 100,
+		);
+		$return[] = \ElggMenuItem::factory($options);
+	}
+	
+	if ($entity->canEdit() && $handler) {
+		// edit link
+		$options = array(
+			'name' => 'edit',
+			'text' => elgg_echo('edit'),
+			'title' => elgg_echo('edit:this'),
+			'href' => "$handler/edit/{$entity->getGUID()}",
+			'priority' => 200,
+		);
+		$return[] = \ElggMenuItem::factory($options);
+
+		// delete link
+		$options = array(
+			'name' => 'delete',
+			'text' => elgg_view_icon('delete'),
+			'title' => elgg_echo('delete:this'),
+			'href' => "action/$handler/delete?guid={$entity->getGUID()}",
+			'confirm' => elgg_echo('deleteconfirm'),
+			'priority' => 300,
+		);
+		$return[] = \ElggMenuItem::factory($options);
+	}
+
+	return $return;
+}
 function jobsin_tasks_entity_menu_setup($hook, $type, $return, $params) {
 
 	if (elgg_in_context('widgets')) {

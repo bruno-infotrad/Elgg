@@ -298,23 +298,29 @@
 .jobsin-tasknum {
 	float: right;
 	font-family: cursive;
-	padding-right: 10%;
+	padding-right: 5%;
 }
 .jobsin-tasks-nums {
 	font-size: large;
 	padding-top: 9px;
 }
 .jobsin-backlog {
-	background-color: red;
+	background: radial-gradient(red 40%,white);
 }
 .jobsin-done {
-	background-color: green;
+	background: radial-gradient(green 40%,white);
 }
 .jobsin-ready {
-	background-color: pink;
+	background: radial-gradient(orange 40%,white);
 }
 .jobsin-inprogress {
-	background-color: yellow;
+	background: radial-gradient(yellow 40%,white);
+}
+#jobsin-tasks-header-np {
+	padding-top:0;
+}
+.jobsin-tasks-header {
+	font-size: small;
 }
 .jobsin-tasks {
 	border-radius: 5px;
@@ -322,5 +328,5 @@
 	font-weight: bold;
 	height: 40px;
 	text-align: center;
-	width: 40px;
+	width: 60px;
 }
