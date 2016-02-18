@@ -42,6 +42,17 @@
 	$start_date = date(TASKS_FORMAT_DATE_EVENTDAY, $start_date);
 	$end_date = $unix_end_date = $entity->end_date;
 	$end_date = date(TASKS_FORMAT_DATE_EVENTDAY, $end_date);
+	if ($entity->status <> 5 && $entity->end_date < time()) {
+		$class = 'backlog';
+	} elseif ($entity->status == 5 && $entity->percent_done == 5) {
+		$class = 'done';
+	} elseif ($entity->status == 1 && ! $entity->assigned_to) {
+		$class = 'ready';
+	} elseif ($entity->status == 4 && $entity->assigned_to) {
+		$class = 'inprogress';
+	}
+
+/*
 	$percent_done = 100*$entity->percent_done/5.0;
 	if ($percent_done == 0) {
 		$percent_width = '100%';
@@ -64,33 +75,22 @@
 			$hist_color = 'red';
 		}
 	}
+	*/
 
 
-?>
-<?php echo $metadataMenu; ?>
-<h4><a href="<?php echo $entity->getURL(); ?>"><?php echo $entity->title; ?></a></h4>
-<table class="task" style="color: #aaa; width: 100%; font-size: 85%">
-	<tr>
-		<td style="width:55%;border: 1px solid">
-		<div style="color: black; width: <?php echo $percent_width;?>;background-color: <?php echo $hist_color;?>;"><?php echo elgg_echo('tasks:percent_done'). " : " .elgg_view('output/text',array('value' => elgg_echo("tasks:task_percent_done_{$entity->percent_done}"))); ?></div>
-		</td>
-		<td width="45%">
-		<?php echo elgg_echo('tasks:work_remaining'). " : " .elgg_view('output/text',array('value' => $entity->work_remaining)); ?>
-		</td>
-	</tr>
-	<tr>
-		<td width="55%">
-		<?php echo elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => $start_date, "css"=>"truc")); ?>
-		</td>
-		<td width="45%">
-		<?php echo elgg_echo('tasks:end_date'). " : " .elgg_view('output/text',array('value' => $end_date)); ?>
-		</td>
-	</tr>
-	<tr>
-		<td width="55%" class="elgg-subtext">
-		<?php  echo elgg_echo('jobsin:tasks:assigned_to', array($worker_link)); ?></td>
-		<td width="45%" class="elgg-subtext">
-		<?php echo elgg_echo('updated').' '.$friendlytime; ?></td>
-	</tr>
-</table>
-
+echo $metadataMenu;
+echo '<h4 class="task-title"><a href="'.$entity->getURL().'">'.$entity->title.'</a></h4>';
+echo "<div class=\"jobsin-$class\">";
+echo '<div class="task-description">'.$entity->description.'</div>';
+echo '<div class="task-dates">';
+echo elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => $start_date)).'<br/>';
+echo elgg_echo('tasks:end_date'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $end_date)); 
+echo '</div>';
+echo '<div class="task-status">';
+echo elgg_echo('jobsin:tasks:assigned_to', array($worker_link)).'<br/>';
+echo elgg_echo('tasks:task_status_'.$entity->status).'<br/>';
+echo elgg_view('output/text',array('value' => elgg_echo("tasks:task_percent_done_{$entity->percent_done}")));
+//echo elgg_echo('tasks:work_remaining'). " : " .elgg_view('output/text',array('value' => $entity->work_remaining));
+//echo elgg_echo('updated').' '.$friendlytime;
+echo '</div>';
+echo '</div>';

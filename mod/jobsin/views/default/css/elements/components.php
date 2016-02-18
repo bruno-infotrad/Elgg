@@ -289,9 +289,30 @@
 /* ***************************************
 	Projects
 *************************************** */
+.task-description {
+	display: inline-block;
+	font-size: small;
+	line-height: 1.1em;
+	width: 30%;
+	padding-right: 5%;
+	padding-top: 3px;
+	text-align: justify;
+}
+.task-dates,
+.jobsin-dates {
+	font-family: monospace;
+}
+.task-status,
+.task-dates {
+	display: inline-block;
+	padding-right: 5%;
+	vertical-align: top;
+}
+.task-status {
+	font-size: small;
+}
 .jobsin-dates {
 	float: right;
-	font-family: monospace;
 	padding-right: 5%;
 }
 .jobsin-contnum,
