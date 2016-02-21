@@ -233,28 +233,28 @@ function jobsin_route_groups_handler($hook, $type, $return_value, $params){
 					// we will handle the output
 					$result = false;
 					
-					include(dirname(dirname(__FILE__)) . "/pages/groups/all.php");
+					include(dirname(dirname(__FILE__)) . "/pages/projects/all.php");
 				}
 				
 				break;
 			case "suggested":
 				$result = false;
 				
-				include(dirname(dirname(__FILE__)) . "/pages/groups/suggested.php");
+				include(dirname(dirname(__FILE__)) . "/pages/projects/suggested.php");
 				break;
 			case "requests":
 				$result = false;
 				
 				set_input("group_guid", $page[1]);
 				
-				include(dirname(dirname(__FILE__)) . "/pages/groups/membershipreq.php");
+				include(dirname(dirname(__FILE__)) . "/pages/projects/membershipreq.php");
 				break;
 			case "invite":
 				$result = false;
 				
 				set_input("group_guid", $page[1]);
 				
-				include(dirname(dirname(__FILE__)) . "/pages/groups/invite.php");
+				include(dirname(dirname(__FILE__)) . "/pages/projects/invite.php");
 				break;
 			case "mail":
 				$result = false;
@@ -263,10 +263,10 @@ function jobsin_route_groups_handler($hook, $type, $return_value, $params){
 					
 				include(dirname(dirname(__FILE__)) . "/pages/mail.php");
 				break;
-			case "group_invite_autocomplete":
+			case "project_invite_autocomplete":
 				$result = false;
 				
-				include(dirname(dirname(__FILE__)) . "/procedures/group_invite_autocomplete.php");
+				include(dirname(dirname(__FILE__)) . "/lib/project_invite_autocomplete.php");
 				break;
 			case "add":
 				if(group_tools_is_group_creation_limited()){
@@ -279,7 +279,7 @@ function jobsin_route_groups_handler($hook, $type, $return_value, $params){
 					set_input("username", $page[1]);
 				}
 				
-				include(dirname(dirname(__FILE__)) . "/pages/groups/invitations.php");
+				include(dirname(dirname(__FILE__)) . "/pages/projects/invitations.php");
 				break;
 			default:
 				// check if we have an old group profile link

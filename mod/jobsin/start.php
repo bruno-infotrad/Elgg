@@ -8,7 +8,7 @@ function basic_init() {
 	elgg_register_library('elgg:projects', elgg_get_plugins_path() . 'jobsin/lib/projects.php');
 	elgg_register_library('elgg:jobsin', elgg_get_plugins_path() . 'jobsin/lib/jobsin.php');
 	$action_path = dirname(__FILE__) . '/actions';
-	//elgg_register_plugin_hook_handler("route", "projects", "jobsin_route_groups_handler");
+	elgg_register_plugin_hook_handler("route", "projects", "jobsin_route_groups_handler");
 	elgg_register_event_handler('pagesetup', 'system', 'basic_pagesetup_handler', 1000);
 	elgg_unregister_page_handler('', 'elgg_front_page_handler');
 	elgg_register_page_handler('', 'jobsin_front_page_handler');

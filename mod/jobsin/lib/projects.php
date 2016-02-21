@@ -516,9 +516,9 @@ function projects_register_profile_buttons($group) {
 	// group owners
 	if ($group->canEdit()) {
 		// edit and invite
-		$url = elgg_get_site_url() . "groups/edit/{$group->getGUID()}";
+		$url = elgg_get_site_url() . "projects/edit/{$group->getGUID()}";
 		$actions[$url] = 'groups:edit';
-		$url = elgg_get_site_url() . "groups/invite/{$group->getGUID()}";
+		$url = elgg_get_site_url() . "projects/invite/{$group->getGUID()}";
 		$actions[$url] = 'projects:invite';
 	}
 
@@ -526,13 +526,13 @@ function projects_register_profile_buttons($group) {
 	if ($group->isMember(elgg_get_logged_in_user_entity())) {
 		if ($group->getOwnerGUID() != elgg_get_logged_in_user_guid()) {
 			// leave
-			$url = elgg_get_site_url() . "action/groups/leave?group_guid={$group->getGUID()}";
+			$url = elgg_get_site_url() . "action/projects/leave?group_guid={$group->getGUID()}";
 			$url = elgg_add_action_tokens_to_url($url);
-			$actions[$url] = 'groups:leave';
+			$actions[$url] = 'projects:leave';
 		}
 	} elseif (elgg_is_logged_in()) {
 		// join - admins can always join.
-		$url = elgg_get_site_url() . "action/groups/join?group_guid={$group->getGUID()}";
+		$url = elgg_get_site_url() . "action/projects/join?group_guid={$group->getGUID()}";
 		$url = elgg_add_action_tokens_to_url($url);
 		if ($group->isPublicMembership() || $group->canEdit()) {
 			$actions[$url] = 'groups:join';
