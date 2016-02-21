@@ -127,13 +127,13 @@ function basic_pagesetup_handler() {
 		$item = new ElggMenuItem('groups:owned', elgg_echo('groups:owned'), $url);
 		elgg_unregister_menu_item('page', $item);
 		if ($session->get('project_manager')) {
-			$item = new ElggMenuItem('groups', elgg_echo('groups'), 'groups/owner/'.$user->username);
+			$item = new ElggMenuItem('groups', elgg_echo('groups'), 'projects/owner/'.$user->username);
 			elgg_register_menu_item('site', $item);
-			$url =  "groups/owner/$user->username";
+			$url =  "projects/owner/$user->username";
 			$item = new ElggMenuItem('groups:owned', elgg_echo('groups:yours'), $url);
 			elgg_register_menu_item('page', $item);
 		} else {
-			$url = "groups/member/$user->username";
+			$url = "projects/member/$user->username";
 			$item = new ElggMenuItem('groups:member', elgg_echo('groups:yours'), $url);
 			elgg_register_menu_item('page', $item);
 		}

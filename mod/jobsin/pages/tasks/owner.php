@@ -6,12 +6,16 @@
  */
 
 $owner = elgg_get_page_owner_entity();
+
 if (!$owner) {
 	forward('tasks/all');
 }
 
 // access check for closed groups
 group_gatekeeper();
+if ($owner instanceof ElggGroup) {
+	$is_group = true;
+}
 
 $title = elgg_echo('tasks:owner', array($owner->name));
 
@@ -20,13 +24,22 @@ $session = elgg_get_session();
 if ($session->get('project_manager') || elgg_is_admin_logged_in()) {
 	elgg_register_title_button();
 }
-
-$content = elgg_list_entities(array(
-	'types' => 'object',
-	'subtypes' => array('task_top','task'),
-	'container_guid' => elgg_get_page_owner_guid(),
-	'full_view' => false,
-));
+if ($is_group) {
+	$content = elgg_list_entities(array(
+		'types' => 'object',
+		'subtypes' => array('task_top','task'),
+		'container_guid' => elgg_get_page_owner_guid(),
+		'full_view' => false,
+	));
+} else {
+	elgg_set_context('all_projects');
+	$content = elgg_list_entities(array(
+		'types' => 'object',
+		'subtypes' => array('task_top','task'),
+		'owner_guids' => elgg_get_logged_in_user_guid(),
+		'full_view' => false,
+	));
+}
 if (!$content) {
 	$content = '<p>' . elgg_echo('tasks:none') . '</p>';
 }

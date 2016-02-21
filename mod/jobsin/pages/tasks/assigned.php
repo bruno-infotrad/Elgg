@@ -9,7 +9,7 @@ $owner = elgg_get_page_owner_entity();
 // access check for closed groups
 group_gatekeeper();
 
-$title = elgg_echo('tasks:assigned', array($owner->name));
+$title = elgg_echo('jobsin:tasks:assigned', array($owner->name));
 
 elgg_push_breadcrumb($owner->name);
 
@@ -32,6 +32,7 @@ if (elgg_get_page_owner_guid() == elgg_get_logged_in_user_guid()) {
 
 $sidebar = elgg_view('tasks/sidebar/navigation');
 
+elgg_set_context('all_projects');
 $params = array(
 	'filter_context' => $filter_context,
 	'filter_override' => elgg_view('filter_override/taskspagefilter',array("filter_context"=>$filter_context)),

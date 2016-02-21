@@ -16,9 +16,12 @@ $english = array(
 	'jobsin:task:num_of_tasks'		=> '%s tasks',
 	'jobsin:task:num_of_contributor'		=> '%s contributor',
 	'jobsin:task:num_of_contributors'		=> '%s contributors',
+	'jobsin:tasks:assigned'		=> 'Assigned Tasks',
 	'jobsin:tasks:assigned_to'		=> 'Assigned to %s',
 	'jobsin:project:start_date'		=> 'Start Date: ',
 	'jobsin:project:end_date'		=> 'End Date: &nbsp;&nbsp;',
+	'jobsin:in_project'		=> ' in project %s',
+	'jobsin:project_manager'		=> 'Entrepreneur',
 
 	// Settings
 	'admin:settings:jobsin'	=> 'Basic Light',
@@ -109,8 +112,8 @@ $english = array(
 	'groups:joinrequest' => 'Request membership',
 	'groups:join' => 'Join project',
 	'groups:leave' => 'Leave project',
-	'groups:invite' => 'Invite friends',
-	'groups:invite:title' => 'Invite friends to this project',
+	'projects:invite' => 'Invite contributors',
+	'projects:invite:title' => 'Invite contributors to this project',
 	'groups:inviteto' => "Invite friends to '%s'",
 	'groups:nofriends' => "You have no friends left who have not been invited to this project.",
 	'groups:nofriendsatall' => 'You have no friends to invite!',

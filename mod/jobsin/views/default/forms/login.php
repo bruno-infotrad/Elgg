@@ -25,7 +25,7 @@
 <div class="elgg-foot">
 	<label class="mtm float-alt">
 		<input type="checkbox" name="project_manager" value="true" />
-		<?php echo elgg_echo('user:project_manager'); ?>
+		<?php echo elgg_echo('jobsin:project_manager'); ?>
 		<br>
 		<input type="checkbox" name="persistent" value="true" />
 		<?php echo elgg_echo('user:persistent'); ?>

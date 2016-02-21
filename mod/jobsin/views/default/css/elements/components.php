@@ -351,3 +351,7 @@
 	text-align: center;
 	width: 60px;
 }
+.groups-stats p {
+	display: inline-block;
+	padding-left: 10px;
+}

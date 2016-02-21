@@ -47,9 +47,20 @@ function jobsin_tasks_page_handler($page) {
 			set_input('owner_guid', $page[1]);
 			elgg_set_page_owner_guid($page[1]);
                         include "$base_dir/owner.php";
+                } elseif (isset($page[0])&& $page[0] == 'owner' && isset($page[1])) {
+                        $base_dir = elgg_get_plugins_path() . 'jobsin/pages/tasks';
+			$owner_guid = get_user_by_username($page[1])->getGUID();
+			set_input('owner_guid', $owner_guid);
+			elgg_set_page_owner_guid($owner_guid);
+                        include "$base_dir/owner.php";
                 } elseif (isset($page[0])&& $page[0] == 'assigned') {
+                        elgg_set_context('all_projects');
                         $base_dir = elgg_get_plugins_path() . 'jobsin/pages/tasks';
                         include "$base_dir/assigned.php";
+                } elseif (isset($page[0])&& $page[0] == 'all') {
+                        //$base_dir = elgg_get_plugins_path() . 'jobsin/pages/tasks';
+                        elgg_set_context('all_projects');
+                        return tasks_page_handler($page);
                 } else {
                         return tasks_page_handler($page);
                 }

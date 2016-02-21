@@ -25,10 +25,10 @@
 	$categories = elgg_view('output/categories', $vars);
 	
 	$metadataMenu = elgg_view_menu('entity', array(
-	'entity' => $entity,
-	'handler' => 'tasks',
-	'sort_by' => 'priority',
-	'class' => 'elgg-menu-hz',
+		'entity' => $entity,
+		'handler' => 'tasks',
+		'sort_by' => 'priority',
+		'class' => 'elgg-menu-hz',
 	));
 	
 	$owner = $entity->getOwnerEntity();
@@ -78,8 +78,17 @@
 	*/
 
 
+if (elgg_get_context() == 'all_projects') {
+	$project_guid = $entity->container_guid;
+	$project_name = get_entity($project_guid)->name;
+	$project_link = elgg_view('output/url', array(
+		'href' => "projects/profile/$project_guid/$project_name",
+		'text' => elgg_echo('jobsin:in_project', array($project_name)),
+		'is_trusted' => true,
+	));
+}
 echo $metadataMenu;
-echo '<h4 class="task-title"><a href="'.$entity->getURL().'">'.$entity->title.'</a></h4>';
+echo '<h4 class="task-title"><a href="'.$entity->getURL().'">'.$entity->title.$project_link.'</a></h4>';
 echo "<div class=\"jobsin-$class\">";
 echo '<div class="task-description">'.$entity->description.'</div>';
 echo '<div class="task-dates">';

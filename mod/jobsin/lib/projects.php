@@ -303,7 +303,7 @@ function projects_handle_profile_page($guid) {
 		if (elgg_is_active_plugin('search')) {
 			$sidebar .= elgg_view('groups/sidebar/search', array('entity' => $group));
 		}
-		$sidebar .= elgg_view('groups/sidebar/members', array('entity' => $group));
+		//$sidebar .= elgg_view('groups/sidebar/members', array('entity' => $group));
 
 		$subscribed = false;
 		if (elgg_is_active_plugin('notifications')) {
@@ -407,6 +407,9 @@ function projects_handle_members_page($guid) {
 		'limit' => (int)get_input('limit', max(20, elgg_get_config('default_limit')), false),
 		'joins' => array("JOIN {$db_prefix}users_entity u ON e.guid=u.guid"),
 		'order_by' => 'u.name ASC',
+		'list_type' => 'gallery',
+		'size' => 'medium',
+		'gallery_class' => 'elgg-gallery-users',
 	));
 
 	$params = array(
@@ -429,7 +432,7 @@ function projects_handle_invite_page($guid) {
 
 	elgg_set_page_owner_guid($guid);
 
-	$title = elgg_echo('groups:invite:title');
+	$title = elgg_echo('projects:invite:title');
 
 	$group = get_entity($guid);
 	if (!elgg_instanceof($group, 'group') || !$group->canEdit()) {
@@ -445,7 +448,7 @@ function projects_handle_invite_page($guid) {
 	));
 
 	elgg_push_breadcrumb($group->name, $group->getURL());
-	elgg_push_breadcrumb(elgg_echo('groups:invite'));
+	elgg_push_breadcrumb(elgg_echo('projects:invite'));
 
 	$params = array(
 		'content' => $content,
@@ -516,7 +519,7 @@ function projects_register_profile_buttons($group) {
 		$url = elgg_get_site_url() . "groups/edit/{$group->getGUID()}";
 		$actions[$url] = 'groups:edit';
 		$url = elgg_get_site_url() . "groups/invite/{$group->getGUID()}";
-		$actions[$url] = 'groups:invite';
+		$actions[$url] = 'projects:invite';
 	}
 
 	// group members

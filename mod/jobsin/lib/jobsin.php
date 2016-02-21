@@ -336,7 +336,7 @@ function groups_handle_profile_page($guid) {
 		if (elgg_is_active_plugin('search')) {
 			$sidebar .= elgg_view('groups/sidebar/search', array('entity' => $group));
 		}
-		$sidebar .= elgg_view('groups/sidebar/members', array('entity' => $group));
+		//$sidebar .= elgg_view('groups/sidebar/members', array('entity' => $group));
 
 		$subscribed = false;
 		if (elgg_is_active_plugin('notifications')) {

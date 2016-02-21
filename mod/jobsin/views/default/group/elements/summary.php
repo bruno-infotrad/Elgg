@@ -17,9 +17,10 @@ if ($title_link === '') {
 	} else {
 		$text = $group->name;
 	}
+	$url = '/projects/profile/'.$group->getGUID().'/'.$text;
 	$params = array(
 		'text' => elgg_get_excerpt($text, 100),
-		'href' => $group->getURL(),
+		'href' => $url,
 		'is_trusted' => true,
 	);
 	$title_link = elgg_view('output/url', $params);

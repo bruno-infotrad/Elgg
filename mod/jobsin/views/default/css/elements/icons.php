@@ -373,3 +373,8 @@
 	width: 200px;
 	height: 200px;
 }
+.elgg-gallery > li[id*="elgg-user-"] {
+    width: 22%;
+    padding: 10px 5px;
+    vertical-align: top;
+}
