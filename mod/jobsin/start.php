@@ -27,12 +27,15 @@ function basic_init() {
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'pages_owner_block_menu');
 	//Remove like menu item
 	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'likes_entity_menu_setup');
-	//Remove access for entities menu item
+	//Replace access for entities menu item
 	elgg_unregister_plugin_hook_handler('register', 'menu:entity', '_elgg_entity_menu_setup');
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'jobsin_elgg_entity_menu_setup');
 	//Replace task menu
 	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'tasks_entity_menu_setup');
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'jobsin_tasks_entity_menu_setup');
+	//Rewrite URL for projects
+	elgg_unregister_plugin_hook_handler('entity:url', 'group', 'groups_set_url');
+	elgg_register_plugin_hook_handler('entity:url', 'group', 'projects_set_url');
 	//Access controls
 	elgg_register_plugin_hook_handler('roles:config', 'role', 'roles_pm_admins_config', 600);
 	elgg_register_plugin_hook_handler("permissions_check", "group", "pm_admin_can_edit_hook");
@@ -220,7 +223,7 @@ function projects_page_handler($page) {
 		$page[0] = 'all';
 	}
 
-	elgg_push_breadcrumb(elgg_echo('groups'), "groups/all");
+	elgg_push_breadcrumb(elgg_echo('projects'), "projects/all");
 
 	switch ($page[0]) {
 		case 'all':

@@ -64,16 +64,15 @@
 				$vars['entity']->write_access_id = 0;
 			}
 			*/
-			$access_id = ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY;
-			$write_access_id = ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY;
 			
 			$shares = array();
 			$owner = $vars['user'];
 			
-			//$container_id = $vars['container_guid'];
-			$container_id = get_input('container_guid');
+			$container_id = $vars['container_guid'];
+			//$container_id = get_input('container_guid');
 			$container = get_entity($container_id);
-			
+			$access_id = $container->group_acl;
+			$write_access_id = $container->group_acl;
 		}
 		$current_user= elgg_get_logged_in_user_entity();
 		$assign_list = array();

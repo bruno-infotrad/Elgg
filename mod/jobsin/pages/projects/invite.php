@@ -28,7 +28,7 @@ if (!empty($group) && ($group instanceof ElggGroup)) {
 			$breadcrumb = elgg_echo("groups:invite");
 		}
 		
-		elgg_push_breadcrumb(elgg_echo("groups"), "groups/all");
+		elgg_push_breadcrumb(elgg_echo("groups"), "projects/all");
 		elgg_push_breadcrumb($group->name, $group->getURL());
 		elgg_push_breadcrumb($breadcrumb);
 	

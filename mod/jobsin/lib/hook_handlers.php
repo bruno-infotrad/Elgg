@@ -182,6 +182,11 @@ function jobsin_invitee_can_edit_bid_hook($hook, $type, $return_value, $params){
         return $result;
 }
 
+function projects_set_url($hook, $type, $url, $params) {
+	$entity = $params['entity'];
+	$title = elgg_get_friendly_title($entity->name);
+	return "projects/profile/{$entity->guid}/$title";
+}
 
 function roles_pm_admins_config($hook_name, $entity_type, $return_value, $params) {
 
