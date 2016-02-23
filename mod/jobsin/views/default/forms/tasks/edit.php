@@ -36,6 +36,7 @@
 			$assigned_to = $vars['entity']->assigned_to;
 			$percent_done = $vars['entity']->percent_done;
 			$work_remaining = $vars['entity']->work_remaining;
+			$access_id = $vars['entity']->access_id;
 			$write_access_id = $vars['entity']->write_access_id;
 			
 			$container_id = $vars['entity']->getContainerGUID();
@@ -54,6 +55,7 @@
 			$tags = array();
 			
 			// bootstrap the access permissions in the entity array so we can use defaults
+			/*
 			if (defined('ACCESS_DEFAULT')) {
 				$vars['entity']->access_id = ACCESS_DEFAULT;
 				$vars['entity']->write_access_id = ACCESS_DEFAULT;
@@ -61,6 +63,9 @@
 				$vars['entity']->access_id = 0;
 				$vars['entity']->write_access_id = 0;
 			}
+			*/
+			$access_id = ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY;
+			$write_access_id = ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY;
 			
 			$shares = array();
 			$owner = $vars['user'];

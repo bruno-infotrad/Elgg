@@ -22,6 +22,11 @@ $english = array(
 	'jobsin:project:end_date'		=> 'End Date: &nbsp;&nbsp;',
 	'jobsin:in_project'		=> ' in project %s',
 	'jobsin:project_manager'		=> 'Entrepreneur',
+	'jobsin:project:invite:users:task' => 'Select task(s) you want the contributor to submit a bid for',
+	'jobsin:submit_bid' => 'Submit a bid',
+	'jobsin:task_rate' => 'Hourly rate ($)',
+	'projects:bid_invitations' => 'Invitations to bid',
+	'jobsin:bid_status' => 'Bid Status',
 
 	// Settings
 	'admin:settings:jobsin'	=> 'Basic Light',
@@ -71,6 +76,8 @@ $english = array(
 	'projects:delete' => 'Delete project',
 	'groups:membershiprequests' => 'Manage join requests',
 	'groups:membershiprequests:pending' => 'Manage join requests (%s)',
+	'projects:membershiprequests' => 'Manage project invitations',
+	'projects:membershiprequests:pending' => 'Manage project invitation (%s)',
 	'groups:invitations' => 'Project invitations',
 	'groups:invitations:pending' => 'Project invitations (%s)',
 

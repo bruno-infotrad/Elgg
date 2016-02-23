@@ -477,7 +477,7 @@ function projects_handle_requests_page($guid) {
 		forward(REFERER);
 	}
 
-	$title = elgg_echo('groups:membershiprequests');
+	$title = elgg_echo('projects:membershiprequests');
 
 	elgg_push_breadcrumb($group->name, $group->getURL());
 	elgg_push_breadcrumb($title);
@@ -489,7 +489,7 @@ function projects_handle_requests_page($guid) {
 		'inverse_relationship' => true,
 		'limit' => 0,
 	));
-	$content = elgg_view('groups/membershiprequests', array(
+	$content = elgg_view('projects/membershiprequests', array(
 		'requests' => $requests,
 		'entity' => $group,
 	));

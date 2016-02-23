@@ -289,6 +289,11 @@
 /* ***************************************
 	Projects
 *************************************** */
+.task-rate {
+	display: inline-block;
+	float: right;
+	vertical-align: top;
+}
 .task-description {
 	display: inline-block;
 	font-size: small;

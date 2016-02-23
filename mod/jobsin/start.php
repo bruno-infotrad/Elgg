@@ -3,13 +3,15 @@ elgg_register_event_handler('init','system','basic_init');
  
 function basic_init() {
 
+	require_once 'lib/event_handlers.php';
 	require_once 'lib/hook_handlers.php';
 	require_once 'lib/page_handlers.php';
 	elgg_register_library('elgg:projects', elgg_get_plugins_path() . 'jobsin/lib/projects.php');
 	elgg_register_library('elgg:jobsin', elgg_get_plugins_path() . 'jobsin/lib/jobsin.php');
-	$action_path = dirname(__FILE__) . '/actions';
-	elgg_register_plugin_hook_handler("route", "projects", "jobsin_route_groups_handler");
+	elgg_register_plugin_hook_handler("route", "projects", "jobsin_route_projects_handler");
 	elgg_register_event_handler('pagesetup', 'system', 'basic_pagesetup_handler', 1000);
+	elgg_unregister_event_handler('pagesetup', 'system', 'groups_setup_sidebar_menus');
+	elgg_register_event_handler('pagesetup', 'system', 'projects_setup_sidebar_menus');
 	elgg_unregister_page_handler('', 'elgg_front_page_handler');
 	elgg_register_page_handler('', 'jobsin_front_page_handler');
 	elgg_unregister_page_handler('tasks', 'tasks_page_handler');
@@ -17,6 +19,7 @@ function basic_init() {
 	elgg_register_page_handler('dashboard', 'jobsin_dashboard_handler');
 	elgg_register_page_handler('projects', 'projects_page_handler');
 	//Hooks
+	elgg_register_plugin_hook_handler('register', 'menu:invitationrequest', 'projects_invitationrequest_menu_setup');
 	//Remove right side menu item
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'blog_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'bookmarks_owner_block_menu');
@@ -35,13 +38,30 @@ function basic_init() {
 	elgg_register_plugin_hook_handler("permissions_check", "group", "pm_admin_can_edit_hook");
 	elgg_unregister_plugin_hook_handler('permissions_check', 'object', 'tasks_write_permission_check');
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'jobsin_tasks_write_permission_check');
+	elgg_register_plugin_hook_handler('permissions_check', 'object', 'jobsin_invitee_can_edit_bid_hook');
 	//Actions
+	$action_path = dirname(__FILE__) . '/actions';
 	elgg_register_action("roles_pm_admin/make_pm_admin", "$action_path/roles_pm_admin/make_pm_admin.php");
 	elgg_register_action("roles_pm_admin/revoke_pm_admin", "$action_path/roles_pm_admin/revoke_pm_admin.php");
 	elgg_register_action("jobsin/admin/settings", "$action_path/settings.php", 'admin');
 	elgg_register_action("jobsin/admin/sidebar", "$action_path/settings.php", 'admin');
 	elgg_register_action("login", "$action_path/login.php",'public');
+	//Group actions
+        elgg_register_action("projects/submit_bid", "$action_path/projects/submit_bid.php");
+        elgg_register_action("projects/invite", "$action_path/projects/membership/invite.php");
+	elgg_register_action("projects/join", "$action_path/projects/membership/join.php");
+	elgg_register_action("projects/leave", "$action_path/projects/membership/leave.php");
+	elgg_register_action("projects/remove", "$action_path/projects/membership/remove.php");
+	elgg_register_action("projects/killrequest", "$action_path/projects/membership/delete_request.php");
+	elgg_register_action("projects/killinvitation", "$action_path/projects/membership/delete_invite.php");
+	elgg_register_action("projects/addtogroup", "$action_path/projects/membership/add.php");
+
 	// Register entity type for search
+	elgg_register_entity_type('object', 'bid');
+	// Register for notifications
+	elgg_register_notification_event('object', 'bid');
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:bid', 'bid_prepare_notification');
+
 	//elgg_register_entity_type('object', 'project');
 	elgg_register_plugin_hook_handler('get_views', 'ecml', 'projects_ecml_views_hook');
 		

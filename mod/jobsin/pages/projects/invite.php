@@ -32,7 +32,7 @@ if (!empty($group) && ($group instanceof ElggGroup)) {
 		elgg_push_breadcrumb($group->name, $group->getURL());
 		elgg_push_breadcrumb($breadcrumb);
 	
-		$content = elgg_view_form("groups/invite", array(
+		$content = elgg_view_form("projects/invite", array(
 			"id" => "invite_to_group",
 			"class" => "elgg-form-alt mtm",
 			"enctype" => "multipart/form-data"
