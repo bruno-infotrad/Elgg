@@ -7,8 +7,9 @@
 
 $logged_in_user = elgg_get_logged_in_user_entity();
 $rate = get_input('rate');
+$end_date = get_input('end_date');
 $bid_guid = get_input('bid_guid');
-if (! $rate) {
+if (! $rate ) {
 	register_error(elgg_echo("projects:missing_parameter"));
 	forward(REFERER);
 }
@@ -17,13 +18,20 @@ if (! $bid_guid) {
 	forward(REFERER);
 }
 $bid = get_entity($bid_guid);
-if ($bid->invitee != $logged_in_user->getGUID()) {
-	register_error(elgg_echo("projects:not_allowed_to_bid"));
+$project = get_entity($bid->container_guid);
+if ($bid->invitee != $logged_in_user->getGUID() && $project->getOwnerEntity() != $logged_in_user && ! check_entity_relationship($logged_in_user->getGUID(), "group_admin", $project->getGUID())) {
+	register_error(elgg_echo("projects:not_allowed_to_edit"));
 	forward(REFERER);
 }
 // Update bid object
 $bid->rate = $rate;
-$bid->status = 'submitted';
+if ($end_date) {
+	if ($project->getOwnerEntity() == $logged_in_user || check_entity_relationship($logged_in_user->getGUID(), "group_admin", $project->getGUID())) {
+		$date = explode('-',$end_date);
+		$end_date = mktime(0,0,1,$date[1],$date[2],$date[0]);
+		$bid->end_date = $end_date;
+	}
+}
 //Usual save routine
 if ($bid->save()) {
 	//elgg_clear_sticky_form('page');
@@ -35,18 +43,8 @@ if ($bid->save()) {
 	*/
 } else {
 	register_error(elgg_echo('jobsin:bid:notsaved'));
-	forward(REFERER);
 }
-$group_guid = $bid->container_guid;
-$group = get_entity($group_guid);
-if (check_entity_relationship($group_guid, 'invited', $logged_in_user->guid)) {
-	if (groups_join_group($group, $logged_in_user)) {
-		system_message(elgg_echo("groups:joined"));
-		forward($group->getURL());
-	} else {
-		register_error(elgg_echo("groups:cantjoin"));
-	}
-}
+forward(REFERER);
 /*
 $url = elgg_normalize_url("projects/bid_invitations/".$bid->getGUID());
 

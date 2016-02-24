@@ -377,14 +377,16 @@ input[type="radio"] {
 	color: #0054A7;
 	background: #E4ECF5;
 }
+#group_tools_project_bid,
 #group_tools_project_tasks,
 #group_tools_project_invite_users {
 	display: inline-block;
+	width: 15em;
 }
 #group_tools_project_tasks {
-	width: 20em;
+	width: 19em;
 }
+#group_tools_project_bid,
 #group_tools_project_invite_users {
-	padding-right: 5em;
-	width: 22em;
+	padding-right: 1em;
 }

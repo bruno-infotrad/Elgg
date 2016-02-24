@@ -330,7 +330,9 @@ function jobsin_route_projects_handler($hook, $type, $return_value, $params){
 				$result = false;
 				
 				set_input("group_guid", $page[1]);
-				
+				if (isset($page[2])) {
+					set_input("subpage", $page[2]);
+				}
 				include(dirname(dirname(__FILE__)) . "/pages/projects/membershipreq.php");
 				break;
 			case "invite":
@@ -371,8 +373,13 @@ function jobsin_route_projects_handler($hook, $type, $return_value, $params){
 				break;
 			case "bid_submissions":
 				$result = false;
-				set_input("group_guid", $page[1]);
-				include(dirname(dirname(__FILE__)) . "/pages/projects/bid_submissions.php");
+				if ($page[1] == 'edit') {
+					set_input("bid_guid", $page[2]);
+					include(dirname(dirname(__FILE__)) . "/pages/projects/edit_bid.php");
+				} else {
+					set_input("group_guid", $page[1]);
+					include(dirname(dirname(__FILE__)) . "/pages/projects/bid_submissions.php");
+				}
 				break;
 			default:
 				// check if we have an old group profile link

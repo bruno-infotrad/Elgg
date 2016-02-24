@@ -71,6 +71,10 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 		foreach ($tasks as $task) {
 			$options_values[$task->getGUID()] = $task->title;
 		}
+		$form_data .= "<div id='group_tools_project_bid'>";
+		$form_data .= "<div>" . elgg_echo("jobsin:submission:end_date") . "</div>";
+		$form_data .= elgg_view("input/date", array("name" => "end_date"));
+		$form_data .= "</div>";
 		$form_data .= "<div id='group_tools_project_tasks'>";
 		$form_data .= "<div>" . elgg_echo("jobsin:project:invite:users:task") . "</div>";
 		$form_data .= elgg_view("input/multiselect", array("name" => "task_guid", 'options_values' => $options_values));

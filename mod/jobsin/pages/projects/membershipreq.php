@@ -26,13 +26,13 @@ if ($group->isPublicMembership()) {
 	$title = elgg_echo("group_tools:menu:invitations");
 }
 
-elgg_push_breadcrumb(elgg_echo("groups"), "groups/all");
+elgg_push_breadcrumb(elgg_echo("groups"), "projects/all");
 elgg_push_breadcrumb($group->name, $group->getURL());
 elgg_push_breadcrumb($title);
 
 elgg_register_menu_item("title", array(
 	"name" => "groups:invite",
-	"href" => "groups/invite/" . $group->getGUID(),
+	"href" => "projects/invite/" . $group->getGUID(),
 	"text" => elgg_echo("groups:invite"),
 	"link_class" => "elgg-button elgg-button-action",
 ));
@@ -70,7 +70,7 @@ switch ($subpage) {
 		unset($options["count"]);
 		$invitations = elgg_get_entities_from_relationship($options);
 		
-		$content = elgg_view("group_tools/membershipreq/invites", array(
+		$content = elgg_view("projects/membershipreq/invites", array(
 			"invitations" => $invitations,
 			"entity" => $group,
 			"offset" => $offset,
@@ -96,7 +96,7 @@ switch ($subpage) {
 		unset($options["count"]);
 		$emails = elgg_get_annotations($options);
 		
-		$content = elgg_view("group_tools/membershipreq/email_invites", array(
+		$content = elgg_view("projects/membershipreq/email_invites", array(
 			"emails" => $emails,
 			"entity" => $group,
 			"offset" => $offset,
@@ -123,7 +123,7 @@ switch ($subpage) {
 		unset($options["count"]);
 		$requests = elgg_get_entities_from_relationship($options);
 		
-		$content = elgg_view("groups/membershiprequests", array(
+		$content = elgg_view("projects/membershiprequests", array(
 			"requests" => $requests,
 			"entity" => $group,
 			"offset" => $offset,

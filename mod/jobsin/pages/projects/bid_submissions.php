@@ -1,6 +1,7 @@
 <?php
 gatekeeper();
 
+$user_guid = elgg_get_logged_in_user_guid();
 $group_guid = get_input('group_guid');
 if (! $group_guid) {
 	forward();
@@ -8,16 +9,25 @@ if (! $group_guid) {
 $group= get_entity($group_guid);
 // build breadcrumb
 // build breadcrumb
-elgg_push_breadcrumb(elgg_echo("groups"), "projects/all");
+elgg_push_breadcrumb(elgg_echo("projects"), "projects/all");
+elgg_push_breadcrumb($group->name, $group->getURL());
 
-$title = elgg_echo("projects:bid_invitations");
+$title = elgg_echo("projects:bid_submissions");
 elgg_push_breadcrumb($title);
-
-$group_bids = elgg_get_entities_from_metadata(array(
-			'type' => 'object',
-			'subtypes' => 'bid',
-			'container_guid' => $group_guid,
-		));
+if ($group->getOwnerGUID() == $user_guid || check_entity_relationship($user_guid, "group_admin", $group_guid)) {
+	$group_bids = elgg_get_entities_from_metadata(array(
+				'type' => 'object',
+				'subtypes' => 'bid',
+				'container_guid' => $group_guid,
+			));
+} else {
+	$group_bids = elgg_get_entities_from_metadata(array(
+				'type' => 'object',
+				'subtypes' => 'bid',
+				'container_guid' => $group_guid,
+				'metadata_name_value_pairs' => array( 'name' => 'invitee', 'value' => $user_guid),
+			));
+}
 if ($group_bids) {
 	$content = elgg_view("projects/bid_submissions", array(
 	        "group" => $group,

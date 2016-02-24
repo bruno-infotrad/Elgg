@@ -11,7 +11,7 @@ if (empty($user) || !elgg_instanceof($user, "user") || !$user->canEdit()) {
 }
 
 // build breadcrumb
-elgg_push_breadcrumb(elgg_echo("groups"), "groups/all");
+elgg_push_breadcrumb(elgg_echo("groups"), "projects/all");
 
 $title = elgg_echo("groups:invitations");
 elgg_push_breadcrumb($title);

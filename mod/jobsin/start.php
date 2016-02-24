@@ -51,6 +51,7 @@ function basic_init() {
 	elgg_register_action("login", "$action_path/login.php",'public');
 	//Group actions
         elgg_register_action("projects/submit_bid", "$action_path/projects/submit_bid.php");
+        elgg_register_action("projects/edit_bid", "$action_path/projects/edit_bid.php");
         elgg_register_action("projects/invite", "$action_path/projects/membership/invite.php");
 	elgg_register_action("projects/join", "$action_path/projects/membership/join.php");
 	elgg_register_action("projects/leave", "$action_path/projects/membership/leave.php");

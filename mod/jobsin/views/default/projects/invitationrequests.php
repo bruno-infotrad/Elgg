@@ -50,7 +50,7 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 						"is_action" => true
 					));
 				}
-				$url = "action/groups/killinvitation?user_guid=" . $user->getGUID() . "&group_guid=" . $group->getGUID();
+				$url = "action/projects/killinvitation?user_guid=" . $user->getGUID() . "&group_guid=" . $group->getGUID();
 				$delete_button = elgg_view("output/url", array(
 					"href" => $url,
 					"confirm" => elgg_echo("groups:invite:remove:check"),
@@ -133,7 +133,7 @@ if (elgg_get_context() == "groups") {
 				"is_trusted" => true,
 			));
 			
-			$url = "action/groups/killrequest?user_guid=" . $user->getGUID() . "&group_guid=" . $group->getGUID();
+			$url = "action/projects/killrequest?user_guid=" . $user->getGUID() . "&group_guid=" . $group->getGUID();
 			$delete_button = elgg_view("output/url", array(
 				"href" => $url,
 				"confirm" => elgg_echo("group_tools:group:invitations:request:revoke:confirm"),

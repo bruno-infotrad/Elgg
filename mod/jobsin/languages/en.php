@@ -26,7 +26,12 @@ $english = array(
 	'jobsin:submit_bid' => 'Submit a bid',
 	'jobsin:task_rate' => 'Hourly rate ($)',
 	'projects:bid_invitations' => 'Invitations to bid',
+	'projects:missing_parameter' => 'Missing parameter',
+	'jobsin:bidder' => 'Bidder',
 	'jobsin:bid_status' => 'Bid Status',
+	'jobsin:edit_bid' => 'Edit Bid',
+	'jobsin:submission:end_date' => 'Submission closing date',
+	'projects:bid_submissions' => 'Bid Submissions',
 
 	// Settings
 	'admin:settings:jobsin'	=> 'Basic Light',
@@ -119,6 +124,7 @@ $english = array(
 	'groups:joinrequest' => 'Request membership',
 	'groups:join' => 'Join project',
 	'groups:leave' => 'Leave project',
+	'projects:leave' => 'Leave project',
 	'projects:invite' => 'Invite contributors',
 	'projects:invite:title' => 'Invite contributors to this project',
 	'groups:inviteto' => "Invite friends to '%s'",
