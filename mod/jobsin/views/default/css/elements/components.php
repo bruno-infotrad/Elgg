@@ -290,8 +290,11 @@
 	Projects
 *************************************** */
 .task-rate {
+	width: 25%;
+}
+.task-selection,
+.task-rate {
 	display: inline-block;
-	float: right;
 	vertical-align: top;
 }
 .task-description {

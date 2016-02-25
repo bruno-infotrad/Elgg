@@ -32,6 +32,7 @@ $english = array(
 	'jobsin:edit_bid' => 'Edit Bid',
 	'jobsin:submission:end_date' => 'Submission closing date',
 	'projects:bid_submissions' => 'Bid Submissions',
+	'projects:bid_submissions:pending' => 'Pending Submissions',
 
 	// Settings
 	'admin:settings:jobsin'	=> 'Basic Light',

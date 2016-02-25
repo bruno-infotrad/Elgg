@@ -20,6 +20,7 @@ if ($group->getOwnerGUID() == $user_guid || check_entity_relationship($user_guid
 				'subtypes' => 'bid',
 				'container_guid' => $group_guid,
 			));
+	$project_admin = true;
 } else {
 	$group_bids = elgg_get_entities_from_metadata(array(
 				'type' => 'object',
@@ -32,6 +33,7 @@ if ($group_bids) {
 	$content = elgg_view("projects/bid_submissions", array(
 	        "group" => $group,
 	        "group_bids" => $group_bids,
+		"project_admin" => $project_admin,
 	));
 } else {
 	$content = elgg_echo('jobsin:project:no_bids');

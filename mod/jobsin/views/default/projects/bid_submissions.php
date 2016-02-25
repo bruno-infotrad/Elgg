@@ -1,6 +1,7 @@
 <?php
 $group = elgg_extract("group", $vars);
 $group_bids = elgg_extract("group_bids", $vars);
+$project_admin = elgg_extract("project_admin", $vars);
 // Need this because user is not in group yet
 echo "<ul class='elgg-list mbm'>";
 foreach ($group_bids as $group_bid) {
@@ -22,7 +23,9 @@ foreach ($group_bids as $group_bid) {
         ));
 	$body .= $metadataMenu;
 	$body .= "<h4>$task->title</h4>";
-	$body .= '<div class="task-description">'.$task->description.'</div>';
+	if (! $project_admin) {
+		$body .= '<div class="task-description">'.$task->description.'</div>';
+	}
 	$body .= '<div class="task-dates">';
 	$body .= elgg_echo('Task').' '.elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $task->start_date))).'<br/>';
 	$body .= elgg_echo('Task').' '.elgg_echo('tasks:end_date'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $task->end_date)));
@@ -37,6 +40,9 @@ foreach ($group_bids as $group_bid) {
 	$body .= '<p>'.elgg_echo('jobsin:task_rate');
 	$body .= $group_bid->rate.'</p>';
 	$body .= '</div>';
+	if ($project_admin && $group_bid->rate) {
+		$body .= elgg_view_form('projects/select_bid',array('class' => 'task-selection'),array('bid_guid' => $group_bid->getGUID()));
+	}
 	$body .= '</li>';
 }
 echo $body;
