@@ -49,16 +49,21 @@ $other_bids = elgg_get_entities_from_metadata(array(
 			'metadata_name_value_pairs' => array(array( 'name' => 'tasks', 'value' => $bid->tasks),array( 'name' => 'invitee', 'value' => $bid->invitee, 'operand' => '<>')),
 		));
 if ($other_bids) {
-	if (count($other_bids) == 1) {
-// If join request made
-		if (check_entity_relationship($bid->container_guid, 'invited', $other_bids[0]->invitee)) {
-        		remove_entity_relationship($bid->container_guid, 'invited', $other_bids[0]->invitee);
-        		system_message(elgg_echo("groups:invitekilled"));
-		}
-	}
 	foreach ($other_bids as $other_bid) {
 		$other_bid->status = 'notselected';
 		$other_bid->save();
+		$unselected_user_bids = elgg_get_entities_from_metadata(array(
+			'type' => 'object',
+			'subtypes' => 'bid',
+			'container_guid' => $bid->container_guid,
+			'metadata_name_value_pairs' => array(array( 'name' => 'tasks', 'value' => $bid->tasks),array( 'name' => 'invitee', 'value' => $other_bid->invitee)),
+			'count' => true
+		));
+// If join request made
+		if (count($unselected_user_bids) && check_entity_relationship($bid->container_guid, 'invited', $other_bid->invitee)) {
+        		remove_entity_relationship($bid->container_guid, 'invited', $other_bid->invitee);
+        		system_message(elgg_echo("groups:invitekilled"));
+		}
 	}
 }
 forward(REFERER);
