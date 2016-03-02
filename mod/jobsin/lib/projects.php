@@ -114,7 +114,15 @@ function projects_search_page() {
  */
 function projects_handle_owned_page() {
 
-	$page_owner = elgg_get_page_owner_entity();
+	$session = elgg_get_session();
+	if (elgg_is_admin_logged_in()) { 
+		$page_owner = elgg_get_page_owner_entity();
+	} elseif ($session->get('project_manager')) {
+		$page_owner = elgg_get_logged_in_user_entity();
+	} else {
+		$forward_url = 'projects/member/'.elgg_get_logged_in_user_entity()->username;
+		forward($forward_url);
+	}
 
 	if ($page_owner->guid == elgg_get_logged_in_user_guid()) {
 		$title = elgg_echo('groups:owned');
@@ -123,7 +131,6 @@ function projects_handle_owned_page() {
 	}
 	elgg_push_breadcrumb($title);
 
-	$session = elgg_get_session();
 	if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 		elgg_register_title_button();
 	}
@@ -135,7 +142,7 @@ function projects_handle_owned_page() {
 	$content .=  "<div class=\"jobsin-tasks jobsin-backlog\"><div class=\"jobsin-tasks-nums jobsin-tasks-header\">Backlog</div></div>";
 	$content .= elgg_list_entities(array(
 		'type' => 'group',
-		'owner_guid' => elgg_get_page_owner_guid(),
+		'owner_guid' => $page_owner->getGUID(),
 		'joins' => array("JOIN {$dbprefix}groups_entity ge ON e.guid = ge.guid"),
 		'order_by' => 'ge.name ASC',
 		'full_view' => false,

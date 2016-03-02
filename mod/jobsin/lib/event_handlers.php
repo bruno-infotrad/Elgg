@@ -65,14 +65,16 @@ function projects_setup_sidebar_menus() {
 
 		$user = elgg_get_logged_in_user_entity();
 		if ($user) {
-			$url =  "projects/owner/$user->username";
-			$item = new ElggMenuItem('groups:owned', elgg_echo('groups:owned'), $url);
-			elgg_register_menu_item('page', $item);
-
-			$url = "projects/member/$user->username";
-			$item = new ElggMenuItem('groups:member', elgg_echo('groups:yours'), $url);
-			elgg_register_menu_item('page', $item);
-
+			$session = elgg_get_session();
+			if ($session->get('project_manager')) {
+				$url =  "projects/owner/$user->username";
+				$item = new ElggMenuItem('groups:owned', elgg_echo('groups:owned'), $url);
+				elgg_register_menu_item('page', $item);
+			} else {
+				$url = "projects/member/$user->username";
+				$item = new ElggMenuItem('groups:member', elgg_echo('groups:yours'), $url);
+				elgg_register_menu_item('page', $item);
+			}
 			$url = "projects/invitations/$user->username";
 			$invitation_count = groups_get_invited_groups($user->getGUID(), false, array('count' => true));
 

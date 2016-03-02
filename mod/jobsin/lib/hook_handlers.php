@@ -303,21 +303,31 @@ function jobsin_route_projects_handler($hook, $type, $return_value, $params){
 		
 		switch($page[0]){
 			case "all":
-				$filter = get_input("filter");
-				
-				if(empty($filter) && ($default_filter = elgg_get_plugin_setting("group_listing", "group_tools"))){
-					$filter = $default_filter;
-					set_input("filter", $default_filter);
-				} elseif(empty($filter)) {
-					$filter = "newest";
-					set_input("filter", $filter);
-				}
-				
-				if(in_array($filter, array("open", "closed", "alpha", "ordered", "suggested"))){
-					// we will handle the output
-					$result = false;
+				if (! elgg_is_admin_logged_in()) {
+					$session = elgg_get_session();
+					if ($session->get('project_manager')) {
+						$forward_url = 'projects/owner/'.elgg_get_logged_in_user_entity()->username;
+					} else {
+						$forward_url = 'projects/member/'.elgg_get_logged_in_user_entity()->username;
+					}
+					forward($forward_url);
+				} else {
+					$filter = get_input("filter");
 					
-					include(dirname(dirname(__FILE__)) . "/pages/projects/all.php");
+					if(empty($filter) && ($default_filter = elgg_get_plugin_setting("group_listing", "group_tools"))){
+						$filter = $default_filter;
+						set_input("filter", $default_filter);
+					} elseif(empty($filter)) {
+						$filter = "newest";
+						set_input("filter", $filter);
+					}
+					
+					if(in_array($filter, array("open", "closed", "alpha", "ordered", "suggested"))){
+						// we will handle the output
+						$result = false;
+						
+						include(dirname(dirname(__FILE__)) . "/pages/projects/all.php");
+					}
 				}
 				
 				break;

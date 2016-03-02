@@ -22,6 +22,7 @@ foreach ($group_bids as $group_bid) {
 	//echo $task_guids.'<br>';
 	$task = get_entity($task_guids);
 	//echo var_export($task,true).'<br>';
+	$body .= "<h4>$task->title</h4>";
 	$body .= '<div class="task-description">'.$task->description.'</div>';
 	$body .= '<div class="task-dates">';
 	$body .= elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $task->start_date))).'<br/>';

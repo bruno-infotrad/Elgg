@@ -25,6 +25,7 @@ function basic_init() {
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'bookmarks_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'file_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'pages_owner_block_menu');
+	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'thewire_owner_block_menu');
 	//Remove like menu item
 	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'likes_entity_menu_setup');
 	//Replace access for entities menu item
@@ -143,7 +144,9 @@ function basic_pagesetup_handler() {
 
 	if (! elgg_is_logged_in()) {	
 		elgg_unregister_menu_item('site', 'tasks');
-	}
+	 	elgg_unregister_menu_item('site', 'groups');
+		elgg_unregister_menu_item('site', 'members');
+	} else {
 	$user = elgg_get_logged_in_user_entity();
 	$session = elgg_get_session();
 	if (! elgg_is_admin_logged_in()) {
@@ -159,15 +162,17 @@ function basic_pagesetup_handler() {
 			$item = new ElggMenuItem('groups:owned', elgg_echo('groups:yours'), $url);
 			elgg_register_menu_item('page', $item);
 		} else {
+			$item = new ElggMenuItem('groups', elgg_echo('groups'), 'projects/member/'.$user->username);
+			elgg_register_menu_item('site', $item);
 			$url = "projects/member/$user->username";
 			$item = new ElggMenuItem('groups:member', elgg_echo('groups:yours'), $url);
 			elgg_register_menu_item('page', $item);
 		}
 	}
-	if (! elgg_is_admin_logged_in() && ! $session->get('project_manager')) {
-	 	elgg_unregister_menu_item('site', 'groups');
-	}
-	if (elgg_is_logged_in()) {	
+	//if (! elgg_is_admin_logged_in() && ! $session->get('project_manager')) {
+	 	//elgg_unregister_menu_item('site', 'groups');
+	//}
+	//if (elgg_is_logged_in()) {	
 		$user = elgg_get_logged_in_user_entity();
 		
 		if (elgg_is_active_plugin('dashboard')) {
