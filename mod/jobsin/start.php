@@ -21,6 +21,7 @@ function basic_init() {
 	//Hooks
 	elgg_register_plugin_hook_handler('register', 'menu:invitationrequest', 'projects_invitationrequest_menu_setup');
 	//Remove right side menu item
+	elgg_unregister_plugin_hook_handler('output:before', 'layout', 'elgg_views_add_rss_link');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'blog_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'bookmarks_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'file_owner_block_menu');
@@ -133,7 +134,8 @@ function basic_pagesetup_handler() {
 
 	elgg_unregister_menu_item('topbar', 'dashboard');
 	elgg_unregister_menu_item('topbar', 'elgg_logo');
-
+	elgg_unregister_menu_item('extras', 'bookmark');
+	elgg_unregister_menu_item('extras', 'report_this');
 	elgg_unregister_menu_item('site', 'activity');
 	elgg_unregister_menu_item('site', 'blog');
 	elgg_unregister_menu_item('site', 'pages');
@@ -147,32 +149,28 @@ function basic_pagesetup_handler() {
 	 	elgg_unregister_menu_item('site', 'groups');
 		elgg_unregister_menu_item('site', 'members');
 	} else {
-	$user = elgg_get_logged_in_user_entity();
-	$session = elgg_get_session();
-	if (! elgg_is_admin_logged_in()) {
-		elgg_unregister_menu_item('site', 'members');
-		elgg_unregister_menu_item('site', 'groups');
-		$url =  "groups/owner/$user->username";
-		$item = new ElggMenuItem('groups:owned', elgg_echo('groups:owned'), $url);
-		elgg_unregister_menu_item('page', $item);
-		if ($session->get('project_manager')) {
-			$item = new ElggMenuItem('groups', elgg_echo('groups'), 'projects/owner/'.$user->username);
-			elgg_register_menu_item('site', $item);
-			$url =  "projects/owner/$user->username";
-			$item = new ElggMenuItem('groups:owned', elgg_echo('groups:yours'), $url);
-			elgg_register_menu_item('page', $item);
-		} else {
-			$item = new ElggMenuItem('groups', elgg_echo('groups'), 'projects/member/'.$user->username);
-			elgg_register_menu_item('site', $item);
-			$url = "projects/member/$user->username";
-			$item = new ElggMenuItem('groups:member', elgg_echo('groups:yours'), $url);
-			elgg_register_menu_item('page', $item);
+		$user = elgg_get_logged_in_user_entity();
+		$session = elgg_get_session();
+		if (! elgg_is_admin_logged_in()) {
+			elgg_unregister_menu_item('site', 'members');
+			elgg_unregister_menu_item('site', 'groups');
+			$url =  "groups/owner/$user->username";
+			$item = new ElggMenuItem('groups:owned', elgg_echo('groups:owned'), $url);
+			elgg_unregister_menu_item('page', $item);
+			if ($session->get('project_manager')) {
+				$item = new ElggMenuItem('groups', elgg_echo('groups'), 'projects/owner/'.$user->username);
+				elgg_register_menu_item('site', $item);
+				$url =  "projects/owner/$user->username";
+				$item = new ElggMenuItem('groups:owned', elgg_echo('groups:yours'), $url);
+				elgg_register_menu_item('page', $item);
+			} else {
+				$item = new ElggMenuItem('groups', elgg_echo('groups'), 'projects/member/'.$user->username);
+				elgg_register_menu_item('site', $item);
+				$url = "projects/member/$user->username";
+				$item = new ElggMenuItem('groups:member', elgg_echo('groups:yours'), $url);
+				elgg_register_menu_item('page', $item);
+			}
 		}
-	}
-	//if (! elgg_is_admin_logged_in() && ! $session->get('project_manager')) {
-	 	//elgg_unregister_menu_item('site', 'groups');
-	//}
-	//if (elgg_is_logged_in()) {	
 		$user = elgg_get_logged_in_user_entity();
 		
 		if (elgg_is_active_plugin('dashboard')) {
@@ -182,21 +180,6 @@ function basic_pagesetup_handler() {
 				'text' => elgg_view_icon('home') . elgg_echo('dashboard'),
 				'priority' => 1000,
 				'section' => 'alt',
-			));
-		}
-		if (elgg_is_active_plugin('reportedcontent')) {
-			elgg_unregister_menu_item('footer', 'report_this');
-		
-			$href = "javascript:elgg.forward('reportedcontent/add'";
-			$href .= "+'?address='+encodeURIComponent(location.href)";
-			$href .= "+'&title='+encodeURIComponent(document.title));";
-				
-			elgg_register_menu_item('extras', array(
-				'name' => 'report_this',
-				'href' => $href,
-				'text' => elgg_view_icon('report-this') . elgg_echo(''),
-				'title' => elgg_echo('reportedcontent:this:tooltip'),
-				'priority' => 100,
 			));
 		}
 	}

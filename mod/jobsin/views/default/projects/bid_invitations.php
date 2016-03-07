@@ -10,7 +10,7 @@ $group = elgg_extract("group", $vars);
 $group_bids = elgg_extract("group_bids", $vars);
 // Need this because user is not in group yet
 $ia = elgg_set_ignore_access(true);
-echo "<ul class='elgg-list mbm'>";
+$body = "<ul class='elgg-list mbm'>";
 foreach ($group_bids as $group_bid) {
 	//echo var_export($group_bid,true).'<br>';
 	
@@ -31,13 +31,17 @@ foreach ($group_bids as $group_bid) {
 	$body .= " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $group_bid->end_date))).'</b></p>';
 	$body .= '</div>';
 	$body .= '<div class="task-rate">';
-	$body .= elgg_view_form('projects/submit_bid',array(),array('rate' => $group_bid->rate, 'bid_guid' => $group_bid->getGUID()));
+	//put some logic in there
+	if ($group_bid->end_date > time() && $group_bid->status !='notselected') {
+		$body .= elgg_view_form('projects/submit_bid',array(),array('rate' => $group_bid->rate, 'bid_guid' => $group_bid->getGUID()));
+	}
 	$body .= '</div>';
 	//$body .= elgg_echo('jobsin:task_rate');
 	//$body .= '$'.elgg_view('input/text',array('name' => 'rate'));
 	//$body .= elgg_view('input/hidden',array('bid_guid' => $group_bid->getGUID()));
 	$body .= '</li>';
 }
+$body .= "</ul>";
 elgg_set_ignore_access($ia);
 echo $body;
 /*

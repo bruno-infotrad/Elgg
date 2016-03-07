@@ -56,12 +56,10 @@ function projects_setup_sidebar_menus() {
 			));
 		}
 	}
-	if (elgg_get_context() == 'groups' && !elgg_instanceof($page_owner, 'group')) {
-		elgg_register_menu_item('page', array(
-			'name' => 'groups:all',
-			'text' => elgg_echo('groups:all'),
-			'href' => 'projects/all',
-		));
+	if (elgg_get_context() == 'projects' && !elgg_instanceof($page_owner, 'group')) {
+		if (elgg_is_admin_logged_in()) {
+			elgg_register_menu_item('page', array( 'name' => 'groups:all', 'text' => elgg_echo('groups:all'), 'href' => 'projects/all',));
+		}
 
 		$user = elgg_get_logged_in_user_entity();
 		if ($user) {
@@ -74,7 +72,6 @@ function projects_setup_sidebar_menus() {
 				$url = "projects/member/$user->username";
 				$item = new ElggMenuItem('groups:member', elgg_echo('groups:yours'), $url);
 				elgg_register_menu_item('page', $item);
-			}
 			$url = "projects/invitations/$user->username";
 			$invitation_count = groups_get_invited_groups($user->getGUID(), false, array('count' => true));
 
@@ -86,6 +83,7 @@ function projects_setup_sidebar_menus() {
 
 			$item = new ElggMenuItem('groups:user:invites', $text, $url);
 			elgg_register_menu_item('page', $item);
+			}
 		}
 	}
 }

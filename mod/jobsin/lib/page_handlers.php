@@ -13,12 +13,18 @@ function jobsin_front_page_handler() {
 		if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
                 	forward('projects/owner/'.$user->username);
 		} else {
-			// get membership requests
-			$invitations = groups_get_invited_groups($user->getGUID());
-			if ($invitations) {
-				$forward_url = 'projects/invitations/'.$user->username;
+			//First time user
+			if (! $user->pf) {
+				$user->pf = 1;
+				$forward_url = 'profile/'.$user->username.'/edit';
 			} else {
-				$forward_url = 'tasks/assigned';
+				// get membership requests
+				$invitations = groups_get_invited_groups($user->getGUID());
+				if ($invitations) {
+					$forward_url = 'projects/invitations/'.$user->username;
+				} else {
+					$forward_url = 'tasks/assigned';
+				}
 			}
                 	forward($forward_url);
 		}
