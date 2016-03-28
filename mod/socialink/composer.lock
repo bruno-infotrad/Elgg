@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04ebf4f4293dd9de250062dd56639bb3",
+    "hash": "c8283ebce6a3f0e76108506415206b84",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -60,17 +60,20 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.0.20",
+            "version": "v1.0.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "1bff8aa77a18f3616f468ed8000cf86a5725bac3"
+                "reference": "6213d900e92647831f7a406d5c530ea1f3d4360e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/1bff8aa77a18f3616f468ed8000cf86a5725bac3",
-                "reference": "1bff8aa77a18f3616f468ed8000cf86a5725bac3",
+                "url": "https://api.github.com/repos/composer/installers/zipball/6213d900e92647831f7a406d5c530ea1f3d4360e",
+                "reference": "6213d900e92647831f7a406d5c530ea1f3d4360e",
                 "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0"
             },
             "replace": {
                 "roundcube/plugin-installer": "*",
@@ -80,9 +83,9 @@
                 "composer/composer": "1.0.*@dev",
                 "phpunit/phpunit": "4.1.*"
             },
-            "type": "composer-installer",
+            "type": "composer-plugin",
             "extra": {
-                "class": "Composer\\Installers\\Installer",
+                "class": "Composer\\Installers\\Plugin",
                 "branch-alias": {
                     "dev-master": "1.0-dev"
                 }
@@ -115,6 +118,7 @@
                 "Thelia",
                 "WolfCMS",
                 "agl",
+                "aimeos",
                 "annotatecms",
                 "bitrix",
                 "cakephp",
@@ -150,20 +154,20 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2015-01-11 03:51:11"
+            "time": "2016-01-27 12:54:22"
         },
         {
             "name": "facebook/php-sdk-v4",
-            "version": "4.0.15",
+            "version": "4.0.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
-                "reference": "ebc82667ef953b98e2eca5dfb6784d6466a185cd"
+                "reference": "c82611e05596622c9bd7abfa1cea1512d885c95e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/ebc82667ef953b98e2eca5dfb6784d6466a185cd",
-                "reference": "ebc82667ef953b98e2eca5dfb6784d6466a185cd",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/c82611e05596622c9bd7abfa1cea1512d885c95e",
+                "reference": "c82611e05596622c9bd7abfa1cea1512d885c95e",
                 "shasum": ""
             },
             "require": {
@@ -199,59 +203,13 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2015-01-06 21:29:27"
-        },
-        {
-            "name": "linkedinapi/linkedin",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ashwinks/PHP-LinkedIn-SDK.git",
-                "reference": "0c2001f2728b31017ba549cfebce1afea804eda3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ashwinks/PHP-LinkedIn-SDK/zipball/0c2001f2728b31017ba549cfebce1afea804eda3",
-                "reference": "0c2001f2728b31017ba549cfebce1afea804eda3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "LinkedIn": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ashwin Surajbali",
-                    "email": "ashwin@redinkdesign.net",
-                    "homepage": "http://www.redinkdesign.co"
-                }
-            ],
-            "description": "PHP LinkedIn SDK",
-            "homepage": "https://github.com/ashwinks/PHP-LinkedIn-SDK",
-            "keywords": [
-                "api",
-                "api client",
-                "linkedin",
-                "rest"
-            ],
-            "time": "2014-05-08 14:06:02"
+            "time": "2015-04-03 20:31:47"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "linkedinapi/linkedin": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

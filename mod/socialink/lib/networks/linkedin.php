@@ -295,6 +295,44 @@ function socialink_linkedin_post_message($message, $user_guid = 0) {
 	
 	return $result;
 }
+/**
+ * Get the LinkedIN email for a given access token
+ *
+ * @param AccessToken|string $access_token a valid Facebook access token
+ *
+ * @return bool|string
+ */
+function socialink_linkedin_get_user_id_from_access_token($user_token) {
+	
+	$keys = socialink_linkedin_available();
+	$token = $keys;
+	$token["oauth_token"] =  $user_token["oauth_token"];
+	$token["oauth_secret"] =  $user_token["oauth_token_secret"];
+	elgg_log('LINKEDIN COMPOUND TOKEN='.var_export($token,true),'NOTICE');
+	$api = socialink_linkedin_get_api_object($token);
+	if (empty($api)) {
+		return false;
+	}
+	elgg_log('LINKEDIN API='.var_export($api,true),'NOTICE');
+	try {
+		$response = $api->profile("~:(first-name,last-name,industry,public-profile-url,location:(name),picture-url,email-address)");
+		
+		elgg_log('LINKEDIN RESPONSE='.var_export($api,true),'NOTICE');
+		$result = socialink_linkedin_verify_response($response);
+		if (empty($result)) {
+			return false;
+		}
+		
+		$temp = json_decode($result);
+		elgg_log('LINKEDIN NONJSON='.var_export($temp,true),'NOTICE');
+		elgg_log('LINKEDIN EMAIL='.$temp->emailAddress,'NOTICE');
+		$temp->socialink_name = ucwords($temp->firstName . " " . $temp->lastName);
+		if ($users = get_user_by_email($temp->emailAddress)) {
+        		$username = $users[0]->username;
+		}
+		return $username;
+	} catch (Exception $e) {}
+}
 
 /**
  * Get profile information from LinkedIn
