@@ -212,7 +212,11 @@ if (!empty($cats)) {
 				$field_options["placeholder"] = $field_placeholder;
 			}
 
-			$field_result .= elgg_view("input/" . $valtype, $field_options);
+			if ($metadata_name == 'skills') {
+				$field_result .= elgg_view("input/skills", $field_options);
+			} else {
+				$field_result .= elgg_view("input/" . $valtype, $field_options);
+			}
 			
 			if ($valtype == "dropdown") {
 				$field_result .= "</div>";

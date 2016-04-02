@@ -2,7 +2,7 @@
 elgg_register_event_handler('init','system','basic_init');
  
 function basic_init() {
-
+	elgg_extend_view('css/elgg', 'css/jobsin');
 	require_once 'lib/event_handlers.php';
 	require_once 'lib/hook_handlers.php';
 	require_once 'lib/page_handlers.php';
@@ -18,6 +18,7 @@ function basic_init() {
 	elgg_register_page_handler('tasks', 'jobsin_tasks_page_handler');
 	elgg_register_page_handler('dashboard', 'jobsin_dashboard_handler');
 	elgg_register_page_handler('projects', 'projects_page_handler');
+	elgg_register_page_handler('tags_autocomplete', 'tags_autocomplete');
 	//Hooks
 	elgg_register_plugin_hook_handler('register', 'menu:invitationrequest', 'projects_invitationrequest_menu_setup');
 	//Remove right side menu item
@@ -51,6 +52,8 @@ function basic_init() {
 	elgg_register_action("jobsin/admin/settings", "$action_path/settings.php", 'admin');
 	elgg_register_action("jobsin/admin/sidebar", "$action_path/settings.php", 'admin');
 	elgg_register_action("login", "$action_path/login.php",'public');
+	elgg_unregister_action('profile/edit');
+	elgg_register_action('profile/edit',"$action_path/profile/edit.php");
 	//Group actions
         elgg_register_action("projects/submit_bid", "$action_path/projects/submit_bid.php");
         elgg_register_action("projects/bid_submissions/delete", "$action_path/projects/delete_bid.php");

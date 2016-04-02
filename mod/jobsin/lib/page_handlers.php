@@ -87,3 +87,7 @@ function jobsin_dashboard_handler() {
         return true;
 }
 
+function tags_autocomplete() {
+        require_once elgg_get_plugins_path() . 'jobsin/lib/tags_autocomplete.php';
+        return true;
+}
