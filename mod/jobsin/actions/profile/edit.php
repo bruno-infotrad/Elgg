@@ -96,7 +96,7 @@ if (sizeof($input) > 0) {
 			'limit' => false
 		);
 		elgg_delete_metadata($options);
-		
+		$adminuser=get_user_by_username('admin');
 		if (!is_null($value) && ($value !== '')) {
 			// only create metadata for non empty values (0 is allowed) to prevent metadata records
 			// with empty string values #4858
@@ -113,9 +113,21 @@ if (sizeof($input) > 0) {
 					$i++;
 					$multiple = ($i > 1) ? TRUE : FALSE;
 					create_metadata($owner->guid, $shortname, $interval, 'text', $owner->guid, $access_id, $multiple);
+					// Create copy of metadata owned by admin so that, even if user deletes the entry,
+					// one owned by the admin user will remain
+					$options = array( 'guid' => $adminuser->guid, 'metadata_value' => $interval,);
+					if (! elgg_get_metadata($options)) {
+						create_metadata($adminuser->guid, $shortname, $interval, 'text', $adminuser->guid, $access_id, $multiple);
+					}
 				}
 			} else {
 				create_metadata($owner->getGUID(), $shortname, $value, 'text', $owner->getGUID(), $access_id);
+				// Create copy of metadata owned by admin so that, even if user deletes the entry,
+				// one owned by the admin user will remain
+				$options = array( 'guid' => $adminuser->guid, 'metadata_value' => $interval,);
+				if (! elgg_get_metadata($options)) {
+					create_metadata($adminuser->guid, $shortname, $value, 'text', $adminuser->guid, $access_id);
+				}
 			}
 		}
 	}
