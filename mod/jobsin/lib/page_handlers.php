@@ -91,3 +91,7 @@ function tags_autocomplete() {
         require_once elgg_get_plugins_path() . 'jobsin/lib/tags_autocomplete.php';
         return true;
 }
+function populate_skills_list() {
+        require_once elgg_get_plugins_path() . 'jobsin/lib/populate_skills_list.php';
+        return true;
+}

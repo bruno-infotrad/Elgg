@@ -19,6 +19,7 @@ function basic_init() {
 	elgg_register_page_handler('dashboard', 'jobsin_dashboard_handler');
 	elgg_register_page_handler('projects', 'projects_page_handler');
 	elgg_register_page_handler('tags_autocomplete', 'tags_autocomplete');
+	elgg_register_page_handler('populate_skills_list', 'populate_skills_list');
 	//Hooks
 	elgg_register_plugin_hook_handler('register', 'menu:invitationrequest', 'projects_invitationrequest_menu_setup');
 	//Remove right side menu item
