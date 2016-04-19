@@ -29,6 +29,8 @@ function basic_init() {
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'file_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'pages_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'thewire_owner_block_menu');
+	elgg_unregister_plugin_hook_handler("register", "menu:filter", "group_tools_menu_filter_handler");
+	elgg_register_plugin_hook_handler("register", "menu:filter", "projects_menu_filter_handler");
 	//Remove like menu item
 	elgg_unregister_plugin_hook_handler('register', 'menu:entity', 'likes_entity_menu_setup');
 	//Replace access for entities menu item

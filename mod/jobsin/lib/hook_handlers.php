@@ -1,4 +1,46 @@
 <?php
+function projects_menu_filter_handler($hook, $type, $return_value, $params) {
+	
+	if (!elgg_in_context("group_membershipreq")) {
+		return $return_value;
+	}
+	
+	if (empty($params) || !is_array($params)) {
+		return $return_value;
+	}
+	
+	$entity = elgg_extract("entity", $params);
+	if (empty($entity) || !elgg_instanceof($entity, "group")) {
+		return $return_value;
+	}
+	
+	$return_value = array();
+	
+	$return_value[] = ElggMenuItem::factory(array(
+		"name" => "membershipreq",
+		"text" => elgg_echo("group_tools:groups:membershipreq:requests"),
+		"href" => "projects/requests/" . $entity->getGUID(),
+		"is_trusted" => true,
+		"priority" => 100
+	));
+	$return_value[] = ElggMenuItem::factory(array(
+		"name" => "invites",
+		"text" => elgg_echo("group_tools:groups:membershipreq:invitations"),
+		"href" => "projects/requests/" . $entity->getGUID() . "/invites",
+		"is_trusted" => true,
+		"priority" => 200
+	));
+	$return_value[] = ElggMenuItem::factory(array(
+		"name" => "email_invites",
+		"text" => elgg_echo("group_tools:groups:membershipreq:email_invitations"),
+		"href" => "projects/requests/" . $entity->getGUID() . "/email_invites",
+		"is_trusted" => true,
+		"priority" => 300
+	));
+	
+	return $return_value;
+}
+
 function projects_invitationrequest_menu_setup($hook, $type, $menu, $params) {
 
 	$group = elgg_extract('entity', $params);
