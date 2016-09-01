@@ -22,10 +22,23 @@ $group_bids_for_user = elgg_get_entities_from_metadata(array(
 				'metadata_name_value_pairs' => array( 'name' => 'invitee', 'value' => $user_guid),
 			));
 if ($group_bids_for_user) {
-	$content = elgg_view("projects/bid_invitations", array(
+	// Find lowest rate from competitors
+	$group_bids = elgg_get_entities_from_metadata(array(
+					'type' => 'object',
+					'subtypes' => 'bid',
+					'container_guid' => $group_guid,
+					'metadata_name_value_pairs' => array( 'name' => 'status', 'value' => "submitted"),
+					'order_by_metadata' => array( 'name' => 'rate', 'direction' => ASC, 'as' => integer ) 
+				));
+	$min_rate = 0;
+	if ($group_bids) {
+		$min_rate =  $group_bids[0]->rate;
+	}
+	$content .= elgg_view("projects/bid_invitations", array(
 	        "user" => $user,
 	        "group" => $group,
 	        "group_bids" => $group_bids_for_user,
+	        "min_rate" => $min_rate,
 	));
 } else {
 	$content = elgg_echo('jobsin:project:no_bid_for_user');

@@ -30,13 +30,21 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
         			                'subtypes' => 'bid',
         			                'container_guid' => $group->getGUID(),
         			                'metadata_name_value_pairs' => array( 'name' => 'invitee', 'value' => $user->getGUID()),
-						'count' => true
+						//'count' => true
         			        ));
 				if ($group_bids_for_user) {
+					//echo var_export($group_bids_for_user,true);
+					//echo 'status='.$group_bids_for_user[0]->status;
+					//echo 'invitee='.$group_bids_for_user[0]->invitee;
+					if ($group_bids_for_user[0]->status == "submitted") {
+						$submit_text = elgg_echo("jobsin:view_bid");
+					} else {
+						$submit_text = elgg_echo("jobsin:submit_bid");
+					}
 					$url = "projects/bid_invitations?user_guid=" . $user->getGUID() . "&group_guid=" . $group->getGUID();
 					$accept_button = elgg_view("output/url", array(
 						"href" => $url,
-						"text" => elgg_echo("jobsin:submit_bid"),
+						"text" => $submit_text,
 						"class" => "elgg-button elgg-button-submit",
 						"is_trusted" => true,
 					));

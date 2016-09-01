@@ -1,4 +1,142 @@
 <?php
+function projects_invite_user(ElggGroup $group, ElggUser $user, $text = "", $resend = false, $task_guids = null, $end_date = null) {
+	$result = false;
+	
+	$loggedin_user = elgg_get_logged_in_user_entity();
+	
+	if (!empty($user) && ($user instanceof ElggUser) && !empty($group) && ($group instanceof ElggGroup) && !empty($loggedin_user)) {
+		// Create relationship
+		$relationship = add_entity_relationship($group->getGUID(), "invited", $user->getGUID());
+		
+		if ($task_guids && $end_date && $relationship) {
+			$bid = create_task_bid($user,$group->getGUID(),$end_date,$task_guids);
+		}
+		if ($relationship || $resend) {
+			// Send email
+			$url = elgg_get_site_url() . "groups/invitations/" . $user->username;
+			
+			$subject = elgg_echo("groups:invite:subject", array(
+				$user->name,
+				$group->name
+			));
+			$msg = elgg_echo("group_tools:groups:invite:body", array(
+				$user->name,
+				$loggedin_user->name,
+				$group->name,
+				$text,
+				$url
+			));
+			
+			if (notify_user($user->getGUID(), $group->getOwnerGUID(), $subject, $msg, array(), "email")) {
+				$result = true;
+			}
+		}
+	}
+	
+	return $result;
+}
+
+function projects_invite_email(ElggGroup $group, $email, $text = "", $resend = false, $task_guids = null, $end_date =  null) {
+	$result = false;
+	
+	$loggedin_user = elgg_get_logged_in_user_entity();
+	if (!empty($group) && ($group instanceof ElggGroup) && !empty($email) && is_email_address($email) && !empty($loggedin_user)) {
+		// generate invite code
+		$invite_code = group_tools_generate_email_invite_code($group->getGUID(), $email);
+		
+		if (!empty($invite_code)) {
+			$found_group = group_tools_check_group_email_invitation($invite_code, $group->getGUID());
+			if (empty($found_group) && $task_guids && $end_date) {
+				$bid = create_task_bid($email,$group->getGUID(),$end_date,$task_guids);
+			}
+			if (empty($found_group) || $resend) {
+				// make site email
+				$site = elgg_get_site_entity();
+				if (!empty($site->email)) {
+					if (!empty($site->name)) {
+						$site_from = $site->name . " <" . $site->email . ">";
+					} else {
+						$site_from = $site->email;
+					}
+				} else {
+					// no site email, so make one up
+					if (!empty($site->name)) {
+						$site_from = $site->name . " <noreply@" . $site->getDomain() . ">";
+					} else {
+						$site_from = "noreply@" . $site->getDomain();
+					}
+				}
+				
+				if (empty($found_group)) {
+					// register invite with group
+					$group->annotate("email_invitation", $invite_code . "|" . $email, ACCESS_LOGGED_IN, $group->getGUID());
+				}
+				
+				// make subject
+				$subject = elgg_echo("group_tools:groups:invite:email:subject", array($group->name));
+				
+				// make body
+				$body = elgg_echo("group_tools:groups:invite:email:body", array(
+					$loggedin_user->name,
+					$group->name,
+					$site->name,
+					$text,
+					$site->name,
+					elgg_get_site_url() . "register?group_invitecode=" . $invite_code,
+					elgg_get_site_url() . "groups/invitations/?invitecode=" . $invite_code,
+					$invite_code
+				));
+				
+				$params = array(
+					"group" => $group,
+					"inviter" => $loggedin_user,
+					"invitee" => $email
+				);
+				$body = elgg_trigger_plugin_hook("invite_notification", "group_tools", $params, $body);
+				
+				$result = elgg_send_email($site_from, $email, $subject, $body);
+			} else {
+				$result = null;
+			}
+		}
+	}
+	
+	return $result;
+}
+
+function create_task_bid($bidder,$group_guid,$end_date,$task_guids) {
+	$bid = new ElggObject();
+	$bid->subtype = 'bid';
+	$bid->inviter = elgg_get_logged_in_user_guid();
+	// Provision for bids sent to external (non registered) users
+	if ($bidder instanceof ElggUser) {
+		$bid->invitee = $bidder->guid;
+	} else {
+		$bid->invitee = $bidder;
+	}
+	$bid->container_guid = $group_guid;
+	$bid->end_date = $end_date;
+	$bid->tasks = $task_guids;
+	$bid->status = 'pending';
+	$bid->access_id = ACCESS_LOGGED_IN;
+	//Maybe have to create access collection to allow invitee to view/edit
+	//Usual save routine
+	if ($bid->save()) {
+		//elgg_clear_sticky_form('page');
+		//system_message(elgg_echo('jobsin:bid:saved'));
+		return $bid;
+		/*
+		if ($new_bid) {
+			elgg_create_river_item(array( 'view' => 'river/object/page/create', 'action_type' => 'create', 'subject_guid' => elgg_get_logged_in_user_guid(), 'object_guid' => $page->guid,));
+		}
+		*/
+	} else {
+		//register_error(elgg_echo('jobsin:bid:notsaved'));
+		//forward(REFERER);
+		return false;
+	}
+}
+
 function jobsin_handle_project_page() {
 
 	// all groups doesn't get link to self

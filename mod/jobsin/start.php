@@ -62,7 +62,8 @@ function basic_init() {
         elgg_register_action("projects/bid_submissions/delete", "$action_path/projects/delete_bid.php");
         elgg_register_action("projects/edit_bid", "$action_path/projects/edit_bid.php");
         elgg_register_action("projects/select_bid", "$action_path/projects/select_bid.php");
-        elgg_register_action("projects/invite", "$action_path/projects/membership/invite.php");
+        //elgg_register_action("projects/invite", "$action_path/projects/membership/invite.php");
+        elgg_register_action("projects/invite", "$action_path/projects/invite.php");
 	elgg_register_action("projects/join", "$action_path/projects/membership/join.php");
 	elgg_register_action("projects/leave", "$action_path/projects/membership/leave.php");
 	elgg_register_action("projects/remove", "$action_path/projects/membership/remove.php");
