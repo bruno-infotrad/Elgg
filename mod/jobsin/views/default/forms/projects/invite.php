@@ -93,10 +93,13 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 		
 		$form_data .= "<div id='group_tools_group_invite_email' class='hidden mbm'>";
 		$form_data .= "<div>" . elgg_echo("group_tools:group:invite:email:description") . "</div>";
+		/*
 		$form_data .= elgg_view("input/project_invite_autocomplete", array("name" => "user_guid",
-																			"id" => "group_tools_group_invite_autocomplete_email",
-																			"group_guid" => $group->getGUID(),
-																			"relationship" => "email"));
+										"id" => "group_tools_group_invite_autocomplete_email",
+										"group_guid" => $group->getGUID(),
+										"relationship" => "email"));
+		*/
+		$form_data .= elgg_view("input/text", array("name" => "user_guid_email"));
 		$form_data .= "</div>";
 	}
 	
