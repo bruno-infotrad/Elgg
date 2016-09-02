@@ -18,7 +18,13 @@ if ($project->getOwnerEntity() != $user && ! check_entity_relationship($user->ge
 	forward(REFERER);
 }
 // Update bid object
-$user_guid = get_entity($bid->invitee)->getGUID();
+if (is_int($bid->invitee)) {
+//Real Elgg user
+	$user_guid = get_entity($bid->invitee)->getGUID();
+} else {
+//External email
+	$user_guid = $bid->invitee;
+}
 $container_guid = $bid->container_guid;
 if ($bid->delete()) {
 	//elgg_clear_sticky_form('page');
