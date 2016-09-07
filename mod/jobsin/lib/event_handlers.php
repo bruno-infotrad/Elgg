@@ -1,4 +1,119 @@
 <?php
+/**
+ * Event when the user joins a site, mostly when registering (derived from group_tools)
+ *
+ * @param string           $event        create
+ * @param string           $type         member_of_site
+ * @param ElggRelationship $relationship the membership relation
+ *
+ * @return void
+ */
+function projects_join_site_handler($event, $type, $relationship) {
+	
+	if (!empty($relationship) && ($relationship instanceof ElggRelationship)) {
+		$user_guid = $relationship->guid_one;
+		$site_guid = $relationship->guid_two;
+		
+		$user = get_user($user_guid);
+		if (!empty($user)) {
+			// ignore access
+			$ia = elgg_set_ignore_access(true);
+			
+			// add user to the auto join groups
+			$auto_joins = elgg_get_plugin_setting("auto_join", "group_tools");
+			if (!empty($auto_joins)) {
+				$auto_joins = string_to_tag_array($auto_joins);
+				
+				foreach ($auto_joins as $group_guid) {
+					$group = get_entity($group_guid);
+					if (!empty($group) && ($group instanceof ElggGroup)) {
+						if ($group->site_guid == $site_guid) {
+							// join the group
+							$group->join($user);
+						}
+					}
+				}
+			}
+			
+			// auto detect email invited groups
+			$groups = group_tools_get_invited_groups_by_email($user->email, $site_guid);
+			if (!empty($groups)) {
+				foreach ($groups as $group) {
+					// Switch email address with user guid when user creates account
+					$group_bids_for_user = elgg_get_entities_from_metadata(array(
+									'type' => 'object',
+									'subtypes' => 'bid',
+									'container_guid' => $group->getGUID(),
+									'metadata_name_value_pairs' => array( 'name' => 'invitee', 'value' => $user->email),
+								));
+					if ($group_bids_for_user) {
+						foreach ($group_bids_for_user as $group_bid) {
+							$group_bid->deleteMetadata('invitee');
+							$group_bid->setMetadata('invitee', $user_guid,'integer');
+							$group_bid->save();
+						}
+					}
+				}
+			}
+			
+			// check for manual email invited groups
+			$group_invitecode = get_input("group_invitecode");
+			if (!empty($group_invitecode)) {
+				$group = group_tools_check_group_email_invitation($group_invitecode);
+				if (!empty($group)) {
+					// Switch email address with user guid when user creates account
+					$group_bids_for_user = elgg_get_entities_from_metadata(array(
+									'type' => 'object',
+									'subtypes' => 'bid',
+									'container_guid' => $group->getGUID(),
+									'metadata_name_value_pairs' => array( 'name' => 'invitee', 'value' => $user->email),
+								));
+					if ($group_bids_for_user) {
+						foreach ($group_bids_for_user as $group_bid) {
+							$group_bid->deleteMetadata('invitee');
+							$group_bid->setMetadata('invitee', $user_guid,'integer');
+							$group_bid->save();
+						}
+					}
+					
+					// cleanup the invite code
+					$group_invitecode = sanitise_string($group_invitecode);
+					
+					$options = array(
+						"guid" => $group->getGUID(),
+						"annotation_name" => "email_invitation",
+						"wheres" => array("(v.string = '" . $group_invitecode . "' OR v.string LIKE '" . $group_invitecode . "|%')"),
+						"annotation_owner_guid" => $group->getGUID(),
+						"limit" => 1
+					);
+					
+					// ignore access in order to cleanup the invitation
+					// Don't clean up yet
+					/*
+					$ia = elgg_set_ignore_access(true);
+					
+					elgg_delete_annotations($options);
+					
+					// restore access
+					elgg_set_ignore_access($ia);
+					*/
+				}
+			}
+			
+			// find domain based groups
+			$groups = group_tools_get_domain_based_groups($user, $site_guid);
+			if (!empty($groups)) {
+				foreach ($groups as $group) {
+					// join the group
+					$group->join($user);
+				}
+			}
+			
+			// restore access settings
+			elgg_set_ignore_access($ia);
+		}
+	}
+}
 function projects_setup_sidebar_menus() {
 
 	// Get the page owner entity

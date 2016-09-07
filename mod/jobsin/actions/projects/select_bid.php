@@ -59,7 +59,7 @@ if ($other_bids) {
 			'metadata_name_value_pairs' => array(array( 'name' => 'tasks', 'value' => $bid->tasks),array( 'name' => 'invitee', 'value' => $other_bid->invitee)),
 			'count' => true
 		));
-// If join request made
+		// If join request made
 		if (count($unselected_user_bids) && check_entity_relationship($bid->container_guid, 'invited', $other_bid->invitee)) {
         		remove_entity_relationship($bid->container_guid, 'invited', $other_bid->invitee);
         		system_message(elgg_echo("groups:invitekilled"));

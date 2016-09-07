@@ -12,6 +12,8 @@ function basic_init() {
 	elgg_register_event_handler('pagesetup', 'system', 'basic_pagesetup_handler', 1000);
 	elgg_unregister_event_handler('pagesetup', 'system', 'groups_setup_sidebar_menus');
 	elgg_register_event_handler('pagesetup', 'system', 'projects_setup_sidebar_menus');
+	elgg_unregister_event_handler("create", "member_of_site", "group_tools_join_site_handler");
+	elgg_register_event_handler("create", "member_of_site", "projects_join_site_handler");
 	elgg_unregister_page_handler('', 'elgg_front_page_handler');
 	elgg_register_page_handler('', 'jobsin_front_page_handler');
 	elgg_unregister_page_handler('tasks', 'tasks_page_handler');

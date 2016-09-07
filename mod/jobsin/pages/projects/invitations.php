@@ -36,8 +36,9 @@ $email_invitations = false;
 
 if (elgg_get_plugin_setting("invite_email", "group_tools") == "yes") {
 	$invite_email = true;
-	
 	$email_invitations = group_tools_get_invited_groups_by_email($user->email);
+	//$content="EMAIL ".$user->email;
+	//$content.=var_export($email_invitations,true);
 }
 
 $content = elgg_view("projects/invitationrequests", array(
