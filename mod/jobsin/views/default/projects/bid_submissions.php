@@ -52,7 +52,15 @@ foreach ($group_bids as $group_bid) {
 	}
 	$body .= '<div class="task-rate">';
 	$body .= '<p>'.elgg_echo('jobsin:bidder').': ';
-	$body .= get_entity($group_bid->invitee)->name.'</p>';
+	if (is_int($group_bid->invitee)) {
+	//Real Elgg user
+	        $bidder = get_entity($group_bid->invitee)->name;
+	} else {
+	//External email
+	        $bidder = $group_bid->invitee;
+	}
+
+	$body .= $bidder.'</p>';
 	$body .= '<p>'.elgg_echo('jobsin:bid_status').': ';
 	$body .= $group_bid->status.'</p>';
 	$body .= '<p>'.elgg_echo('jobsin:task_rate');
