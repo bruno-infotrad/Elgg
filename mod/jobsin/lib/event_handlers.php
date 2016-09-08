@@ -189,9 +189,20 @@ function projects_setup_sidebar_menus() {
 				elgg_register_menu_item('page', $item);
 			$url = "projects/invitations/$user->username";
 			$invitation_count = groups_get_invited_groups($user->getGUID(), false, array('count' => true));
+			//Get email invitations
+			$options = array(
+				"selects" => array("SUBSTRING_INDEX(v.string, '|', -1) AS invited_email"),
+				"annotation_name" => "email_invitation",
+				//"annotation_owner_guid" => $group->getGUID(),
+				"wheres" => array("(v.string LIKE '%|".$user->email."')"),
+				"count" => true,
+			);
+			
+			$email_invitation_count = elgg_get_annotations($options);
+			$invitation_count += $email_invitation_count;
 
 			if ($invitation_count) {
-				$text = elgg_echo('groups:invitations:pending', array($invitation_count));
+				$text = elgg_echo('groups:invitations')."<div id='elgg-count'> ($invitation_count)</div>";
 			} else {
 				$text = elgg_echo('groups:invitations');
 			}

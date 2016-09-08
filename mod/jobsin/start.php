@@ -6,6 +6,7 @@ function basic_init() {
 	require_once 'lib/event_handlers.php';
 	require_once 'lib/hook_handlers.php';
 	require_once 'lib/page_handlers.php';
+	require_once 'lib/jobsin.php';
 	elgg_register_library('elgg:projects', elgg_get_plugins_path() . 'jobsin/lib/projects.php');
 	elgg_register_library('elgg:jobsin', elgg_get_plugins_path() . 'jobsin/lib/jobsin.php');
 	elgg_register_plugin_hook_handler("route", "projects", "jobsin_route_projects_handler");

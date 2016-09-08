@@ -35,7 +35,7 @@ if ($bid->save()) {
 //Add selected user to group
 $user = get_entity($bid->invitee);
 $group = get_entity($bid->container_guid);
-if (groups_join_group($group, $user)) {
+if (projects_join_group($group, $user)) {
 	system_message(elgg_echo("projects:added",array($user->name)));
 } else {
 	register_error(elgg_echo("projects:cantadd"));
