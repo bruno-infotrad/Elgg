@@ -102,30 +102,24 @@ function socialink_page_handler($page) {
 					if ($username) {
 						$user = get_user_by_username($username);
 					} else {
-						$_SESSION["socialink_token"] = $token;
-						forward("socialink/no_linked_account/linkedin");
+						$params = array(
+							"type" => "user",
+							"limit" => 1,
+							"site_guids" => false,
+							"plugin_id" => "socialink",
+							"plugin_user_setting_name_value_pairs" => array(
+								"linkedin_oauth_token" => $token["oauth_token"],
+								"linkedin_oauth_secret" => $token["oauth_token_secret"]
+							)
+						);
+						$users = elgg_get_entities_from_plugin_user_settings($params);
+						if (!empty($users)) {
+							$user = $users[0];
+						} else {
+							$_SESSION["socialink_token"] = $token;
+							forward("socialink/no_linked_account/linkedin");
+						}
 					}
-/*
-					$params = array(
-						"type" => "user",
-						"limit" => 1,
-						"site_guids" => false,
-						"plugin_id" => "socialink",
-						"plugin_user_setting_name_value_pairs" => array(
-							"linkedin_oauth_token" => $token["oauth_token"],
-							"linkedin_oauth_secret" => $token["oauth_token_secret"]
-						)
-					);
-					
-					elgg_log('LINKEDIN '.var_export($params,true), 'NOTICE');
-					$users = elgg_get_entities_from_plugin_user_settings($params);
-					if (!empty($users)) {
-						$user = $users[0];
-					} else {
-						$_SESSION["socialink_token"] = $token;
-						forward("socialink/no_linked_account/linkedin");
-					}
-*/
 					break;
 				case "facebook":
 					$token = socialink_facebook_get_access_token();

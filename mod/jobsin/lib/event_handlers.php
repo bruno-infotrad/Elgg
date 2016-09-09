@@ -150,12 +150,21 @@ function projects_setup_sidebar_menus() {
 			//Bid submission page
 			$url = elgg_get_site_url() . "projects/bid_submissions/{$page_owner->getGUID()}";
 
+			$count = elgg_get_entities_from_metadata(array(
+                                'type' => 'object',
+                                'subtypes' => 'bid',
+				'container_guid' => $page_owner->getGUID(),
+				'metadata_name_value_pairs' => array( 'name' => 'status', 'value' => 'selected', 'operand' => '<>'),
+				'count' => true,
+                        ));
+			/*
 			$count = elgg_get_entities_from_relationship(array(
 				'type' => 'object',
 				'subtypes' => 'bid',
 				'container_guid' => $page_owner->getGUID(),
 				'count' => true,
 			));
+			*/
 
 			//if ($count) {
 				$text = elgg_echo('projects:bid_submissions:pending')."<div id='elgg-count'> ($count)</div>";
