@@ -381,12 +381,20 @@ input[type="radio"] {
 #group_tools_project_tasks,
 #group_tools_project_invite_users {
 	display: inline-block;
+}
+#group_tools_project_bid {
+	padding-right: 6em;
+	width: 7em;
+}
+#group_tools_project_tasks,
+#group_tools_group_invite_email,
+#group_tools_project_invite_users {
 	width: 15em;
 }
 #group_tools_project_tasks {
 	width: 19em;
 }
-#group_tools_project_bid,
+#group_tools_group_invite_email,
 #group_tools_project_invite_users {
-	padding-right: 1em;
+	padding-right: 3em;
 }

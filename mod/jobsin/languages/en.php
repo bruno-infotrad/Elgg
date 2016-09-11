@@ -360,7 +360,8 @@ or click below to view the project's join requests:
 	// ecml
 	'groups:ecml:discussion' => 'Project Discussions',
 	'groups:ecml:groupprofile' => 'Project profiles',
-
+	'group_tools:group:invite:users:description' => "Start typing a site member name and select him/her from the list",
+	'group_tools:group:invite:email:description' => "Enter a valid e-mail address",
 );
 
 add_translation("en", $english);

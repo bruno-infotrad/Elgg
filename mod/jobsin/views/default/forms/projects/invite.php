@@ -57,7 +57,6 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 			"onclick" => "group_tools_group_invite_switch_tab(\"users\");",
 			"selected" => true
 		);
-		
 		$form_data .= "<div id='group_tools_project_invite_users'>";
 		$form_data .= "<div>" . elgg_echo("group_tools:group:invite:users:description") . "</div>";
 		$form_data .= elgg_view("input/project_invite_autocomplete", array("name" => "user_guid", "id" => "group_tools_group_invite_autocomplete", "group_guid" => $group_guid, "relationship" => "site"));
@@ -67,20 +66,7 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 		}
 		
 		$form_data .= "</div>";
-		$tasks = elgg_get_entities(array( 'types' => 'object', 'subtypes' => 'task_top', 'container_guid' => $group_guid));
-		foreach ($tasks as $task) {
-			$options_values[$task->getGUID()] = $task->title;
-		}
-		$form_data .= "<div id='group_tools_project_bid'>";
-		$form_data .= "<div>" . elgg_echo("jobsin:submission:end_date") . "</div>";
-		$form_data .= elgg_view("input/date", array("name" => "end_date"));
-		$form_data .= "</div>";
-		$form_data .= "<div id='group_tools_project_tasks'>";
-		$form_data .= "<div>" . elgg_echo("jobsin:project:invite:users:task") . "</div>";
-		$form_data .= elgg_view("input/multiselect", array("name" => "task_guid", 'options_values' => $options_values));
-		$form_data .= "</div>";
 	}
-	
 	// invite by email
 	if ($invite_email == "yes") {
 		$tabs["email"] = array(
@@ -118,7 +104,20 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 		$form_data .= elgg_view("input/file", array("name" => "csv"));
 		$form_data .= "</div>";
 	}
-	
+	if ($invite_site_members == "yes"||$invite_email == "yes"||$invite_csv == "yes") {
+		$tasks = elgg_get_entities(array( 'types' => 'object', 'subtypes' => 'task_top', 'container_guid' => $group_guid));
+		foreach ($tasks as $task) {
+			$options_values[$task->getGUID()] = $task->title;
+		}
+		$form_data .= "<div id='group_tools_project_bid'>";
+		$form_data .= "<div>" . elgg_echo("jobsin:submission:end_date") . "</div>";
+		$form_data .= elgg_view("input/date", array("name" => "end_date","maxlength" => 10));
+		$form_data .= "</div>";
+		$form_data .= "<div id='group_tools_project_tasks'>";
+		$form_data .= "<div>" . elgg_echo("jobsin:project:invite:users:task") . "</div>";
+		$form_data .= elgg_view("input/multiselect", array("name" => "task_guid", 'options_values' => $options_values));
+		$form_data .= "</div>";
+	}
 } else {
 	// only friends
 	$form_data = $friendspicker;
@@ -172,24 +171,25 @@ echo '</div>';
 				$('#group_tools_group_invite_email').hide();
 				$('#group_tools_group_invite_csv').hide();
 				
-				$('#group_tools_group_invite_users').show();
+				$('#group_tools_project_invite_users').show();
 				break;
 			case "email":
 				$('#group_tools_group_invite_friends').hide();
-				$('#group_tools_group_invite_users').hide();
+				$('#group_tools_project_invite_users').hide();
 				$('#group_tools_group_invite_csv').hide();
 				
 				$('#group_tools_group_invite_email').show();
+				$('#group_tools_group_invite_email').css('display','inline-block');
 				break;
 			case "csv":
 				$('#group_tools_group_invite_friends').hide();
-				$('#group_tools_group_invite_users').hide();
+				$('#group_tools_project_invite_users').hide();
 				$('#group_tools_group_invite_email').hide();
 				
 				$('#group_tools_group_invite_csv').show();
 				break;
 			case "friends":
-				$('#group_tools_group_invite_users').hide();
+				$('#group_tools_project_invite_users').hide();
 				$('#group_tools_group_invite_email').hide();
 				$('#group_tools_group_invite_csv').hide();
 				
