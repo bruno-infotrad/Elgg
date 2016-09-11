@@ -1,4 +1,16 @@
 <?php
+function jobsin_head($hook, $type, $return, $params) {
+	$return['links'][] = array( 'id' => 'favicon', 'rel' => 'shortcut icon', 'href' => elgg_normalize_url('mod/jobsin/graphics/favicon.ico'),);
+/*
+        $return['links'][] = array(
+            'rel' => 'apple-touch-icon',
+            'sizes' => '48x48',
+            'type' => 'image/png',
+            'href' => elgg_normalize_url('mod/my_theme/graphics/favicon.png'),
+        );
+*/
+	return $return;
+}
 function projects_menu_filter_handler($hook, $type, $return_value, $params) {
 	
 	if (!elgg_in_context("group_membershipreq")) {
