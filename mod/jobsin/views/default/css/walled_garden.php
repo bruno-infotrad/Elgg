@@ -15,8 +15,8 @@ $url = elgg_get_site_url();
 }
 .elgg-module-walledgarden {
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 1%;
+	left: 33%;
 }
 .elgg-module-walledgarden > .elgg-head {
 	height: 17px;
