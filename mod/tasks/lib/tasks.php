@@ -197,8 +197,10 @@ function tasks_get_json($options) {
 			"parent_guid"=>$task->parent_guid,
 			
 			'title' => $task->title,
-			'start' => $task->start_date,
-			'end' => $task->end_date,
+			'start' =>  date(TASKS_FORMAT_DATE_EVENTDAY, $task->start_date),
+			'end' =>  date(TASKS_FORMAT_DATE_EVENTDAY, $task->end_date),
+			//'start' => $task->start_date,
+			//'end' => $task->end_date,
 
 			'description' => $task->description,
 			'task_type' => $task->task_type,

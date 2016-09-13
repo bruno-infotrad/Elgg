@@ -194,8 +194,10 @@ function tasks_page_handler($task) {
 
 				"owner"=>get_input('owner', elgg_get_logged_in_user_entity()->guid), 
 				"filter"=>get_input('filter', 'all'),
-				"start_date"=>get_input('start', date('Y-m-01')),
-				"end_date"=>get_input('end',date('Y-m-t'))
+				"start_date"=>get_input('start'),
+				"end_date"=>get_input('end')
+				//"start_date"=>get_input('start', date('Y-m-01')),
+				//"end_date"=>get_input('end',date('Y-m-t'))
 			));
 			break;
 		default:
