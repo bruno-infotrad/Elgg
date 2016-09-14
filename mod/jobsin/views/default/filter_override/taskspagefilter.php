@@ -27,7 +27,8 @@ if (elgg_is_logged_in() && $context) {
 		$url = 'group/'.$owner->guid.'/all';
 	}
 
-	echo '<ul class="elgg-menu elgg-menu-entity elgg-menu-hz" style="height: 30px; margin-right: 15px;">';
+	echo '<ul class="elgg-menu elgg-menu-entity elgg-menu-hz" id="taskpagefilter">';
+	//echo '<ul class="elgg-menu elgg-menu-entity elgg-menu-hz" style="height: 30px; margin-right: 15px;">';
 	echo '<li>';
 	echo elgg_view('output/url', array('href'=> elgg_get_site_url() .'calendars/'.$url,"text" => elgg_view('output/img', array("width"=>"20px", "title" => "View Cal", "src" => elgg_get_site_url() . 'mod/tasks/images/calendar'.($context == 'tasks' ? '_gray' : '' ).'.png'))));
 	echo '</li>';

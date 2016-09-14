@@ -1,5 +1,10 @@
 <?php
 ?>
+#taskpagefilter {
+	height: 30px;
+	margin-right: 15px;
+	margin-top: .6em;
+}
 #bid-rate,
 #elgg-count {
 	color: red;
