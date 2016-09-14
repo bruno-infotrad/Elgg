@@ -151,6 +151,7 @@ function basic_pagesetup_handler() {
 	elgg_unregister_menu_item('extras', 'report_this');
 	elgg_unregister_menu_item('site', 'activity');
 	elgg_unregister_menu_item('site', 'blog');
+	elgg_unregister_menu_item('site', 'groups');
 	elgg_unregister_menu_item('site', 'pages');
 	elgg_unregister_menu_item('site', 'bookmarks');
 	elgg_unregister_menu_item('site', 'file');
@@ -164,9 +165,12 @@ function basic_pagesetup_handler() {
 	} else {
 		$user = elgg_get_logged_in_user_entity();
 		$session = elgg_get_session();
+		if (elgg_is_admin_logged_in()) {
+				$item = new ElggMenuItem('groups', elgg_echo('groups'), 'projects/all');
+				elgg_register_menu_item('site', $item);
+		}
 		if (! elgg_is_admin_logged_in()) {
 			elgg_unregister_menu_item('site', 'members');
-			elgg_unregister_menu_item('site', 'groups');
 			$url =  "groups/owner/$user->username";
 			$item = new ElggMenuItem('groups:owned', elgg_echo('groups:owned'), $url);
 			elgg_unregister_menu_item('page', $item);

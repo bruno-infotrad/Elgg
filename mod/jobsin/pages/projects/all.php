@@ -12,7 +12,7 @@ if ((elgg_get_plugin_setting("limited_groups", "groups") != "yes") || elgg_is_ad
 	elgg_register_title_button();
 }
 
-$selected_tab = get_input("filter");
+$selected_tab = get_input("filter","newest");
 
 // default group options
 $group_options = array(
@@ -23,6 +23,15 @@ $group_options = array(
 $dbprefix = elgg_get_config("dbprefix");
 
 switch ($selected_tab) {
+	case "newest":
+	default:
+		$group_options = array(
+			'type' => 'group',
+			'full_view' => false,
+			'no_results' => elgg_echo('groups:none'),
+			'distinct' => false,
+			);
+		break;
 	case "ordered":
 		
 		$order_id = elgg_get_metastring_id("order");

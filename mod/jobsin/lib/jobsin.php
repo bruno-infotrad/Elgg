@@ -255,16 +255,7 @@ function jobsin_handle_project_page() {
 	echo elgg_view_page(elgg_echo('groups:all'), $body);
 }
 
-
-
-
-
-
-
-
-
-
-
+/*
 function groups_handle_all_page() {
 
 	// all groups doesn't get link to self
@@ -360,9 +351,6 @@ function groups_search_page() {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * List owned groups
- */
 function groups_handle_owned_page() {
 
 	$page_owner = elgg_get_page_owner_entity();
@@ -395,9 +383,6 @@ function groups_handle_owned_page() {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * List groups the user is memober of
- */
 function groups_handle_mine_page() {
 
 	$page_owner = elgg_get_page_owner_entity();
@@ -432,12 +417,6 @@ function groups_handle_mine_page() {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * Create or edit a group
- *
- * @param string $page
- * @param int $guid
- */
 function groups_handle_edit_page($page, $guid = 0) {
 	gatekeeper();
 	
@@ -474,9 +453,6 @@ function groups_handle_edit_page($page, $guid = 0) {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * Group invitations for a user
- */
 function groups_handle_invitations_page() {
 	gatekeeper();
 
@@ -499,11 +475,6 @@ function groups_handle_invitations_page() {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * Group profile page
- *
- * @param int $guid Group entity GUID
- */
 function groups_handle_profile_page($guid) {
 	elgg_set_page_owner_guid($guid);
 
@@ -563,11 +534,6 @@ function groups_handle_profile_page($guid) {
 	echo elgg_view_page($group->name, $body);
 }
 
-/**
- * Group activity page
- *
- * @param int $guid Group entity GUID
- */
 function groups_handle_activity_page($guid) {
 
 	elgg_set_page_owner_guid($guid);
@@ -604,11 +570,6 @@ function groups_handle_activity_page($guid) {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * Group members page
- *
- * @param int $guid Group entity GUID
- */
 function groups_handle_members_page($guid) {
 
 	elgg_set_page_owner_guid($guid);
@@ -643,11 +604,6 @@ function groups_handle_members_page($guid) {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * Invite users to a group
- *
- * @param int $guid Group entity GUID
- */
 function groups_handle_invite_page($guid) {
 	gatekeeper();
 
@@ -681,11 +637,6 @@ function groups_handle_invite_page($guid) {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * Manage requests to join a group
- * 
- * @param int $guid Group entity GUID
- */
 function groups_handle_requests_page($guid) {
 
 	gatekeeper();
@@ -726,11 +677,6 @@ function groups_handle_requests_page($guid) {
 	echo elgg_view_page($title, $body);
 }
 
-/**
- * Registers the buttons for title area of the group profile page
- *
- * @param ElggGroup $group
- */
 function groups_register_profile_buttons($group) {
 
 	$actions = array();
@@ -776,12 +722,6 @@ function groups_register_profile_buttons($group) {
 	}
 }
 
-/**
- * Prepares variables for the group edit form view.
- *
- * @param mixed $group ElggGroup or null. If a group, uses values from the group.
- * @return array
-*/
 function groups_prepare_form_vars($group = null) {
 	$values = array(
 		'name' => '',
@@ -839,6 +779,7 @@ function groups_prepare_form_vars($group = null) {
 
 	return $values;
 }
+*/
 function is_project_manager($user) {
 	elgg_log('BRUNO PROJECT_MANAGER='.$user->name.' '.$user->project_manager,'NOTICE');
 	if (! roles_has_role($user,'pm_admin') && ! elgg_is_admin_user($user->guid)) {
