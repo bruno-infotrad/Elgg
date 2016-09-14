@@ -47,10 +47,18 @@ if ($task_guid) {
 }
 
 if (sizeof($input) > 0) {
+	//Only group owner and group admins can change date)
+	$container_guid = $task->getContainerGUID();
+	$group = get_entity($container_guid);
 	foreach ($input as $name => $value) {
 		if ($name == 'start_date'||$name == 'end_date') {
-			$date = explode('-',$value);
-                	$value = mktime(0,0,1,$date[1],$date[2],$date[0]);
+			if ($group->canEdit()) {
+				$date = explode('-',$value);
+                		$value = mktime(0,0,1,$date[1],$date[2],$date[0]);
+			} else {
+				register_error(elgg_echo('tasks:notallowed'));
+				forward(REFERER);
+			}
 		}
 		$task->$name = $value; 
 		//echo $name.',';

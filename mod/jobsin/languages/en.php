@@ -28,6 +28,7 @@ $english = array(
 	'jobsin:submit_bid' => 'Submit a bid',
 	'jobsin:task_rate' => 'Hourly rate ($)',
 	'task:lowest_rate' => 'Lowest submitted rate',
+	'tasks:notallowed' => 'You are not allowed to modify this task parameter',
 	'projects:bid_invitations' => 'Invitations to bid',
 	'projects:missing_parameter' => 'Missing parameter',
 	'jobsin:bidder' => 'Bidder',
@@ -363,6 +364,15 @@ or click below to view the project's join requests:
 	'groups:ecml:groupprofile' => 'Project profiles',
 	'group_tools:group:invite:users:description' => "Start typing a site member name and select him/her from the list",
 	'group_tools:group:invite:email:description' => "Enter a valid e-mail address",
+
+	// Roles
+	'roles_pm_admin:action:make_pm_admin' => 'Add as project administrator',
+	'roles_pm_admin:action:make_pm_admin:success' => 'User %s is now a project administrator',
+	'roles_pm_admin:action:make_pm_admin:failure' => 'Could not add user to project adminitsrator group',
+	'roles_pm_admin:action:revoke_pm_admin' => 'Remove as project administrator',
+	'roles_pm_admin:action:revoke_pm_admin:success' => 'User %s is not a project administrator anymore',
+	'roles_pm_admin:action:revoke_pm_admin:failure' => 'Could not remove user from project administrator group',
+
 );
 
 add_translation("en", $english);
