@@ -247,7 +247,7 @@ function roles_pm_admins_config($hook_name, $entity_type, $return_value, $params
 	$roles = array(
 
 		'pm_admin' => array(
-			'title' => 'roles_pm_admin:role:title',
+			'title' => elgg_echo('roles_pm_admin:role:title'),
 			'permissions' => array(
 				'actions' => array(
 				),
@@ -261,7 +261,7 @@ function roles_pm_admins_config($hook_name, $entity_type, $return_value, $params
 			),
 		),
 		ADMIN_ROLE => array(
-			'title' => 'roles:role:ADMIN_ROLE',
+			'title' => elgg_echo('roles:role:ADMIN_ROLE'),
 			'extends' => array(),
 			'permissions' => array(
 				'actions' => array(
