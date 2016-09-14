@@ -19,20 +19,18 @@ $content = elgg_list_entities_from_metadata(array(
 	//'container_guid' => $container_guid,
 	'limit' => false,
 	'metadata_name_value_pairs' => array( 'name' => 'assigned_to', 'value' => elgg_get_logged_in_user_guid()),
+	"show_group_name" => true,
 ));
 
 if (!$content) {
 	$content = '<p>' . elgg_echo('tasks:none') . '</p>';
 }
 
-$filter_context = '';
-if (elgg_get_page_owner_guid() == elgg_get_logged_in_user_guid()) {
-	$filter_context = 'mine';
-}
+$filter_context = 'assigned';
 
 $sidebar = elgg_view('tasks/sidebar/navigation');
 
-elgg_set_context('all_projects');
+//elgg_set_context('all_projects');
 $params = array(
 	'filter_context' => $filter_context,
 	'filter_override' => elgg_view('filter_override/taskspagefilter',array("filter_context"=>$filter_context)),

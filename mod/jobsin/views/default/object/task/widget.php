@@ -10,6 +10,7 @@
 
 
 	$entity = elgg_extract('entity', $vars);
+	$show_group_name = elgg_extract('show_group_name', $vars);
 	if ($entity->assigned_to) {
 		$worker=get_entity($entity->assigned_to);
 		$worker_link = elgg_view('output/url', array(
@@ -77,8 +78,8 @@
 	}
 	*/
 
-
-if (elgg_get_context() == 'all_projects') {
+//if (elgg_get_context() == 'all_projects') {
+if ($show_group_name) {
 	$project_guid = $entity->container_guid;
 	$project_name = get_entity($project_guid)->name;
 	$project_link = elgg_view('output/url', array(

@@ -16,6 +16,7 @@ $english = array(
 	'jobsin:task:num_of_tasks'		=> '%s tasks',
 	'jobsin:task:num_of_contributor'		=> '%s contributor',
 	'jobsin:task:num_of_contributors'		=> '%s contributors',
+	'jobsin:tasks:assigned:filter'		=> 'Assigned',
 	'jobsin:tasks:assigned'		=> 'Assigned Tasks',
 	'jobsin:tasks:assigned_to'		=> 'Assigned to %s',
 	'jobsin:project:start_date'		=> 'Start Date: ',

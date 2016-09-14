@@ -32,12 +32,13 @@ if ($is_group) {
 		'full_view' => false,
 	));
 } else {
-	elgg_set_context('all_projects');
+	//elgg_set_context('all_projects');
 	$content = elgg_list_entities(array(
 		'types' => 'object',
 		'subtypes' => array('task_top','task'),
 		'owner_guids' => elgg_get_logged_in_user_guid(),
 		'full_view' => false,
+		'show_group_name' => true,
 	));
 }
 if (!$content) {

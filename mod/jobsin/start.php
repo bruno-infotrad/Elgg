@@ -20,6 +20,8 @@ function basic_init() {
 	elgg_register_page_handler('', 'jobsin_front_page_handler');
 	elgg_unregister_page_handler('tasks', 'tasks_page_handler');
 	elgg_register_page_handler('tasks', 'jobsin_tasks_page_handler');
+	elgg_unregister_page_handler('calendars', 'calendars_page_handler');
+	elgg_register_page_handler('calendars', 'jobsin_calendars_page_handler');
 	elgg_register_page_handler('dashboard', 'jobsin_dashboard_handler');
 	elgg_register_page_handler('projects', 'projects_page_handler');
 	elgg_register_page_handler('tags_autocomplete', 'tags_autocomplete');

@@ -47,6 +47,23 @@ function jobsin_front_page_handler() {
         echo elgg_view_page(null, $body);
         return true;
 }
+function jobsin_calendars_page_handler($page) {
+        if (! elgg_is_logged_in()) {
+                forward('/dashboard');
+        } else {
+		elgg_load_library('elgg:tasks');
+		// add the jquery treeview files for navigation
+		elgg_load_js('jquery-treeview');
+		elgg_load_css('jquery-treeview');
+                if (isset($page[0])&& $page[0] == 'assigned') {
+                        $base_dir = elgg_get_plugins_path() . 'jobsin/pages/calendars';
+                        include "$base_dir/assigned.php";
+                } else {
+                        return calendars_page_handler($page);
+                }
+                return true;
+	}
+}
 function jobsin_tasks_page_handler($page) {
         if (! elgg_is_logged_in()) {
                 forward('/dashboard');
@@ -67,13 +84,14 @@ function jobsin_tasks_page_handler($page) {
 			elgg_set_page_owner_guid($owner_guid);
                         include "$base_dir/owner.php";
                 } elseif (isset($page[0])&& $page[0] == 'assigned') {
-                        elgg_set_context('all_projects');
+                        //elgg_set_context('all_projects');
                         $base_dir = elgg_get_plugins_path() . 'jobsin/pages/tasks';
                         include "$base_dir/assigned.php";
                 } elseif (isset($page[0])&& $page[0] == 'all') {
-                        //$base_dir = elgg_get_plugins_path() . 'jobsin/pages/tasks';
-                        elgg_set_context('all_projects');
-                        return tasks_page_handler($page);
+                        //elgg_set_context('all_projects');
+                        $base_dir = elgg_get_plugins_path() . 'jobsin/pages/tasks';
+                        include "$base_dir/world.php";
+                        //return tasks_page_handler($page);
                 } else {
                         return tasks_page_handler($page);
                 }

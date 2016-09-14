@@ -8,7 +8,7 @@
 
 elgg_pop_breadcrumb();
 elgg_push_breadcrumb(elgg_echo('tasks').' Calendar');
-elgg_register_title_button('tasks');
+//elgg_register_title_button('tasks');
 
 elgg_load_css('fullcalendar.css');
 elgg_load_js('fullcalendar.js');
