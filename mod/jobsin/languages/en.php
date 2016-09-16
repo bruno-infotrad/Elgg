@@ -37,6 +37,8 @@ $english = array(
 	'jobsin:submission:end_date' => 'Submission closing date',
 	'projects:bid_submissions' => 'Bid Submissions',
 	'projects:bid_submissions:pending' => 'Pending Submissions',
+	// Profile
+	'profile:skills' => 'Skills',
 
 	// Settings
 	'admin:settings:jobsin'	=> 'Basic Light',
