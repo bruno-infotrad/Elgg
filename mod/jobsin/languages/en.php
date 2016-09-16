@@ -366,10 +366,11 @@ or click below to view the project's join requests:
 	'group_tools:group:invite:email:description' => "Enter a valid e-mail address",
 
 	// Roles
+	'login:user_not_pm' => 'User is not allowed to log in as a project administrator',
 	'roles_pm_admin:role:title' => 'Project Administrator',
 	'roles_pm_admin:action:make_pm_admin' => 'Add as project administrator',
 	'roles_pm_admin:action:make_pm_admin:success' => 'User %s is now a project administrator',
-	'roles_pm_admin:action:make_pm_admin:failure' => 'Could not add user to project adminitsrator group',
+	'roles_pm_admin:action:make_pm_admin:failure' => 'Could not add user to project administrator group',
 	'roles_pm_admin:action:revoke_pm_admin' => 'Remove as project administrator',
 	'roles_pm_admin:action:revoke_pm_admin:success' => 'User %s is not a project administrator anymore',
 	'roles_pm_admin:action:revoke_pm_admin:failure' => 'Could not remove user from project administrator group',

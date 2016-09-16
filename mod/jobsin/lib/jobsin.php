@@ -781,12 +781,11 @@ function groups_prepare_form_vars($group = null) {
 }
 */
 function is_project_manager($user) {
-	elgg_log('BRUNO PROJECT_MANAGER='.$user->name.' '.$user->project_manager,'NOTICE');
 	if (! roles_has_role($user,'pm_admin') && ! elgg_is_admin_user($user->guid)) {
-		elgg_log('BRUNO IS NOT PROJECT_MANAGER','NOTICE');
+		elgg_log($user->name.' IS NOT PROJECT_MANAGER','NOTICE');
 		return FALSE;
 	} else {
-		elgg_log('BRUNO IS PROJECT_MANAGER','NOTICE');
+		elgg_log($user->name.' IS PROJECT_MANAGER','NOTICE');
 		return TRUE;
 	}
 }
