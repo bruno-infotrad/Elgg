@@ -166,11 +166,11 @@ function projects_setup_sidebar_menus() {
 			));
 			*/
 
-			//if ($count) {
+			if ($count) {
 				$text = elgg_echo('projects:bid_submissions:pending')."<div id='elgg-count'> ($count)</div>";
-			//} else {
-				//$text = elgg_echo('projects:membershiprequests');
-			//}
+			} else {
+				$text = elgg_echo('projects:bid_submissions:pending');
+			}
 
 			elgg_register_menu_item('page', array(
 				'name' => 'bid_submissions',
