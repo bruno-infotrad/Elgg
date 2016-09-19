@@ -36,6 +36,7 @@ if (is_array($task_guids)) {
 //Usual save routine
 if ($bid->save()) {
 	//elgg_clear_sticky_form('page');
+	$task->save();
 	system_message(elgg_echo('jobsin:bid:saved'));
 	/*
 	if ($new_bid) {
