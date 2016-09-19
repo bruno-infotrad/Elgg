@@ -35,6 +35,7 @@ if ($task_guid) {
 		register_error(elgg_echo('tasks:cantedit'));
 		forward(REFERER);
 	}
+	$container_guid = $task->getContainerGUID();
 	$new_task = false;
 } else {
 	$task = new ElggObject();
@@ -45,11 +46,10 @@ if ($task_guid) {
 	}
 	$new_task = true;
 }
+$group = get_entity($container_guid);
 
 if (sizeof($input) > 0) {
 	//Only group owner and group admins can change date)
-	$container_guid = $task->getContainerGUID();
-	$group = get_entity($container_guid);
 	foreach ($input as $name => $value) {
 		if ($name == 'start_date'||$name == 'end_date') {
 			if ($group->canEdit()) {
