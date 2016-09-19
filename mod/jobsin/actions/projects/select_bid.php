@@ -22,7 +22,7 @@ $bid->status = 'selected';
 //Usual save routine
 if ($bid->save()) {
 	// Update associated task with selected bid owner
-	$task_guids = $group_bid->tasks;
+	$task_guids = $bid->tasks;
 	if (is_array($task_guids)) {
 		foreach ($task_guids as $task_guid) {
 			$task = get_entity($task_guid);
