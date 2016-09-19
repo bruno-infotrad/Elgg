@@ -229,11 +229,16 @@ if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 			<tr>
 				<td colspan="2">
 					<label> <?php echo elgg_echo('description'); ?></label>
-							<?php echo elgg_view('input/longtext',array(
-										'name' => 'description',
-										'value' => $description,
-										'readonly' => $readonly,
-								)); 
+							<?php 
+								if ($readonly) {
+									echo $description;
+								} else {
+									echo elgg_view('input/longtext',array(
+											'name' => 'description',
+											'value' => $description,
+											'readonly' => $readonly,
+									)); 
+								}
 						?>
 					<label>	<?php echo elgg_echo('tags'); ?></label>
 							<?php echo elgg_view('input/tags',array(
