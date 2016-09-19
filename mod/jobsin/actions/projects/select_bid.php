@@ -19,6 +19,20 @@ if ($project->getOwnerEntity() != $logged_in_user && ! check_entity_relationship
 }
 // Update bid object
 $bid->status = 'selected';
+// Update associated task with selected bid owner
+$task_guids = $group_bid->tasks;
+if (is_array($task_guids)) {
+	foreach ($task_guids as $task_guid) {
+		$task = get_entity($task_guid);
+		$task->assigned_to = $bid->invitee;
+		$task->status = 2;
+	}
+} else {
+	//echo $task_guids.'<br>';
+	$task = get_entity($task_guids);
+	$task->assigned_to = $bid->invitee;
+	$task->status = 2;
+}
 //Usual save routine
 if ($bid->save()) {
 	//elgg_clear_sticky_form('page');
