@@ -343,6 +343,7 @@ or click below to view the project's join requests:
 	'groups:whocancreate' => 'Who can create new projects?',
 	'notifications:subscriptions:changesettings:groups' => 'Project notifications',
 	'group_tools:notifications:title' => "Project notifications",
+	'notifications:subscriptions:groups:description' => 'To receive notifications when new content is added to a project you are a member of, find it below and select the notification method(s) you would like to use.',
 	/**
 	 * Action messages
 	 */
