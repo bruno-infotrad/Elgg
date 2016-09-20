@@ -341,7 +341,8 @@ or click below to view the project's join requests:
 
 	'groups:allowhiddengroups' => 'Do you want to allow private (invisible) projects?',
 	'groups:whocancreate' => 'Who can create new projects?',
-
+	'notifications:subscriptions:changesettings:groups' => 'Project notifications',
+	'group_tools:notifications:title' => "Project notifications",
 	/**
 	 * Action messages
 	 */
