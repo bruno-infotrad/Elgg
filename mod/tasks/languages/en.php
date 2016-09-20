@@ -115,11 +115,11 @@ $english = array(
 
 	'tasks:task_type_'=>"",
 	'tasks:task_type_0'=>"",
-	'tasks:task_type_1'=>"Analyse",
+	'tasks:task_type_1'=>"Analysis",
 	'tasks:task_type_2'=>"Specifications",
-	'tasks:task_type_3'=>"Developement",
+	'tasks:task_type_3'=>"Development",
 	'tasks:task_type_4'=>"Test",
-	'tasks:task_type_5'=>"Mise en production",
+	'tasks:task_type_5'=>"Production",
 
 	'tasks:task_status_'=>"",
 	'tasks:task_status_0'=>"",
