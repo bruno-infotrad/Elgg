@@ -37,6 +37,7 @@ $english = array(
 	'jobsin:submission:end_date' => 'Submission closing date',
 	'projects:bid_submissions' => 'Bid Submissions',
 	'projects:bid_submissions:pending' => 'Pending Submissions',
+	'jobsin:project:no_bids' => 'No pending bids',
 	// Profile
 	'profile:skills' => 'Skills',
 
