@@ -38,6 +38,7 @@ $english = array(
 	'projects:bid_submissions' => 'Bid Submissions',
 	'projects:bid_submissions:pending' => 'Pending Submissions',
 	'jobsin:project:no_bids' => 'No pending bids',
+	'jobsin:submit_bid:confirm' => 'Confirm submission',
 	// Profile
 	'profile:skills' => 'Skills',
 
