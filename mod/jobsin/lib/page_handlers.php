@@ -11,6 +11,8 @@ function jobsin_front_page_handler() {
 		$session = elgg_get_session();
 		//echo var_export($session,true);
 		if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
+                	forward('projects/all');
+		} else if ($session->get('project_manager')) {
                 	forward('projects/owner/'.$user->username);
 		} else {
 			//First time user
