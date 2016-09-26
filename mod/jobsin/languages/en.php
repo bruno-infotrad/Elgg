@@ -39,6 +39,23 @@ $english = array(
 	'projects:bid_submissions:pending' => 'Pending Submissions',
 	'jobsin:project:no_bids' => 'No pending bids',
 	'jobsin:submit_bid:confirm' => 'Confirm submission',
+	'jobsin:bid:submitted' => 'Bid submitted',
+	'jobsin:bid:selected' => 'Bid selected',
+	'jobsin:bid:notselected' => 'Bid not selected',
+	// notifications
+	'project:invite:bid:subject' => "You have been invited to bid on task '%s'",
+	'project:invite:bid:body' => "Hello %s,
+%s has invited you to bid on task '%s' for project '%s'. 
+%s
+Click on the the link below to submit a bid.
+%s",
+	'bid:submitted:notify:summary' => 'Bid  %s submitted',
+	'bid:submitted:notify:subject' => "%s has submitted his bid for task '%s'",
+	'bid:submitted:notify:body' => "Hello, %s! %s has submitted his bid for task '%s'",
+	'bid:selected:notify:summary' => "Bid  for task '%s' selected",
+	'bid:selected:notify:subject' => "Your bid for task '%s' has been selected",
+	'bid:selected:notify:body' => "Goods news, %s! Your bid for task '%s' has been selected.
+You can update your task at %s",
 	// Profile
 	'profile:skills' => 'Skills',
 

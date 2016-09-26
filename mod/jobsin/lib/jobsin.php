@@ -68,19 +68,25 @@ function projects_invite_user(ElggGroup $group, ElggUser $user, $text = "", $res
 		}
 		if ($relationship || $resend) {
 			// Send email
-			$url = elgg_get_site_url() . "groups/invitations/" . $user->username;
+			if ($task_guids) {
+				if (is_array($task_guids)) {
+					foreach ($task_guids as $task_guid) {
+						$task = get_entity($task_guid);
+						$title = ($title ? $title.','.$task->title :$task->title);
+					}
+				} else {
+					$task = get_entity($task_guids);
+					$title = $task->title;
+				}
+				$url = elgg_normalize_url("projects/bid_invitations/".$bid->getGUID());
+				$subject = elgg_echo("project:invite:bid:subject", array($task->title));
+				$msg = elgg_echo("project:invite:bid:body", array( $user->name, $loggedin_user->name, $title, $group->name, $text, $url));
+			} else {
+				$url = elgg_normalize_url("projects/invitations/".$user->username);
+				$subject = elgg_echo("groups:invite:subject", array( $user->name, $group->name));
+				$msg = elgg_echo("group_tools:groups:invite:body", array( $user->name, $loggedin_user->name, $group->name, $text, $url));
+			}
 			
-			$subject = elgg_echo("groups:invite:subject", array(
-				$user->name,
-				$group->name
-			));
-			$msg = elgg_echo("group_tools:groups:invite:body", array(
-				$user->name,
-				$loggedin_user->name,
-				$group->name,
-				$text,
-				$url
-			));
 			
 			if (notify_user($user->getGUID(), $group->getOwnerGUID(), $subject, $msg, array(), "email")) {
 				$result = true;

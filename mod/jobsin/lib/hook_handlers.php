@@ -459,3 +459,44 @@ function jobsin_route_projects_handler($hook, $type, $return_value, $params){
 	
 	return $result;
 }
+
+function bid_prepare_submitted_notification($hook, $type, $notification, $params) {
+	$entity = $params['event']->getObject();
+	$submitter = $params['event']->getActor();
+	$recipient = $params['recipient'];
+	$language = $params['language'];
+	$method = $params['method'];
+	$task = get_entity($entity->tasks);
+	$owner = get_entity($entity->owner_guid);
+	$notification->subject = elgg_echo('bid:submitted:notify:subject', array($submitter->name, $task->title), $language);
+	$notification->body = elgg_echo('bid:submitted:notify:body', array(
+		$owner->name,
+		$submitter->name,
+		$task->title,
+		//$entity->getExcerpt(),
+		$entity->getURL()
+	), $language);
+	$notification->summary = elgg_echo('bid:submitted:notify:summary', array($task->title), $language);
+
+	return $notification;
+}
+
+function bid_prepare_selected_notification($hook, $type, $notification, $params) {
+	$entity = $params['event']->getObject();
+	$owner = $params['event']->getActor();
+	$recipient = $params['recipient'];
+	$language = $params['language'];
+	$method = $params['method'];
+	$task = get_entity($entity->tasks);
+	$invitee = get_entity($entity->invitee);
+	$notification->subject = elgg_echo('bid:selected:notify:subject', array($task->title), $language);
+	$notification->body = elgg_echo('bid:selected:notify:body', array(
+		$invitee->name,
+		$task->title,
+		//$entity->getExcerpt(),
+		$task->getURL()
+	), $language);
+	$notification->summary = elgg_echo('bid:selected:notify:summary', array($entity->title), $language);
+
+	return $notification;
+}

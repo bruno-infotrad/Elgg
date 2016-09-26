@@ -22,6 +22,7 @@ $bid->status = 'selected';
 //Usual save routine
 if ($bid->save()) {
 	// Update associated task with selected bid owner
+	elgg_trigger_event('selected', 'object', $bid);
 	$task_guids = $bid->tasks;
 	if (is_array($task_guids)) {
 		foreach ($task_guids as $task_guid) {
@@ -37,14 +38,14 @@ if ($bid->save()) {
 		$task->status = 2;
 		$task->save();
 	}
-	system_message(elgg_echo('jobsin:bid:saved'));
+	system_message(elgg_echo('jobsin:bid:selected'));
 	/*
 	if ($new_bid) {
 	elgg_create_river_item(array( 'view' => 'river/object/page/create', 'action_type' => 'create', 'subject_guid' => elgg_get_logged_in_user_guid(), 'object_guid' => $page->guid,));
 	}
 	*/
 } else {
-	register_error(elgg_echo('jobsin:bid:notsaved'));
+	register_error(elgg_echo('jobsin:bid:notselected'));
 	forward(REFERER);
 }
 //Add selected user to group

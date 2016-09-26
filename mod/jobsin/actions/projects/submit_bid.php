@@ -27,7 +27,8 @@ $bid->status = 'submitted';
 //Usual save routine
 if ($bid->save()) {
 	//elgg_clear_sticky_form('page');
-	system_message(elgg_echo('jobsin:bid:saved'));
+	system_message(elgg_echo('jobsin:bid:submitted'));
+	elgg_trigger_event('submitted', 'object', $bid);
 	/*
 	if ($new_bid) {
 	elgg_create_river_item(array( 'view' => 'river/object/page/create', 'action_type' => 'create', 'subject_guid' => elgg_get_logged_in_user_guid(), 'object_guid' => $page->guid,));

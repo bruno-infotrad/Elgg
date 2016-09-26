@@ -81,8 +81,10 @@ function basic_init() {
 	// Register entity type for search
 	elgg_register_entity_type('object', 'bid');
 	// Register for notifications
-	elgg_register_notification_event('object', 'bid');
-	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:bid', 'bid_prepare_notification');
+	elgg_register_notification_event('object', 'bid',array('pending','submitted','selected'));
+	elgg_register_plugin_hook_handler('prepare', 'notification:pending:object:bid', 'bid_prepare_pending_notification');
+	elgg_register_plugin_hook_handler('prepare', 'notification:submitted:object:bid', 'bid_prepare_submitted_notification');
+	elgg_register_plugin_hook_handler('prepare', 'notification:selected:object:bid', 'bid_prepare_selected_notification');
 
 	//elgg_register_entity_type('object', 'project');
 	elgg_register_plugin_hook_handler('get_views', 'ecml', 'projects_ecml_views_hook');
