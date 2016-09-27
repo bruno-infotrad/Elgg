@@ -74,7 +74,7 @@ function jobsin_tasks_page_handler($page) {
 		// add the jquery treeview files for navigation
 		elgg_load_js('jquery-treeview');
 		elgg_load_css('jquery-treeview');
-                if (isset($page[0])&& $page[0] == 'group' && isset($page[1])&& isset($page[2]) && $page[2] == 'all') {
+                if (isset($page[0])&& $page[0] == 'project' && isset($page[1])&& isset($page[2]) && $page[2] == 'all') {
                         $base_dir = elgg_get_plugins_path() . 'jobsin/pages/tasks';
 			set_input('owner_guid', $page[1]);
 			elgg_set_page_owner_guid($page[1]);

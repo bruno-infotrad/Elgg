@@ -178,7 +178,8 @@ function tasks_page_handler($task) {
 			set_input('guid', $task[1]);
 			include "$base_dir/edit.php";
 			break;
-		case 'group':
+		//case 'group':
+		case 'project':
 			include "$base_dir/owner.php";
 			break;
 		case 'history':

@@ -11,6 +11,35 @@ function jobsin_head($hook, $type, $return, $params) {
 */
 	return $return;
 }
+
+function jobsin_groups_activity_owner_block_menu($hook, $type, $return, $params) {
+	if (elgg_instanceof($params['entity'], 'group')) {
+		if ($params['entity']->activity_enable != "no") {
+			$url = "projects/activity/{$params['entity']->guid}";
+			$item = new ElggMenuItem('activity', elgg_echo('groups:activity'), $url);
+			$return[] = $item;
+		}
+	}
+
+	return $return;
+}
+
+function jobsin_tasks_owner_block_menu($hook, $type, $return, $params) {
+	if (elgg_instanceof($params['entity'], 'user')) {
+		$url = "tasks/owner/{$params['entity']->username}";
+		$item = new ElggMenuItem('tasks', elgg_echo('tasks'), $url);
+		$return[] = $item;
+	} else {
+		if ($params['entity']->tasks_enable != "no") {
+			$url = "tasks/project/{$params['entity']->guid}/all";
+			$item = new ElggMenuItem('tasks', elgg_echo('tasks:group'), $url);
+			$return[] = $item;
+		}
+	}
+
+	return $return;
+}
+
 function projects_menu_filter_handler($hook, $type, $return_value, $params) {
 	
 	if (!elgg_in_context("group_membershipreq")) {
