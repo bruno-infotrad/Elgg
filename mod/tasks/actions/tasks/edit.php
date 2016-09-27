@@ -78,7 +78,12 @@ if ($task->save()) {
 
 	// Now save description as an annotation
 	$task->annotate('task', $task->description, $task->access_id);
-
+	// Trigger notifications
+	if ($new_task) {
+		elgg_trigger_event('create', 'object', $task);
+	} else if ($task->assigned_to) {
+		elgg_trigger_event('assigned', 'object', $task);
+	}
 	system_message(elgg_echo('tasks:saved'));
 
 	if ($new_task) {

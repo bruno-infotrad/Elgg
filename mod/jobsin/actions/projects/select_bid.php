@@ -30,6 +30,7 @@ if ($bid->save()) {
 			$task->assigned_to = $bid->invitee;
 			$task->status = 2;
 			$task->save();
+			elgg_trigger_event('assigned', 'object', $task);
 		}
 	} else {
 		//echo $task_guids.'<br>';
@@ -37,6 +38,7 @@ if ($bid->save()) {
 		$task->assigned_to = $bid->invitee;
 		$task->status = 2;
 		$task->save();
+			elgg_trigger_event('assigned', 'object', $task);
 	}
 	system_message(elgg_echo('jobsin:bid:selected'));
 	/*
