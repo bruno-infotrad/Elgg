@@ -31,6 +31,7 @@ if (!$input['title']) {
 
 if ($task_guid) {
 	$task = get_entity($task_guid);
+	$previous_assigned_to = $task->assigned_to;
 	if (!$task || !$task->canEdit()) {
 		register_error(elgg_echo('tasks:cantedit'));
 		forward(REFERER);
@@ -81,7 +82,10 @@ if ($task->save()) {
 	// Trigger notifications
 	if ($new_task) {
 		elgg_trigger_event('create', 'object', $task);
-	} else if ($task->assigned_to) {
+		if ($task->assigned_to) {
+			elgg_trigger_event('assigned', 'object', $task);
+		}
+	} else if ($task->assigned_to && $task->assigned_to != $previous_assigned_to) {
 		elgg_trigger_event('assigned', 'object', $task);
 	}
 	system_message(elgg_echo('tasks:saved'));
