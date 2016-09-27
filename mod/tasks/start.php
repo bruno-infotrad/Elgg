@@ -369,10 +369,10 @@ function task_prepare_create_notification($hook, $type, $notification, $params) 
 	$method = $params['method'];
 	$owner = get_entity($entity->owner_guid);
 	$project = get_entity($entity->container_guid);
-	$notification->subject = elgg_echo('task:created:notify:subject', array($task->title, $project->name), $language);
+	$notification->subject = elgg_echo('task:created:notify:subject', array($entity->title, $project->name), $language);
 	$notification->body = elgg_echo('task:created:notify:body', array(
 		$submitter->name,
-		$task->title,
+		$entity->title,
 		$project->name,
 		//$entity->getExcerpt(),
 		$entity->getURL()
@@ -391,11 +391,11 @@ function task_prepare_assigned_notification($hook, $type, $notification, $params
 	$owner = get_entity($entity->owner_guid);
 	$project = get_entity($entity->container_guid);
 	$assignee = get_entity($entity->assigned_to);
-	$notification->subject = elgg_echo('task:assigned:notify:subject', array($task->title, $project->name,$assignee->name), $language);
+	$notification->subject = elgg_echo('task:assigned:notify:subject', array($entity->title, $project->name,$assignee->name), $language);
 	$notification->body = elgg_echo('task:assigned:notify:body', array(
 		$assignee->name,
 		$submitter->name,
-		$task->title,
+		$entity->title,
 		$project->name,
 		//$entity->getExcerpt(),
 		$entity->getURL()
