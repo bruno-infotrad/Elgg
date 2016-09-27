@@ -31,6 +31,13 @@ if ($bid->save()) {
 			$task->status = 2;
 			$task->save();
 			elgg_trigger_event('assigned', 'object', $task);
+			$bid_owner = $bid->getOwnerEntity();
+        		$invitee = get_entity($bid->invitee);
+			$subject = elgg_echo('bid:selected:notify:subject', array($task->title), $invitee->language);
+			$body = elgg_echo('bid:selected:notify:body', array($invitee->name, $task->title, $task->getURL()), $invitee->language);
+			$params = [ 'action' => 'selected', 'object' => $bid, ];
+			// Notify selected user
+			notify_user($invitee->getGUID(), $bid_owner->getGUID(), $subject, $body, $params);
 		}
 	} else {
 		//echo $task_guids.'<br>';
@@ -38,7 +45,13 @@ if ($bid->save()) {
 		$task->assigned_to = $bid->invitee;
 		$task->status = 2;
 		$task->save();
-			elgg_trigger_event('assigned', 'object', $task);
+		$bid_owner = $bid->getOwnerEntity();
+        	$invitee = get_entity($bid->invitee);
+		$subject = elgg_echo('bid:selected:notify:subject', array($task->title), $invitee->language);
+		$body = elgg_echo('bid:selected:notify:body', array($invitee->name, $task->title, $task->getURL()), $invitee->language);
+		$params = [ 'action' => 'selected', 'object' => $bid, ];
+		// Notify selected user
+		notify_user($invitee->getGUID(), $bid_owner->getGUID(), $subject, $body, $params);
 	}
 	system_message(elgg_echo('jobsin:bid:selected'));
 	/*
@@ -54,7 +67,7 @@ if ($bid->save()) {
 $user = get_entity($bid->invitee);
 $group = get_entity($bid->container_guid);
 if (projects_join_group($group, $user)) {
-	system_message(elgg_echo("projects:added",array($user->name)));
+	system_message(elgg_echo("projects:addedtoproject",array($user->name)));
 } else {
 	register_error(elgg_echo("projects:cantadd"));
 	forward(REFERER);

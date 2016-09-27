@@ -42,6 +42,7 @@ $english = array(
 	'jobsin:bid:submitted' => 'Bid submitted',
 	'jobsin:bid:selected' => 'Bid selected',
 	'jobsin:bid:notselected' => 'Bid not selected',
+	'jobsin:bid:deleted' => 'Bid deleted',
 	// notifications
 	'project:invite:bid:subject' => "You have been invited to bid on task '%s'",
 	'project:invite:bid:body' => "Hello %s,
@@ -51,7 +52,8 @@ Click on the the link below to submit a bid.
 %s",
 	'bid:submitted:notify:summary' => 'Bid  %s submitted',
 	'bid:submitted:notify:subject' => "%s has submitted his bid for task '%s'",
-	'bid:submitted:notify:body' => "Hello, %s! %s has submitted his bid for task '%s'",
+	'bid:submitted:notify:body' => "Hello, %s! %s has submitted his bid for task '%s'. Click on the link below to see the bid.
+%s",
 	'bid:selected:notify:summary' => "Bid  for task '%s' selected",
 	'bid:selected:notify:subject' => "Your bid for task '%s' has been selected",
 	'bid:selected:notify:body' => "Goods news, %s! Your bid for task '%s' has been selected.
@@ -101,6 +103,7 @@ You can update your task at %s",
 	'groups:all' => "All projects",
 	'groups:add' => "Create a new project",
 	'projects:add' => "Create a new project",
+	'projects:addedtoproject' => 'Successfully added user %s to the project',
 	'groups:edit' => "Edit project",
 	'projects:edit' => "Edit project",
 	'groups:delete' => 'Delete project',

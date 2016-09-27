@@ -488,7 +488,7 @@ function jobsin_route_projects_handler($hook, $type, $return_value, $params){
 	
 	return $result;
 }
-
+/*
 function bid_prepare_submitted_notification($hook, $type, $notification, $params) {
 	$entity = $params['event']->getObject();
 	$submitter = $params['event']->getActor();
@@ -529,3 +529,4 @@ function bid_prepare_selected_notification($hook, $type, $notification, $params)
 
 	return $notification;
 }
+*/

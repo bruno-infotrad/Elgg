@@ -85,11 +85,14 @@ function basic_init() {
 	// Register entity type for search
 	elgg_register_entity_type('object', 'bid');
 	// Register for notifications
+	/*
+	// Change this to one-to-one (notify_user) since the actions below link only the bid owner and the bidder
+	// Keep in case we want to change
 	elgg_register_notification_event('object', 'bid',array('pending','submitted','selected'));
 	elgg_register_plugin_hook_handler('prepare', 'notification:pending:object:bid', 'bid_prepare_pending_notification');
 	elgg_register_plugin_hook_handler('prepare', 'notification:submitted:object:bid', 'bid_prepare_submitted_notification');
 	elgg_register_plugin_hook_handler('prepare', 'notification:selected:object:bid', 'bid_prepare_selected_notification');
-
+	*/
 	//elgg_register_entity_type('object', 'project');
 	elgg_register_plugin_hook_handler('get_views', 'ecml', 'projects_ecml_views_hook');
 		

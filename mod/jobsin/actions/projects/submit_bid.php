@@ -28,7 +28,27 @@ $bid->status = 'submitted';
 if ($bid->save()) {
 	//elgg_clear_sticky_form('page');
 	system_message(elgg_echo('jobsin:bid:submitted'));
-	elgg_trigger_event('submitted', 'object', $bid);
+	$bid_owner = $bid->getOwnerEntity();
+	$bid_url = elgg_get_site_url().'projects/bid_submissions/'.$bid->container_guid;
+	$submitter = $logged_in_user;
+	$task_guids = $bid->tasks;
+	// Temporarily access ignore so user can access task
+        $ia = elgg_set_ignore_access(TRUE);
+	if (is_array($task_guids)) {
+		foreach ($task_guids as $task_guid) {
+			$task = get_entity($task_guid);
+			$title = ($title ? $title.','.$task->title :$task->title);
+		}
+	} else {
+		$task = get_entity($task_guids);
+		$title = $task->title;
+	}
+        elgg_set_ignore_access($ia);
+	$subject = elgg_echo('bid:submitted:notify:subject', array($submitter->name, $title), $bid_owner->language);
+	$body = elgg_echo('bid:submitted:notify:body', array($bid_owner->name, $submitter->name, $title, $bid_url), $bid_owner->language);
+	$params = [ 'action' => 'submitted', 'object' => $bid, ];
+	// Notify bid owner
+	notify_user($bid_owner->getGUID(), $submitter->getGUID(), $subject, $body, $params);
 	/*
 	if ($new_bid) {
 	elgg_create_river_item(array( 'view' => 'river/object/page/create', 'action_type' => 'create', 'subject_guid' => elgg_get_logged_in_user_guid(), 'object_guid' => $page->guid,));
