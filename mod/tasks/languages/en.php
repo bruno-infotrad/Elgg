@@ -140,6 +140,18 @@ $english = array(
 	'tasks:tasksboard'=>"TasksBoard",
 	'tasks:tasksmanage'=>"Manage",
 	'tasks:tasksmanageone'=>"Manage a task",
+	//Notification
+	'task:created:notify:subject'=>"Task '%s' created in project '%s'",
+	'task:created:notify:body'=>"Hello,
+%s has just created task '%s' in project '%s'. Click on the link below to see it.
+%s", 
+	'task:created:notify:summary'=> "Task '%s' created",
+	'task:assigned:notify:subject'=>"Task '%s' in project '%s' assigned to %s",
+	'task:assigned:notify:body'=>"Hello %s,
+%s has assigned task '%s' in project '%s' to you. Click on the link below to work on your task.
+%s",
+	//$notification->summary = elgg_echo('task:assigned:notify:summary', array($task->title), $language);
+	'task:assigned:notify:summary'=> "Task '%s' assigned",
 );
 
 add_translation("en", $english);

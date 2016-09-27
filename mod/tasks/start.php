@@ -54,9 +54,12 @@ function tasks_init() {
 	elgg_register_entity_type('object', 'task_top');
 
 	// Register granular notification for this type
-	register_notification_object('object', 'task', elgg_echo('tasks:new'));
-	register_notification_object('object', 'task_top', elgg_echo('tasks:new'));
-	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'task_notify_message');
+	elgg_register_notification_event('object', 'task',array('create','assigned'));
+	elgg_register_notification_event('object', 'task_top',array('create','assigned'));
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:task', 'task_prepare_create_notification');
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:task_top', 'task_prepare_create_notification');
+	elgg_register_plugin_hook_handler('prepare', 'notification:assigned:object:task', 'task_prepare_assigned_notification');
+	elgg_register_plugin_hook_handler('prepare', 'notification:assigned:object:task_top', 'task_prepare_assigned_notification');
 
 	// add to groups
 	add_group_tool_option('tasks', elgg_echo('groups:enabletasks'), true);
@@ -342,7 +345,6 @@ function tasks_entity_menu_setup($hook, $type, $return, $params) {
 * @param unknown_type $entity_type
 * @param unknown_type $returnvalue
 * @param unknown_type $params
-*/
 function task_notify_message($hook, $entity_type, $returnvalue, $params) {
 	$entity = $params['entity'];
 	$to_entity = $params['to_entity'];
@@ -356,6 +358,51 @@ function task_notify_message($hook, $entity_type, $returnvalue, $params) {
 		return $owner->name . ' ' . elgg_echo("tasks:via") . ': ' . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
 	}
 	return null;
+}
+*/
+
+function task_prepare_create_notification($hook, $type, $notification, $params) {
+	$entity = $params['event']->getObject();
+	$submitter = $params['event']->getActor();
+	$recipient = $params['recipient'];
+	$language = $params['language'];
+	$method = $params['method'];
+	$owner = get_entity($entity->owner_guid);
+	$project = get_entity($entity->container_guid);
+	$notification->subject = elgg_echo('task:created:notify:subject', array($task->title, $project->name), $language);
+	$notification->body = elgg_echo('task:created:notify:body', array(
+		$submitter->name,
+		$task->title,
+		$project->name,
+		//$entity->getExcerpt(),
+		$entity->getURL()
+	), $language);
+	$notification->summary = elgg_echo('task:created:notify:summary', array($task->title), $language);
+
+	return $notification;
+}
+
+function task_prepare_assigned_notification($hook, $type, $notification, $params) {
+	$entity = $params['event']->getObject();
+	$submitter = $params['event']->getActor();
+	$recipient = $params['recipient'];
+	$language = $params['language'];
+	$method = $params['method'];
+	$owner = get_entity($entity->owner_guid);
+	$project = get_entity($entity->container_guid);
+	$assignee = get_entity($entity->assigned_to);
+	$notification->subject = elgg_echo('task:assigned:notify:subject', array($task->title, $project->name,$assignee->name), $language);
+	$notification->body = elgg_echo('task:assigned:notify:body', array(
+		$assignee->name,
+		$submitter->name,
+		$task->title,
+		$project->name,
+		//$entity->getExcerpt(),
+		$entity->getURL()
+	), $language);
+	$notification->summary = elgg_echo('task:assigned:notify:summary', array($task->title), $language);
+
+	return $notification;
 }
 
 /**
