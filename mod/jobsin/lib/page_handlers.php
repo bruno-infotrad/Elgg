@@ -60,6 +60,11 @@ function jobsin_calendars_page_handler($page) {
                 if (isset($page[0])&& $page[0] == 'assigned') {
                         $base_dir = elgg_get_plugins_path() . 'jobsin/pages/calendars';
                         include "$base_dir/assigned.php";
+                } elseif (isset($page[0])&& $page[0] == 'project' && isset($page[1])&& isset($page[2]) && $page[2] == 'all') {
+                        $base_dir = elgg_get_plugins_path() . 'tasks/pages/calendar';
+			set_input('owner_guid', $page[1]);
+			elgg_set_page_owner_guid($page[1]);
+                        include "$base_dir/owner.php";
                 } else {
                         return calendars_page_handler($page);
                 }

@@ -13,7 +13,8 @@ if ($group->tasks_enable == "no") {
 }
 
 $all_link = elgg_view('output/url', array(
-	'href' => "tasks/group/$group->guid/all",
+	//'href' => "tasks/group/$group->guid/all",
+	'href' => "tasks/project/$group->guid/all",
 	'text' => elgg_echo('link:view:all'),
 	'is_trusted' => true,
 ));

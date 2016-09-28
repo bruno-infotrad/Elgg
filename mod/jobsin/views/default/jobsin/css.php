@@ -15,11 +15,6 @@
 .elgg-image .elgg-button-cancel {
 	margin-left: 0;
 }
-.elgg-page-walledgarden .elgg-page-header > .elgg-inner {
-	width: 990px;
-	margin: 0 auto;
-	height: 120px;
-}
 .elgg-sidebar .elgg-module .elgg-head h3,
 .elgg-sidebar-alt .elgg-module .elgg-head h3 { 
 	font-size: 1.25em; 

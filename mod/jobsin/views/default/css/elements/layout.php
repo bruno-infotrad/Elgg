@@ -17,10 +17,12 @@
 /***** DEFAULT LAYOUT ******/
 <?php // the width is on the page rather than topbar to handle small viewports ?>
 .elgg-page-default {
-	min-width: 998px;
+/*	min-width: 998px;*/
 }
+.elgg-page-walledgarden .elgg-page-header > .elgg-inner,
 .elgg-page-default .elgg-page-header > .elgg-inner {
-	width: 990px;
+	width: 90%;
+	/*width: 990px;*/
 	margin: 0 auto;
 	height: 120px;
 }
@@ -28,11 +30,13 @@
 	margin-top: 120px;
 }
 .elgg-page-default .elgg-page-body > .elgg-inner {
-	width: 990px;
+	width: 90%;
+	/*width: 990px;*/
 	margin: 0 auto;
 }
 .elgg-page-default .elgg-page-footer > .elgg-inner {
-	width: 990px;
+	/*width: 990px;*/
+	width: 90%;
 	margin: 0 auto;
 	padding: 5px 0;
 	border-top: none;

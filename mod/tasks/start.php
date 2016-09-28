@@ -227,7 +227,8 @@ function calendars_page_handler($task) {
 
 	$task_type = $task[0];
 	switch ($task_type) {
-		case 'group':
+		//case 'group':
+		case 'project':
 		case 'owner':
 			include "$base_dir/owner.php";
 			break;
@@ -295,7 +296,7 @@ function tasks_owner_block_menu($hook, $type, $return, $params) {
 		$return[] = $item;
 	} else {
 		if ($params['entity']->tasks_enable != "no") {
-			$url = "tasks/group/{$params['entity']->guid}/all";
+			$url = "tasks/project/{$params['entity']->guid}/all";
 			$item = new ElggMenuItem('tasks', elgg_echo('tasks:group'), $url);
 			$return[] = $item;
 		}

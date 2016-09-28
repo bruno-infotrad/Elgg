@@ -24,7 +24,7 @@ if (elgg_is_logged_in() && $context) {
 				$url = "all";
 		}
 	}else{
-		$url = 'group/'.$owner->guid.'/all';
+		$url = 'project/'.$owner->guid.'/all';
 	}
 
 	echo '<ul class="elgg-menu elgg-menu-entity elgg-menu-hz" id="taskpagefilter">';
