@@ -58,6 +58,11 @@ Click on the the link below to submit a bid.
 	'bid:selected:notify:subject' => "Your bid for task '%s' has been selected",
 	'bid:selected:notify:body' => "Goods news, %s! Your bid for task '%s' has been selected.
 You can update your task at %s",
+	'task:closed:notify:subject' => "User %s has closed task '%s'",
+	'task:closed:notify:body' => "Hello %s,
+User %s has closed the task '%s'. Click on the link below to go to the task.
+%s",
+
 	// Profile
 	'profile:skills' => 'Skills',
 

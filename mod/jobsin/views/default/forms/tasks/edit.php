@@ -190,20 +190,20 @@ END;
 if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 	echo $form;
 } else {
-	echo elgg_view('inut/hidden', array( 'name' => 'task_type', 'value' => $task_type));
+	echo elgg_view('input/hidden', array( 'name' => 'task_type', 'value' => $task_type));
 }
+$task_status_option_values = array( '0' => "",
+				'1' => elgg_echo('tasks:task_status_1'),
+				'2' => elgg_echo('tasks:task_status_2'),
+				'3' => elgg_echo('tasks:task_status_3'),
+				'4' => elgg_echo('tasks:task_status_4'),
+				'5' => elgg_echo('tasks:task_status_5'));
 ?>
 				<td width="50%">
 					<label>	<?php echo elgg_echo('tasks:status'); ?></label>	
 							<?php echo elgg_view($selectName, array(
 										'name' => 'status',
-										'options_values' => array( '0' => "",
-																   '1' => elgg_echo('tasks:task_status_1'),
-																   '2' => elgg_echo('tasks:task_status_2'),
-																   '3' => elgg_echo('tasks:task_status_3'),
-																   '4' => elgg_echo('tasks:task_status_4'),
-																   '5' => elgg_echo('tasks:task_status_5'),
-																 ),
+										'options_values' => $task_status_option_values,
 										'value' => $status
 									));
 							?>

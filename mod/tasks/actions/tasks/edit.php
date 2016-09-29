@@ -87,6 +87,16 @@ if ($task->save()) {
 		}
 	} else if ($task->assigned_to && $task->assigned_to != $previous_assigned_to) {
 		elgg_trigger_event('assigned', 'object', $task);
+	} else if ($task->status == '5') {
+		//Task closed, notify owner
+		$task_owner = $task->getOwnerEntity();
+		$task_url = $task->getURL();
+		$submitter = elgg_get_logged_in_user_entity();
+		$title = $task->title;
+		$subject = elgg_echo('task:closed:notify:subject', array($submitter->name, $title), $task_owner->language);
+		$body = elgg_echo('task:closed:notify:body', array($task_owner->name, $submitter->name, $title, $task_url), $task_owner->language);
+		$params = [ 'action' => 'closed', 'object' => $task, ];
+		notify_user($task_owner->getGUID(), $submitter->getGUID(), $subject, $body, $params);
 	}
 	system_message(elgg_echo('tasks:saved'));
 
