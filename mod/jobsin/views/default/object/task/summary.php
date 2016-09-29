@@ -44,6 +44,6 @@ if ($worker) {
 	echo '<a href="'.elgg_get_site_url().'profile/'.$worker->username.'">'.$worker->name.'</a>';
 }
 echo '</td></tr>';
-echo '<tr><td width="100%" colspan="2"><hr> <label>'.elgg_echo('tasks:description').'</label>'.elgg_view('output/longtext',array('value' => $entity->description)).'.</td></tr></table><hr>';
+echo '<tr><td width="100%" colspan="2"><hr> <label>'.elgg_echo('tasks:description').'</label>'.elgg_view('output/longtext',array('value' => $entity->description)).'</td></tr></table><hr>';
 
 

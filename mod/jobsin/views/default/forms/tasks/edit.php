@@ -232,6 +232,7 @@ if (elgg_is_admin_logged_in() || $session->get('project_manager')) {
 							<?php 
 								if ($readonly) {
 									echo $description;
+									echo elgg_view('input/hidden',array( 'name' => 'description', 'value' => $description));
 								} else {
 									echo elgg_view('input/longtext',array(
 											'name' => 'description',

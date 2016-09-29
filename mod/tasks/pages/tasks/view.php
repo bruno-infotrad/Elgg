@@ -22,7 +22,7 @@ if (!$container) {
 $title = $task->title;
 
 if (elgg_instanceof($container, 'group')) {
-	elgg_push_breadcrumb($container->name, "tasks/group/$container->guid/all");
+	elgg_push_breadcrumb($container->name, "tasks/project/$container->guid/all");
 } else {
 	elgg_push_breadcrumb($container->name, "tasks/owner/$container->username");
 }

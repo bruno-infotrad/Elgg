@@ -89,6 +89,14 @@ if ($vars['full_view']) {
 			'count' => true,
 			'metadata_name_value_pairs' => array(array('name' => 'status', 'value' => 4),array('name' => 'assigned_to', 'value' => 0,'operand' => '<>')),
 		));
+		$in_progress += elgg_get_entities_from_metadata(array(
+			'type' => 'object',
+			'subtypes' => array('task','task_top'),
+			'container_guid' => $container_guid,
+			'limit' => false,
+			'count' => true,
+			'metadata_name_value_pairs' => array('name' => 'percent_done', 'value' => 0, 'operand' => '>'),
+		));
 
 		// brief view
 		$params = array(
