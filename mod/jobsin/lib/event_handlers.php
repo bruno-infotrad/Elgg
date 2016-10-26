@@ -154,7 +154,7 @@ function projects_setup_sidebar_menus() {
                                 'type' => 'object',
                                 'subtypes' => 'bid',
 				'container_guid' => $page_owner->getGUID(),
-				'metadata_name_value_pairs' => array( 'name' => 'status', 'value' => 'selected', 'operand' => '<>'),
+				'metadata_name_value_pairs' => array(array( 'name' => 'status', 'value' => 'selected', 'operand' => '<>'),array( 'name' => 'status', 'value' => 'notselected', 'operand' => '<>')),
 				'count' => true,
                         ));
 			/*

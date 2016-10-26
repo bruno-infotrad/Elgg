@@ -381,6 +381,7 @@ input[type="radio"] {
 #group_tools_project_tasks,
 #group_tools_project_invite_users {
 	display: inline-block;
+	vertical-align: top;
 }
 #group_tools_project_bid {
 	padding-right: 6em;

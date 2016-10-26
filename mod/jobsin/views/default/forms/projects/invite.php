@@ -106,6 +106,7 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 	}
 	if ($invite_site_members == "yes"||$invite_email == "yes"||$invite_csv == "yes") {
 		$tasks = elgg_get_entities(array( 'types' => 'object', 'subtypes' => 'task_top', 'container_guid' => $group_guid));
+		$options_values[0] = elgg_echo("jobsin:project:invite:notask");
 		foreach ($tasks as $task) {
 			$options_values[$task->getGUID()] = $task->title;
 		}
@@ -115,7 +116,8 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 		$form_data .= "</div>";
 		$form_data .= "<div id='group_tools_project_tasks'>";
 		$form_data .= "<div>" . elgg_echo("jobsin:project:invite:users:task") . "</div>";
-		$form_data .= elgg_view("input/multiselect", array("name" => "task_guid", 'options_values' => $options_values));
+		//$form_data .= elgg_view("input/multiselect", array("name" => "task_guid", 'options_values' => $options_values));
+		$form_data .= elgg_view("input/select", array("name" => "task_guid", 'options_values' => $options_values));
 		$form_data .= "</div>";
 	}
 } else {
