@@ -66,7 +66,7 @@ foreach ($group_bids as $group_bid) {
 	$body .= "<div class='p'>".elgg_echo('jobsin:task_rate');
 	$body .= "<div id='bid-rate'>".$group_bid->rate.'</div></div>';
 	$body .= '</div>';
-	if ($project_admin && $group_bid->rate && $group_bid->status != 'selected') {
+	if ($project_admin && $group_bid->rate && $group_bid->status != 'selected' && $group_bid->status != 'notselected') {
 		$body .= elgg_view_form('projects/select_bid',array('class' => 'task-selection'),array('bid_guid' => $group_bid->getGUID()));
 	}
 	$body .= '</li>';
