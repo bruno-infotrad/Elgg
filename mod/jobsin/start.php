@@ -31,7 +31,7 @@ function basic_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:invitationrequest', 'projects_invitationrequest_menu_setup');
 	//Remove right side menu item
 	elgg_unregister_plugin_hook_handler('output:before', 'layout', 'elgg_views_add_rss_link');
-	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'blog_owner_block_menu');
+	//elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'blog_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'bookmarks_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'file_owner_block_menu');
 	elgg_unregister_plugin_hook_handler('register', 'menu:owner_block', 'pages_owner_block_menu');
@@ -160,7 +160,7 @@ function basic_pagesetup_handler() {
 	elgg_unregister_menu_item('extras', 'bookmark');
 	elgg_unregister_menu_item('extras', 'report_this');
 	elgg_unregister_menu_item('site', 'activity');
-	elgg_unregister_menu_item('site', 'blog');
+	//elgg_unregister_menu_item('site', 'blog');
 	elgg_unregister_menu_item('site', 'groups');
 	elgg_unregister_menu_item('site', 'pages');
 	elgg_unregister_menu_item('site', 'bookmarks');

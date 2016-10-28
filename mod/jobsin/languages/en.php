@@ -217,6 +217,7 @@ View and reply to the discussion:
 
 	'groups:more' => 'More projects',
 	'groups:none' => 'No projects',
+	'blog:group' => 'Project blogs',
 
 
 	/*
