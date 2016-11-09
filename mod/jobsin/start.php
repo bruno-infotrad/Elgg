@@ -160,7 +160,6 @@ function basic_pagesetup_handler() {
 	elgg_unregister_menu_item('extras', 'bookmark');
 	elgg_unregister_menu_item('extras', 'report_this');
 	elgg_unregister_menu_item('site', 'activity');
-	//elgg_unregister_menu_item('site', 'blog');
 	elgg_unregister_menu_item('site', 'groups');
 	elgg_unregister_menu_item('site', 'pages');
 	elgg_unregister_menu_item('site', 'bookmarks');
@@ -172,6 +171,7 @@ function basic_pagesetup_handler() {
 		elgg_unregister_menu_item('site', 'tasks');
 	 	elgg_unregister_menu_item('site', 'groups');
 		elgg_unregister_menu_item('site', 'members');
+		elgg_unregister_menu_item('site', 'blog');
 	} else {
 		$user = elgg_get_logged_in_user_entity();
 		$session = elgg_get_session();
