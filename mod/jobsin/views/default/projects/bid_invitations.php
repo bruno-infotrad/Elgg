@@ -19,6 +19,7 @@ foreach ($group_bids as $group_bid) {
 	$body .= "<h4>$group_title</h4>";
 	$body .= "<p class='elgg-subtext'>$group->briefdescription</p>";
 	$task_guids = $group_bid->tasks;
+	/* Disable for now
 	if (is_array($task_guids)) {
 		foreach ($task_guids as $task_guid) {
 			//echo $task_guid.'<br>';
@@ -32,6 +33,7 @@ foreach ($group_bids as $group_bid) {
 			$body .= '</div>';
 		}
 	} else {
+	*/
 		//echo $task_guids.'<br>';
 		$task = get_entity($task_guids);
 		//echo var_export($task,true).'<br>';
@@ -39,9 +41,11 @@ foreach ($group_bids as $group_bid) {
 		$body .= '<div class="task-description">'.$task->description.'</div>';
 		$body .= '<div class="task-dates">';
 		$body .= elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $task->start_date))).'<br/>';
-		$body .= elgg_echo('tasks:end_date'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $task->end_date)));
+		$body .= elgg_echo('tasks:end_date'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $task->end_date))).'<br/>';
+		$body .= elgg_echo('tasks:duration'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $task->duration)).'<br/>';
+		$body .= elgg_echo('tasks:suggested_rate'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $task->rate));
 		$body .= '</div>';
-	}
+	//}
 	$body .= '<p><b>'.elgg_echo('jobsin:submission:end_date');
 	$body .= " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $group_bid->end_date))).'</b></p>';
 	$body .= '<div class="task-rate">';

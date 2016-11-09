@@ -104,7 +104,7 @@ if ($task->save()) {
 		add_to_river('river/object/task/create', 'create', elgg_get_logged_in_user_guid(), $task->guid);
 	}
 
-	forward($task->getURL());
+	forward($group->getURL());
 } else {
 	register_error(elgg_echo('tasks:notsaved'));
 	forward(REFERER);

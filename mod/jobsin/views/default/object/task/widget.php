@@ -52,6 +52,8 @@
 	} elseif ($entity->status == 4 && $entity->assigned_to) {
 		$class = 'inprogress';
 	}
+	$duration = $entity->duration;
+	$rate = $entity->rate;
 
 /*
 	$percent_done = 100*$entity->percent_done/5.0;
@@ -94,7 +96,9 @@ echo "<div class=\"jobsin-$class\">";
 echo '<div class="task-description">'.$entity->description.'</div>';
 echo '<div class="task-dates">';
 echo elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => $start_date)).'<br/>';
-echo elgg_echo('tasks:end_date'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $end_date)); 
+echo elgg_echo('tasks:end_date'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $end_date)).'<br/>';
+echo elgg_echo('tasks:duration'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $duration)).'<br/>'; 
+echo elgg_echo('tasks:rate'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $rate)).'<br/>'; 
 echo '</div>';
 echo '<div class="task-status">';
 echo elgg_echo('jobsin:tasks:assigned_to', array($worker_link)).'<br/>';

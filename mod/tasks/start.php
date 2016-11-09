@@ -90,6 +90,8 @@ function tasks_init() {
 		
 		'start_date' => 'date',
 		'end_date' => 'date',
+		'duration' => 'text',
+		'rate' => 'text',
 		'task_type' => 'text',
 		'status' => 'text',
 		'assigned_to' => 'assign_to',

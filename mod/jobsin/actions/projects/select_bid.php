@@ -29,6 +29,7 @@ if ($bid->save()) {
 			$task = get_entity($task_guid);
 			$task->assigned_to = $bid->invitee;
 			$task->status = 2;
+			$task->rate = $bid->rate;
 			$task->save();
 			elgg_trigger_event('assigned', 'object', $task);
 			$bid_owner = $bid->getOwnerEntity();
@@ -44,6 +45,7 @@ if ($bid->save()) {
 		$task = get_entity($task_guids);
 		$task->assigned_to = $bid->invitee;
 		$task->status = 2;
+		$task->rate = $bid->rate;
 		$task->save();
 		$bid_owner = $bid->getOwnerEntity();
         	$invitee = get_entity($bid->invitee);
