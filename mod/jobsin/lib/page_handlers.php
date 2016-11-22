@@ -4,6 +4,31 @@
  * 
  * @return bool
  */
+function jobsin_elgg_friends_page_handler($segments, $handler) {
+	elgg_set_context('friends');
+
+	if (isset($segments[0]) && $user = get_user_by_username($segments[0])) {
+		elgg_set_page_owner_guid($user->getGUID());
+	}
+
+	if (!elgg_get_page_owner_guid()) {
+		return false;
+	}
+	$base_dir = elgg_get_plugins_path() . 'jobsin/pages/friends/';
+
+	switch ($handler) {
+		case 'friends':
+			require_once($base_dir. "index.php");
+			break;
+		case 'friendsof':
+			require_once($base_dir. "of.php");
+			break;
+		default:
+			return false;
+	}
+	return true;
+}
+
 function jobsin_front_page_handler() {
 
         if (elgg_is_logged_in()) {

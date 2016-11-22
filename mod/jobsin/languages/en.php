@@ -435,6 +435,9 @@ or click below to view the project's join requests:
 	'notifications:subscriptions:friends:title' => 'Connections',
 	'notifications:subscriptions:friends:description' => 'Below are collections of your connections. Selecting a collection turns on notifications for the users in that collection.',
 	'notifications:subscriptions:description' => 'To receive notifications from your connections (on an individual basis) when they create new content, find them below and select the notification method you would like to use.',
+	'group_tools:groups:invite:title' => "Invite users to this project",
+	'group_tools:group:invite:users:all' => "Invite all site members to this project",
+
 	'group_tools:settings:invite' => "Allow all users to be invited (not just connections)",
 	'group_tools:group:invite:friends:select_all' => "Select all connections",
 	'group_tools:group:invite:friends:deselect_all' => "Deselect all connections",

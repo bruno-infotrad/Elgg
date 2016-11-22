@@ -27,6 +27,8 @@ function basic_init() {
 	elgg_register_page_handler('projects', 'projects_page_handler');
 	elgg_register_page_handler('tags_autocomplete', 'tags_autocomplete');
 	elgg_register_page_handler('populate_skills_list', 'populate_skills_list');
+	elgg_unregister_page_handler('friends', '_elgg_friends_page_handler');
+	elgg_register_page_handler('friends', 'jobsin_elgg_friends_page_handler');
 	//Hooks
 	elgg_register_plugin_hook_handler('register', 'menu:invitationrequest', 'projects_invitationrequest_menu_setup');
 	//Remove right side menu item
@@ -174,6 +176,10 @@ function basic_pagesetup_handler() {
 		elgg_unregister_menu_item('site', 'blog');
 	} else {
 		$user = elgg_get_logged_in_user_entity();
+		$item = new ElggMenuItem('friends', elgg_echo('friends'), 'friends/'.$user->username);
+                elgg_register_menu_item('site', $item);
+                        //'contexts' => array('friends')
+
 		$session = elgg_get_session();
 		if (elgg_is_admin_logged_in()) {
 				$item = new ElggMenuItem('groups', elgg_echo('groups'), 'projects/all');
@@ -198,7 +204,6 @@ function basic_pagesetup_handler() {
 				elgg_register_menu_item('page', $item);
 			}
 		}
-		$user = elgg_get_logged_in_user_entity();
 		
 		if (elgg_is_active_plugin('dashboard')) {
 			elgg_register_menu_item('topbar', array(
