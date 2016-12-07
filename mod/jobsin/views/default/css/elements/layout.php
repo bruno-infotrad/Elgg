@@ -76,7 +76,7 @@
     border-bottom: 1px solid #BBB;
     /* Safari 5.1+, Chrome 10+ */
     background: -webkit-radial-gradient(28% 46%, closest-corner, #1af7a0, #FFFFFF);
-    background: -webkit-gradient(radial, 28% 46%, 0, 28% 46%, 100, from(#1af7a0), to(#FFFFFF));
+    /*background: -webkit-gradient(radial, 28% 46%, 0, 28% 46%, 100, from(#1af7a0), to(#FFFFFF));*/
     /* Firefox 3.6+ */
     background: -moz-radial-gradient(28% 46%, closest-corner, #1af7a0, #FFFFFF);
     /* IE 10 */
