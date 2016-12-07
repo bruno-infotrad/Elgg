@@ -399,3 +399,4 @@ input[type="radio"] {
 #group_tools_project_invite_users {
 	padding-right: 3em;
 }
+#group_tools_group_invite_email_description {margin-bottom: 1.35em;}

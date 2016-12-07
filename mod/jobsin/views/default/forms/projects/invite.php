@@ -16,7 +16,6 @@ $forward_url = $group->getURL();
 
 $tabs = false;
 
-/*
 $friends = elgg_get_logged_in_user_entity()->getFriends(array("limit" => false));
 if (!empty($friends)) {
 	$toggle_content = "<span>" . elgg_echo("group_tools:group:invite:friends:select_all") . "</span>";
@@ -27,10 +26,8 @@ if (!empty($friends)) {
 } else {
 	$friendspicker = elgg_echo('groups:nofriendsatall');
 }
-*/
 // which options to show
 if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
-/*
 	$tabs = array(
 		"friends" => array(
 			"text" => elgg_echo("friends"),
@@ -46,7 +43,6 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 	$form_data = "<div id='group_tools_group_invite_friends'>";
 	$form_data .= $friendspicker;
 	$form_data .= "</div>";
-*/
 	//invite all site members
 	if ($invite_site_members == "yes") {
 		$tabs["users"] = array(
@@ -55,9 +51,8 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 			"rel" => "users",
 			"priority" => 300,
 			"onclick" => "group_tools_group_invite_switch_tab(\"users\");",
-			"selected" => true
 		);
-		$form_data .= "<div id='group_tools_project_invite_users'>";
+		$form_data .= "<div id='group_tools_project_invite_users' class='hidden mbm'>";
 		$form_data .= "<div>" . elgg_echo("group_tools:group:invite:users:description") . "</div>";
 		$form_data .= elgg_view("input/project_invite_autocomplete", array("name" => "user_guid", "id" => "group_tools_group_invite_autocomplete", "group_guid" => $group_guid, "relationship" => "site"));
 		if (elgg_is_admin_logged_in()) {
@@ -78,7 +73,7 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 		);
 		
 		$form_data .= "<div id='group_tools_group_invite_email' class='hidden mbm'>";
-		$form_data .= "<div>" . elgg_echo("group_tools:group:invite:email:description") . "</div>";
+		$form_data .= "<div id='group_tools_group_invite_email_description'>" . elgg_echo("group_tools:group:invite:email:description") . "</div>";
 		/*
 		$form_data .= elgg_view("input/project_invite_autocomplete", array("name" => "user_guid",
 										"id" => "group_tools_group_invite_autocomplete_email",
@@ -167,8 +162,7 @@ echo '</div>';
 		$('#invite_to_group li.elgg-menu-item-' + tab).addClass('elgg-state-selected');
 
 		switch (tab) {
-			//case "users":
-			default:
+			case "users":
 				$('#group_tools_group_invite_friends').hide();
 				$('#group_tools_group_invite_email').hide();
 				$('#group_tools_group_invite_csv').hide();
@@ -191,6 +185,7 @@ echo '</div>';
 				$('#group_tools_group_invite_csv').show();
 				break;
 			case "friends":
+			default:
 				$('#group_tools_project_invite_users').hide();
 				$('#group_tools_group_invite_email').hide();
 				$('#group_tools_group_invite_csv').hide();
@@ -210,4 +205,5 @@ echo '</div>';
 
 		$('#friends_toggle span').toggle();
 	}
+	group_tools_group_invite_switch_tab("friends");
 </script>
