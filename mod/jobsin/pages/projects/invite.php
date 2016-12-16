@@ -19,6 +19,7 @@ if (!empty($group) && ($group instanceof ElggGroup)) {
 		$invite = elgg_get_plugin_setting("invite", "group_tools");
 		$invite_email = elgg_get_plugin_setting("invite_email", "group_tools");
 		$invite_csv = elgg_get_plugin_setting("invite_csv", "group_tools");
+		$invite_skills = elgg_get_plugin_setting("invite_skills", "group_tools");
 			
 		if (in_array("yes", array($invite, $invite_csv, $invite_email))) {
 			$title = elgg_echo("group_tools:groups:invite:title");
@@ -40,7 +41,8 @@ if (!empty($group) && ($group instanceof ElggGroup)) {
 			"entity" => $group,
 			"invite" => $invite,
 			"invite_email" => $invite_email,
-			"invite_csv" => $invite_csv
+			"invite_csv" => $invite_csv,
+			"invite_skills" => $invite_skills
 		));
 		
 		$params = array(

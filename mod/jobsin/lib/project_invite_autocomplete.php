@@ -23,7 +23,7 @@ if (!empty($user) && !empty($q) && !empty($group_guid)) {
 	$hidden = access_get_show_hidden_status();
 	access_show_hidden_entities(true);
 	
-	if ($relationship != "email") {
+	if ($relationship == "friends"||$relationship == "site") {
 		$dbprefix = elgg_get_config("dbprefix");
 		
 		// find existing users
@@ -70,7 +70,38 @@ if (!empty($user) && !empty($q) && !empty($group_guid)) {
 				}
 			}
 		}
-	} else {
+	} elseif ($relationship == "skills") {
+		$limit = (int) get_input("limit", 50);
+		$result = array();
+		$params['limit'] = $limit;
+		$params['tag_names'] = array('skills');
+		$params['count'] = FALSE;
+		$params['wheres'] = array("msv.string like '%$q%'");
+		$returned_tags = elgg_get_tags($params);
+		foreach($returned_tags as $returned_tag){
+			$tag_values[] = $returned_tag->tag;
+		}
+		$entities = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array('name' => 'skills','value' => $tag_values),
+		));
+		if (!empty($entities)) {
+			foreach ($entities as $entity) {
+				if (!check_entity_relationship($entity->getGUID(), "member", $group_guid)&& !elgg_is_admin_user($entity->getGUID())) {
+					foreach ($entity->skills as $skills){
+						$entity_skills.='<div class="skill">'.$skills.'</div>';
+					}
+					$result[] = array(
+						"type" => "user",
+						"value" => $entity->getGUID(),
+						"label" => $entity->name,
+						"content" => "<img src='" . $entity->getIconURL("tiny") . "' /> " . $entity->name . " ".$entity_skills,
+						"name" => $entity->name
+					);
+				}
+			}
+		}
+	} elseif ($relationship == "email") {
 		// invite by email
 		$regexpr = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/";
 		if (preg_match($regexpr, $q)) {

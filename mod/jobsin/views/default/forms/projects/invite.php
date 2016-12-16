@@ -10,6 +10,7 @@ $group_guid = $group->getGUID();
 $invite_site_members = elgg_extract("invite", $vars, "no");
 $invite_email = elgg_extract("invite_email", $vars, "no");;
 $invite_csv = elgg_extract("invite_csv", $vars, "no");;
+$invite_skills = elgg_extract("invite_skills", $vars, "no");;
 
 $owner = $group->getOwnerEntity();
 $forward_url = $group->getURL();
@@ -81,6 +82,22 @@ if (in_array("yes", array($invite_site_members, $invite_email, $invite_csv))) {
 										"relationship" => "email"));
 		*/
 		$form_data .= elgg_view("input/text", array("name" => "user_guid_email"));
+		$form_data .= "</div>";
+	}
+	
+	// invite by skills
+	if ($invite_skills == "yes") {
+		$tabs["skills"] = array(
+			"text" => elgg_echo("group_tools:group:invite:skills"),
+			"href" => "#",
+			"rel" => "users",
+			"priority" => 400,
+			"onclick" => "group_tools_group_invite_switch_tab(\"skills\");"
+		);
+		
+		$form_data .= "<div id='group_tools_group_invite_skills' class='hidden mbm'>";
+		$form_data .= "<div id='group_tools_group_invite_skills_description'>" . elgg_echo("group_tools:group:invite:skills:description") . "</div>";
+		$form_data .= elgg_view("input/project_invite_autocomplete", array("name" => "user_guid", "id" => "group_tools_group_invite_autocomplete_skills", "group_guid" => $group->getGUID(), "relationship" => "skills"));
 		$form_data .= "</div>";
 	}
 	
@@ -166,6 +183,7 @@ echo '</div>';
 				$('#group_tools_group_invite_friends').hide();
 				$('#group_tools_group_invite_email').hide();
 				$('#group_tools_group_invite_csv').hide();
+				$('#group_tools_group_invite_skills').hide();
 				
 				$('#group_tools_project_invite_users').show();
 				break;
@@ -173,6 +191,7 @@ echo '</div>';
 				$('#group_tools_group_invite_friends').hide();
 				$('#group_tools_project_invite_users').hide();
 				$('#group_tools_group_invite_csv').hide();
+				$('#group_tools_group_invite_skills').hide();
 				
 				$('#group_tools_group_invite_email').show();
 				$('#group_tools_group_invite_email').css('display','inline-block');
@@ -181,14 +200,24 @@ echo '</div>';
 				$('#group_tools_group_invite_friends').hide();
 				$('#group_tools_project_invite_users').hide();
 				$('#group_tools_group_invite_email').hide();
+				$('#group_tools_group_invite_skills').hide();
 				
 				$('#group_tools_group_invite_csv').show();
+				break;
+			case "skills":
+				$('#group_tools_group_invite_friends').hide();
+				$('#group_tools_project_invite_users').hide();
+				$('#group_tools_group_invite_email').hide();
+				$('#group_tools_group_invite_csv').hide();
+				
+				$('#group_tools_group_invite_skills').show();
 				break;
 			case "friends":
 			default:
 				$('#group_tools_project_invite_users').hide();
 				$('#group_tools_group_invite_email').hide();
 				$('#group_tools_group_invite_csv').hide();
+				$('#group_tools_group_invite_skills').hide();
 				
 				$('#group_tools_group_invite_friends').show();
 				break;

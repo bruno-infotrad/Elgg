@@ -439,8 +439,11 @@ or click below to view the project's join requests:
 	'group_tools:group:invite:users:all' => "Invite all site members to this project",
 
 	'group_tools:settings:invite' => "Allow all users to be invited (not just connections)",
+	'group_tools:settings:invite_skills' => "Allow group members to invite by skills",
 	'group_tools:group:invite:friends:select_all' => "Select all connections",
 	'group_tools:group:invite:friends:deselect_all' => "Deselect all connections",
+	'group_tools:group:invite:skills' => "Select by skill",
+	'group_tools:group:invite:skills:description' => "Enter a skill",
 	'bookmarks:friends' => "Connections' bookmarks",
 	'friends:invite' => 'Invite connections',
 	'invitefriends:introduction' => 'To invite connections to join you on this network, enter their email addresses and a message they will receive with your invitation',

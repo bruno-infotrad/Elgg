@@ -378,6 +378,7 @@ input[type="radio"] {
 	background: #E4ECF5;
 }
 #group_tools_project_bid,
+#group_tools_group_invite_skills,
 #group_tools_project_tasks,
 #group_tools_project_invite_users {
 	display: inline-block;
@@ -389,6 +390,7 @@ input[type="radio"] {
 }
 #group_tools_project_tasks,
 #group_tools_group_invite_email,
+#group_tools_group_invite_skills,
 #group_tools_project_invite_users {
 	width: 15em;
 }
@@ -396,7 +398,9 @@ input[type="radio"] {
 	width: 19em;
 }
 #group_tools_group_invite_email,
+#group_tools_group_invite_skills,
 #group_tools_project_invite_users {
 	padding-right: 3em;
 }
+#group_tools_group_invite_skills_description,
 #group_tools_group_invite_email_description {margin-bottom: 1.35em;}
