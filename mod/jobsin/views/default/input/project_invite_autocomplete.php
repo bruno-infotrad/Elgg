@@ -92,7 +92,7 @@ if ($minChars < 1) {
 			    }
 			}).data("ui-autocomplete")._renderItem = function(ul, item) {
 				var list_body = "";
-				list_body = item.content;
+				list_body = item.extended_content;
 				
 				return $("<li></li>")
 					.data("item.autocomplete", item)

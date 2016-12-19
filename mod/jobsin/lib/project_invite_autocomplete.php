@@ -78,26 +78,44 @@ if (!empty($user) && !empty($q) && !empty($group_guid)) {
 		$params['count'] = FALSE;
 		$params['wheres'] = array("msv.string like '%$q%'");
 		$returned_tags = elgg_get_tags($params);
-		foreach($returned_tags as $returned_tag){
-			$tag_values[] = $returned_tag->tag;
-		}
-		$entities = elgg_get_entities_from_metadata(array(
-			'type' => 'user',
-			'metadata_name_value_pairs' => array('name' => 'skills','value' => $tag_values),
-		));
-		if (!empty($entities)) {
-			foreach ($entities as $entity) {
-				if (!check_entity_relationship($entity->getGUID(), "member", $group_guid)&& !elgg_is_admin_user($entity->getGUID())) {
-					foreach ($entity->skills as $skills){
-						$entity_skills.='<div class="skill">'.$skills.'</div>';
+		if ($returned_tags) {
+			foreach($returned_tags as $returned_tag){
+				$tag_values[] = $returned_tag->tag;
+			}
+			$query_options["type"] = 'user';
+			$query_options["type"] = 'user';
+			$query_options["metadata_name_value_pairs"] = array('name' => 'skills','value' => $tag_values);
+			if (!$include_self) {
+				if (empty($current_users)) {
+					$current_users = $user->getGUID();
+				} else {
+					$current_users .= "," . $user->getGUID();
+				}
+			}
+			
+			if (!empty($current_users)) {
+				$query_options["wheres"][] = "e.guid NOT IN (" . $current_users . ")";
+			}
+			$entities = elgg_get_entities_from_metadata($query_options);
+			if (!empty($entities)) {
+				foreach ($entities as $entity) {
+					if (!check_entity_relationship($entity->getGUID(), "member", $group_guid)&& !elgg_is_admin_user($entity->getGUID())) {
+						$entity_skills='<div class="skill">';
+						foreach ($entity->skills as $skills){
+							if (stripos($skills,$q)) {
+								$entity_skills.=$skills.' ';
+							}
+						}
+						$entity_skills.='</div>';
+						$result[] = array(
+							"type" => "user",
+							"value" => $entity->getGUID(),
+							"label" => $entity->name,
+							"content" => "<img src='" . $entity->getIconURL("tiny") . "' /> " . $entity->name,
+							"extended_content" => "<img src='" . $entity->getIconURL("tiny") . "' /><div class='name_in_skill'>" . $entity->name . "</div> ".$entity_skills,
+							"name" => $entity->name
+						);
 					}
-					$result[] = array(
-						"type" => "user",
-						"value" => $entity->getGUID(),
-						"label" => $entity->name,
-						"content" => "<img src='" . $entity->getIconURL("tiny") . "' /> " . $entity->name . " ".$entity_skills,
-						"name" => $entity->name
-					);
 				}
 			}
 		}

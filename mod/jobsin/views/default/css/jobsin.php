@@ -1,5 +1,6 @@
 <?php
 ?>
+.name_in_skill {display: inline-block;min-width: 10em;}
 .skill {display: inline-block;}
 #invite_to_group .group_tools_group_invite_autocomplete_skills_autocomplete_result {
 	border: 1px solid transparent;
