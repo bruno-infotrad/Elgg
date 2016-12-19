@@ -101,9 +101,15 @@ if (!empty($user) && !empty($q) && !empty($group_guid)) {
 				foreach ($entities as $entity) {
 					if (!check_entity_relationship($entity->getGUID(), "member", $group_guid)&& !elgg_is_admin_user($entity->getGUID())) {
 						$entity_skills='<div class="skill">';
-						foreach ($entity->skills as $skills){
-							if (stripos($skills,$q)) {
-								$entity_skills.=$skills.' ';
+						if (! is_array($entity->skills)) {
+							if (stripos($entity->skills,$q)) {
+								$entity_skills="$entity->skills ";
+							}
+						} else {
+							foreach ($entity->skills as $skills){
+								if (stripos($skills,$q)) {
+									$entity_skills.="$skills ";
+								}
 							}
 						}
 						$entity_skills.='</div>';
