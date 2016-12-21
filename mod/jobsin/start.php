@@ -83,6 +83,8 @@ function basic_init() {
 	elgg_register_action("projects/killrequest", "$action_path/projects/membership/delete_request.php");
 	elgg_register_action("projects/killinvitation", "$action_path/projects/membership/delete_invite.php");
 	elgg_register_action("projects/addtogroup", "$action_path/projects/membership/add.php");
+	//Override task edit
+	elgg_register_action("tasks/edit", "$action_path/tasks/edit.php");
 
 	// Register entity type for search
 	elgg_register_entity_type('object', 'bid');

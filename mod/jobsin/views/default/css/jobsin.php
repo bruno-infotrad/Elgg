@@ -21,7 +21,8 @@
 }
 .table-row {display: block; margin: 8px 1px;}
 .table-cell-label {display: inline-block; vertical-align: top; width: 5%;}
-.table-cell {display: inline-block; width: 19%;}
+.table-cell {display: inline-block; vertical-align: top; width: 19%;}
+.table-cell>input {width: 90%;}
 
 #taskpagefilter {
 	height: 30px;
