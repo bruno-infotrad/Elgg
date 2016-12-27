@@ -179,6 +179,7 @@ function create_task_bid($bidder,$group_guid,$end_date,$task_guids) {
 	$bid->end_date = $end_date;
 	$bid->tasks = $task_guids;
 	$bid->status = 'pending';
+	$bid->transfernum = 0;
 	$bid->access_id = ACCESS_LOGGED_IN;
 	//Maybe have to create access collection to allow invitee to view/edit
 	//Usual save routine

@@ -36,6 +36,23 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 					//echo var_export($group_bids_for_user,true);
 					//echo 'status='.$group_bids_for_user[0]->status;
 					//echo 'invitee='.$group_bids_for_user[0]->invitee;
+					$task_guids = $group_bids_for_user[0]->tasks;
+					//Need to temporarily disable access control to get the info
+					$ia = elgg_set_ignore_access(true);
+					$task = get_entity($task_guids);
+					$body = "<div class='task'>";
+					$body .= "<h4>$task->title</h4>";
+					$body .= '<div class="task-dates">';
+					$body .= elgg_echo('tasks:start_date'). " : " .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $task->start_date))).'<br/>';
+					$body .= elgg_echo('tasks:end_date'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => date(TASKS_FORMAT_DATE_EVENTDAY, $task->end_date))).'<br/>';
+					$body .= elgg_echo('tasks:duration'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $task->duration)).'<br/>';
+					$body .= elgg_echo('tasks:suggested_rate'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $task->rate));
+					$body .= '</div>';
+					$body .= '</div>';
+					elgg_set_ignore_access($ia);
+					$body .= "<div class='task-in-project'>";
+					$body .= elgg_echo('jobsin:in_project_bid');
+					$body .= '</div>';
 					if ($group_bids_for_user[0]->status == "submitted") {
 						$submit_text = elgg_echo("jobsin:view_bid");
 					} else {
@@ -65,8 +82,9 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 					"text" => elgg_echo("delete"),
 					"class" => "elgg-button elgg-button-delete mlm",
 				));
-	
-				$body = "<h4>$group_title</h4>";
+
+				$body .= "<div class='task'>";
+				$body .= "<h4>$group_title</h4>";
 				$body .= "<p class='elgg-subtext'>$group->briefdescription</p>";
 	
 				$alt = $accept_button . $delete_button;
@@ -74,6 +92,7 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 				echo "<li class='pvs'>";
 				echo elgg_view_image_block($icon, $body, array("image_alt" => $alt));
 				echo "</li>";
+                $body = "</div>";
 			}
 		}
 	}

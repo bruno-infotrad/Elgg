@@ -295,10 +295,16 @@
 .task-rate {
 	width: 25%;
 }
+.task,
 .task-selection,
+.task-in-project,
 .task-rate {
 	display: inline-block;
 	vertical-align: top;
+}
+.task-in-project {
+	margin:0 1em;
+	font-size:medium;
 }
 .task-description {
 	display: inline-block;

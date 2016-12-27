@@ -22,6 +22,7 @@ $english = array(
 	'jobsin:project:start_date'		=> 'Start Date: ',
 	'jobsin:project:end_date'		=> 'End Date: &nbsp;&nbsp;',
 	'jobsin:in_project'		=> ' in project %s',
+	'jobsin:in_project_bid'		=> ' in project',
 	'jobsin:project_manager'		=> 'Entrepreneur',
 	'jobsin:project:invite:users:task' => 'Select task(s) you want the contributor to submit a bid for',
 	'jobsin:project:invite:notask' => 'No specific task',
