@@ -96,6 +96,55 @@ function projects_invite_user(ElggGroup $group, ElggUser $user, $text = "", $res
 	
 	return $result;
 }
+function projects_transfer_bid_to_user(ElggGroup $group, ElggUser $user, $text = "", $bid_guid = null) {
+	$result = false;
+	$loggedin_user = elgg_get_logged_in_user_entity();
+	if (!empty($user) && ($user instanceof ElggUser) && !empty($group) && ($group instanceof ElggGroup) && !empty($loggedin_user) && $bid_guid) {
+		// Create relationship
+		$relationship = add_entity_relationship($group->getGUID(), "invited", $user->getGUID());
+		elgg_log("relationship=$relationship",'NOTICE');
+		
+		if ($relationship && $bid_guid) {
+			$bid = transfer_task_bid($user,$group->getGUID(), $bid_guid);
+			elgg_log("New bid=".var_export($bid,true),'NOTICE');
+		}
+		if ($relationship || $resend) {
+			// Send email
+			$task_guids = get_entity($bid_guid)->tasks;
+			$task_owner = get_entity(get_entity($bid_guid)->owner_guid);
+			if ($task_guids) {
+				// Need to give temporary read access to task metadata
+				$ia = elgg_set_ignore_access(TRUE);
+				if (is_array($task_guids)) {
+					foreach ($task_guids as $task_guid) {
+						$task = get_entity($task_guid);
+						$title = ($title ? $title.','.$task->title :$task->title);
+					}
+				} else {
+					$task = get_entity($task_guids);
+					$title = $task->title;
+				}
+				elgg_set_ignore_access($ia);
+				$url = elgg_normalize_url("projects/bid_invitations/".$bid->getGUID());
+				$subject = elgg_echo("project:transfer:bid:subject", array($task->title));
+				$msg = elgg_echo("project:transfer:bid:body", array($user->name, $loggedin_user->name, $task_owner->name, $title, $group->name, $text, $url));
+				//Notify transfer recipient as well as bid originator
+				if (notify_user($user->getGUID(), $group->getOwnerGUID(), $subject, $msg, array(), "email")) {
+					$result0 = true;
+				}
+				$url = elgg_normalize_url("projects/bid_submissions/".$bid->getGUID());
+				$subject = elgg_echo("project:transfer:bid:subject:task_owner", array($task->title, $user->name, $loggedin_user->name));
+				$msg = elgg_echo("project:transfer:bid:body:task_owner", array($task_owner->name, $loggedin_user->name, $title, $group->name, $user->name, $text, $url));
+				if ($result0 && notify_user($task_owner->getGUID(), $group->getOwnerGUID(), $subject, $msg, array(), "email")) {
+					$result = true;
+				}
+			}
+			
+			
+		}
+	}
+	return $result;
+}
 
 function projects_invite_email(ElggGroup $group, $email, $text = "", $resend = false, $task_guids = null, $end_date =  null) {
 	$result = false;
@@ -165,6 +214,69 @@ function projects_invite_email(ElggGroup $group, $email, $text = "", $resend = f
 	return $result;
 }
 
+function projects_transfer_bid_via_email(ElggGroup $group, $email, $text = "", $bid_guid = null) {
+	$result = false;
+	$loggedin_user = elgg_get_logged_in_user_entity();
+	if (!empty($group) && ($group instanceof ElggGroup) && !empty($email) && is_email_address($email) && !empty($loggedin_user)) {
+		// generate invite code
+		$invite_code = group_tools_generate_email_invite_code($group->getGUID(), $email);
+		
+		if (!empty($invite_code)) {
+			$found_group = group_tools_check_group_email_invitation($invite_code, $group->getGUID());
+			if (empty($found_group) && $bid_guid) {
+				$task_guids = get_entity($bid_guid)->tasks;
+				$task_owner = get_entity(get_entity($bid_guid)->owner_guid);
+				$bid = transfer_task_bid($email,$group->getGUID(), $bid_guid);
+				// Need to give temporary read access to task metadata
+				$ia = elgg_set_ignore_access(TRUE);
+				if (is_array($task_guids)) {
+					foreach ($task_guids as $task_guid) {
+						$task = get_entity($task_guid);
+						$title = ($title ? $title.','.$task->title :$task->title);
+					}
+				} else {
+					$task = get_entity($task_guids);
+					$title = $task->title;
+				}
+				elgg_set_ignore_access($ia);
+				$url = elgg_normalize_url("projects/bid_invitations/".$bid->getGUID());
+				$subject = elgg_echo("project:transfer:bid:subject", array($task->title));
+				$body = elgg_echo("project:transfer:bid:body", array($email, $loggedin_user->name, $task_owner->name, $title, $group->name, $text, $url));
+				// make site email
+				$site = elgg_get_site_entity();
+				if (!empty($site->email)) {
+					if (!empty($site->name)) {
+						$site_from = $site->name . " <" . $site->email . ">";
+					} else {
+						$site_from = $site->email;
+					}
+				} else {
+					// no site email, so make one up
+					if (!empty($site->name)) {
+						$site_from = $site->name . " <noreply@" . $site->getDomain() . ">";
+					} else {
+						$site_from = "noreply@" . $site->getDomain();
+					}
+				}
+				
+				// register invite with group
+				$group->annotate("email_invitation", $invite_code . "|" . $email, ACCESS_LOGGED_IN, $group->getGUID());
+				//Notify transfer recipient as well as bid originator
+				$result0 = elgg_send_email($site_from, $email, $subject, $body);
+				$url = elgg_normalize_url("projects/bid_submissions/".$bid->getGUID());
+				$subject = elgg_echo("project:transfer:bid:subject:task_owner", array($task->title, $email, $loggedin_user->name));
+				$msg = elgg_echo("project:transfer:bid:body:task_owner", array($task_owner->name, $loggedin_user->name, $title, $group->name, $email, $text, $url));
+				if ($result0 && notify_user($task_owner->getGUID(), $group->getOwnerGUID(), $subject, $msg, array(), "email")) {
+					$result = true;
+				}
+			} else {
+				$result = null;
+			}
+		}
+	}
+	return $result;
+}
+
 function create_task_bid($bidder,$group_guid,$end_date,$task_guids) {
 	$bid = new ElggObject();
 	$bid->subtype = 'bid';
@@ -182,7 +294,6 @@ function create_task_bid($bidder,$group_guid,$end_date,$task_guids) {
 	$bid->transfernum = 0;
 	$bid->access_id = ACCESS_LOGGED_IN;
 	//Maybe have to create access collection to allow invitee to view/edit
-	//Usual save routine
 	if ($bid->save()) {
 		//elgg_clear_sticky_form('page');
 		//system_message(elgg_echo('jobsin:bid:saved'));
@@ -195,6 +306,47 @@ function create_task_bid($bidder,$group_guid,$end_date,$task_guids) {
 	} else {
 		//register_error(elgg_echo('jobsin:bid:notsaved'));
 		//forward(REFERER);
+		return false;
+	}
+}
+function transfer_task_bid($bidder,$group_guid,$bid_guid) {
+	$bid_to_transfer = get_entity($bid_guid);
+	$bid_owner_guid = $bid_to_transfer->owner_guid;
+	$bid_task_guid = $bid_to_transfer->tasks;
+	$bid = new ElggObject();
+	$bid->owner_guid = $bid_owner_guid;
+	$bid->subtype = 'bid';
+	$bid->inviter = $bid_owner_guid;
+	$bid->transferrer = elgg_get_logged_in_user_guid();
+	// Provision for bids sent to external (non registered) users
+	if ($bidder instanceof ElggUser) {
+		$bid->invitee = $bidder->guid;
+	} else {
+		$bid->invitee = $bidder;
+	}
+	$bid->container_guid = $group_guid;
+	$bid->end_date = $bid_to_transfer->end_date;
+	$bid->tasks = $bid_task_guid;
+	$bid->status = 'pending';
+	$bid->transfernum = 1;
+	$bid->access_id = ACCESS_LOGGED_IN;
+	//Maybe have to create access collection to allow invitee to view/edit
+	//Usual save routine but need to ignore access control for now
+	elgg_register_plugin_hook_handler("permissions_check", "all", "projects_permissions_check_bid_transfer");
+	if ($bid->save()) {
+		//elgg_clear_sticky_form('page');
+		//system_message(elgg_echo('jobsin:bid:saved'));
+		elgg_unregister_plugin_hook_handler("permissions_check", "all", "projects_permissions_check_bid_transfer");
+		return $bid;
+		/*
+		if ($new_bid) {
+			elgg_create_river_item(array( 'view' => 'river/object/page/create', 'action_type' => 'create', 'subject_guid' => elgg_get_logged_in_user_guid(), 'object_guid' => $page->guid,));
+		}
+		*/
+	} else {
+		//register_error(elgg_echo('jobsin:bid:notsaved'));
+		//forward(REFERER);
+		elgg_unregister_plugin_hook_handler("permissions_check", "all", "projects_permissions_check_bid_transfer");
 		return false;
 	}
 }

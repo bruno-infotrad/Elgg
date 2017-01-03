@@ -28,6 +28,11 @@ $english = array(
 	'jobsin:project:invite:notask' => 'No specific task',
 	'jobsin:view_bid' => 'View your bid',
 	'jobsin:submit_bid' => 'Submit a bid',
+	"jobsin:bid_transfer:title" => "Transfer Bid",
+	'jobsin:transfer_bid' => 'Transfer a bid',
+	'jobsin:direct_bids' => 'Direct Bids',
+	'jobsin:transferred_bids' => 'Transferred Bids',
+	'jobsin:transferrer' => 'Transferred by',
 	'jobsin:task_rate' => 'Hourly rate ($)',
 	'tasks:duration' => 'Duration (days)',
 	'tasks:rate' => 'Rate (C$)',
@@ -54,6 +59,18 @@ $english = array(
 %s has invited you to bid on task '%s' for project '%s'. 
 %s
 Click on the the link below to submit a bid.
+%s",
+	'project:transfer:bid:subject' => "A bid on task '%s' has been transferred to you",
+	'project:transfer:bid:body' => "Hello %s,
+%s has transferred %s' bid on task '%s' for project '%s'. 
+%s
+Click on the the link below to submit a bid.
+%s",
+	'project:transfer:bid:subject:task_owner' => "A bid on your task '%s' has been transferred to %s by %s",
+	'project:transfer:bid:body:task_owner' => "Hello %s,
+%s has transferred your bid on task '%s' for project '%s' to %s. 
+%s
+Click on the the link below to view details.
 %s",
 	'bid:submitted:notify:summary' => 'Bid  %s submitted',
 	'bid:submitted:notify:subject' => "%s has submitted his bid for task '%s'",
@@ -401,6 +418,8 @@ or click below to view the project's join requests:
 	'groups:ecml:groupprofile' => 'Project profiles',
 	'group_tools:group:invite:users:description' => "Start typing a site member name and select him/her from the list",
 	'group_tools:group:invite:email:description' => "Enter a valid e-mail address",
+	'group_tools:action:transfer:success' => "Successfully transferred bid to %s users",
+	'group_tools:action:transfer:error' => "The bid was not transferred (%s already invited, %s already member(s))",
 
 	// Roles
 	'login:user_not_pm' => 'User is not allowed to log in as a project administrator',

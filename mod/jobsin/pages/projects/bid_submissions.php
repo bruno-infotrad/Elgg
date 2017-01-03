@@ -15,24 +15,32 @@ elgg_push_breadcrumb($group->name, $group->getURL());
 $title = elgg_echo("projects:bid_submissions");
 elgg_push_breadcrumb($title);
 if ($group->getOwnerGUID() == $user_guid || check_entity_relationship($user_guid, "group_admin", $group_guid)) {
-	$group_bids = elgg_get_entities_from_metadata(array(
+	$project_admin = true;
+	$bids = elgg_get_entities_from_metadata(array(
 				'type' => 'object',
 				'subtypes' => 'bid',
 				'container_guid' => $group_guid,
+				'metadata_name_value_pairs' => array('name' => 'transfernum','value' => 0)
 			));
-	$project_admin = true;
+	$transferred_bids = elgg_get_entities_from_metadata(array(
+				'type' => 'object',
+				'subtypes' => 'bid',
+				'container_guid' => $group_guid,
+				'metadata_name_value_pairs' => array('name' => 'transfernum','value' => 1)
+			));
 } else {
-	$group_bids = elgg_get_entities_from_metadata(array(
+	$bids = elgg_get_entities_from_metadata(array(
 				'type' => 'object',
 				'subtypes' => 'bid',
 				'container_guid' => $group_guid,
 				'metadata_name_value_pairs' => array( 'name' => 'invitee', 'value' => $user_guid),
 			));
 }
-if ($group_bids) {
+if ($bids || $transferred_bids) {
 	$content = elgg_view("projects/bid_submissions", array(
 	        "group" => $group,
-	        "group_bids" => $group_bids,
+	        "group_bids" => $bids,
+	        "transferred_bids" => $transferred_bids,
 		"project_admin" => $project_admin,
 	));
 } else {

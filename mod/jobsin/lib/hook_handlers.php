@@ -373,6 +373,23 @@ function pm_admin_can_edit_hook($hook, $type, $return_value, $params){
 	return $result;
 }
 
+function projects_permissions_check_bid_transfer($hook, $type, $return_value, $params){
+	$result = $return_value;
+	if(!empty($params) && is_array($params) && !$result){
+		if(array_key_exists("entity", $params) && array_key_exists("user", $params)){
+			$entity = $params["entity"];
+			$user = $params["user"];
+			// Not a very stringent test but since the hook is associated with the action
+			// and it is registered just for the save op, then immediately unregistered
+			// it should be safe
+			if(($entity instanceof ElggGroup||$entity instanceof ElggUser) && ($user instanceof ElggUser)){
+				$result = true;
+			}
+		}
+	}
+	return $result;
+}
+
 function jobsin_route_projects_handler($hook, $type, $return_value, $params){
 	/**
 	 * $return_value contains:
@@ -434,6 +451,10 @@ function jobsin_route_projects_handler($hook, $type, $return_value, $params){
 				set_input("group_guid", $page[1]);
 				
 				include(dirname(dirname(__FILE__)) . "/pages/projects/invite.php");
+				break;
+			case "bid_transfer":
+				$result = false;
+				include(dirname(dirname(__FILE__)) . "/pages/projects/bid_transfer.php");
 				break;
 			case "mail":
 				$result = false;

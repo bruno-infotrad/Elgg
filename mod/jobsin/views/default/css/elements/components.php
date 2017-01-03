@@ -292,12 +292,19 @@
 #lowest-rate {
 	padding-left: 10%;
 }
+.bids > h3 {margin-bottom:.3em;}
+
+.transferred-to-label {margin-bottom: 2em;}
+.transferred-by,
 .task-rate {
 	width: 25%;
 }
 .task,
 .task-selection,
 .task-in-project,
+.transferred-by,
+.transferred-by-label,
+.transferred-to-label,
 .task-rate {
 	display: inline-block;
 	vertical-align: top;

@@ -17,6 +17,7 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 	if (!empty($invitations)) {
 		foreach ($invitations as $group) {
 			if ($group instanceof ElggGroup) {
+				$transfer_button = '';
 				$icon = elgg_view_entity_icon($group, "tiny", array("use_hover" => "true"));
 	
 				$group_title = elgg_view("output/url", array(
@@ -36,6 +37,7 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 					//echo var_export($group_bids_for_user,true);
 					//echo 'status='.$group_bids_for_user[0]->status;
 					//echo 'invitee='.$group_bids_for_user[0]->invitee;
+					$bid_guid = $group_bids_for_user[0]->getGUID();
 					$task_guids = $group_bids_for_user[0]->tasks;
 					//Need to temporarily disable access control to get the info
 					$ia = elgg_set_ignore_access(true);
@@ -49,7 +51,6 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 					$body .= elgg_echo('tasks:suggested_rate'). " : &nbsp;&nbsp;" .elgg_view('output/text',array('value' => $task->rate));
 					$body .= '</div>';
 					$body .= '</div>';
-					elgg_set_ignore_access($ia);
 					$body .= "<div class='task-in-project'>";
 					$body .= elgg_echo('jobsin:in_project_bid');
 					$body .= '</div>';
@@ -57,6 +58,16 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 						$submit_text = elgg_echo("jobsin:view_bid");
 					} else {
 						$submit_text = elgg_echo("jobsin:submit_bid");
+						if ($group_bids_for_user[0]->transfernum == 0) {
+							$transfer_text = elgg_echo("jobsin:transfer_bid");
+							$transfer_url = "projects/bid_transfer?bid_guid=" . $bid_guid . "&group_guid=" . $group->getGUID();
+							$transfer_button = elgg_view("output/url", array(
+								"href" => $transfer_url,
+								"text" => $transfer_text,
+								"class" => "elgg-button elgg-button-submit mlm",
+								"is_trusted" => true,
+							));
+						}
 					}
 					$url = "projects/bid_invitations?user_guid=" . $user->getGUID() . "&group_guid=" . $group->getGUID();
 					$accept_button = elgg_view("output/url", array(
@@ -65,6 +76,7 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 						"class" => "elgg-button elgg-button-submit",
 						"is_trusted" => true,
 					));
+					elgg_set_ignore_access($ia);
 				} else {
 					$url = "action/groups/join?user_guid=" . $user->getGUID() . "&group_guid=" . $group->getGUID();
 					$accept_button = elgg_view("output/url", array(
@@ -87,7 +99,7 @@ if ((!empty($invitations) && is_array($invitations)) || (!empty($email_invites) 
 				$body .= "<h4>$group_title</h4>";
 				$body .= "<p class='elgg-subtext'>$group->briefdescription</p>";
 	
-				$alt = $accept_button . $delete_button;
+				$alt = $accept_button . $transfer_button . $delete_button;
 	
 				echo "<li class='pvs'>";
 				echo elgg_view_image_block($icon, $body, array("image_alt" => $alt));

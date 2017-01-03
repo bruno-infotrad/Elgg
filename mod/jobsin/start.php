@@ -77,6 +77,7 @@ function basic_init() {
         elgg_register_action("projects/select_bid", "$action_path/projects/select_bid.php");
         //elgg_register_action("projects/invite", "$action_path/projects/membership/invite.php");
         elgg_register_action("projects/invite", "$action_path/projects/invite.php");
+        elgg_register_action("projects/transfer_bid", "$action_path/projects/transfer_bid.php");
 	elgg_register_action("projects/join", "$action_path/projects/membership/join.php");
 	elgg_register_action("projects/leave", "$action_path/projects/membership/leave.php");
 	elgg_register_action("projects/remove", "$action_path/projects/membership/remove.php");
@@ -285,6 +286,9 @@ function projects_page_handler($page) {
 			break;
 		case 'invite':
 			projects_handle_invite_page($page[1]);
+			break;
+		case 'bid_transfer':
+			projects_handle_bid_transfer_page($page[1]);
 			break;
 		case 'requests':
 			projects_handle_requests_page($page[1]);
